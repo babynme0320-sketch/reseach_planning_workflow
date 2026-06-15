@@ -519,10 +519,13 @@
                 targetPath = targetPath.replace(/^file:\/\/\/?/, '/');
             }
             // Ensure absolute/relative paths are parsed correctly on backend
-            targetPath = targetPath.replace(/^https?:\/\/[^\/]+/, '');
             targetPath = targetPath.replace(/\/+/g, '/'); // Normalize double slashes
             
-            fetch('/api/read?file=' + encodeURIComponent(targetPath))
+            // Check if running on GitHub Pages (static hosting)
+            const isGitHubPages = window.location.hostname.includes('github.io') || !window.location.port;
+            const fetchUrl = isGitHubPages ? targetPath : '/api/read?file=' + encodeURIComponent(targetPath);
+            
+            fetch(fetchUrl)
                 .then(res => res.text())
                 .then(text => {
                     const container = document.getElementById('workspace-container');
@@ -584,7 +587,11 @@
                 ? '/drafts/design-blueprints/consortium_flow_blueprint.html' 
                 : '/drafts/design-blueprints/bispecific_antibody_moa.html';
                 
-            fetch('/api/read?file=' + encodeURIComponent(path))
+            // Check if running on GitHub Pages (static hosting)
+            const isGitHubPages = window.location.hostname.includes('github.io') || !window.location.port;
+            const fetchUrl = isGitHubPages ? path : '/api/read?file=' + encodeURIComponent(path);
+            
+            fetch(fetchUrl)
                 .then(res => res.text())
                 .then(htmlContent => {
                     document.getElementById('workspace-container').innerHTML = `
