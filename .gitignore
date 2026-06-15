@@ -1,0 +1,22 @@
+# Local env file containing API keys
+.env
+.env.*
+
+# Local OMA / Serena memory runs
+.serena/
+.omc/
+.omx/
+.agents/results/
+
+# Dependency directories
+node_modules/
+dist/
+build/
+
+# Large source files
+source-papers/*.pdf
+source-papers/*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
