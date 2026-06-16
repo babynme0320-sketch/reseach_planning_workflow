@@ -1,57 +1,48 @@
-# 바이오 국가과제 제안서 아키텍처 (Bio-R&D Architecture)
+# Architecture: Bio-R&D Proposal Dashboard
 
-이 문서는 국가 R&D 과제 공고(RFP) 분석부터 최종 과제계획서 작성까지의 바이오 연구기획 파이프라인 아키텍처를 정의합니다.
+본 문서는 바이오 연구기획 대시보드의 전체 시스템 아키텍처 및 데이터 흐름을 정의합니다.
+
+## 1. 아키텍처 다이어그램 (Architecture Diagram)
 
 ```mermaid
-graph TD
-    subgraph Ingestion [정보 수집 레이어]
-        RFP[정부 R&D RFP PDF] --> Parser[RFP 파서]
-        Papers[생명과학 논문/특허 PDF] --> bioParser[바이오 문헌 파서]
+graph LR
+    subgraph Client [프론트엔드 - 웹 브라우저]
+        UI[index.html & CSS/JS]
+        Marked[Marked.js - 마크다운 렌더러]
+        Mermaid[Mermaid.js - 다이어그램 렌더러]
+        MathJax[MathJax - 수식 렌더러]
+        State[로컬 상태 관리 - 예산/진단/TRL]
     end
 
-    subgraph Extraction [메타데이터 및 요건 추출]
-        Parser --> RFPReq[RFP 필수 요건 목록]
-        bioParser --> bioMetadata[.knows.yaml 바이오 메타데이터]
+    subgraph Server [백엔드 - 로컬 API 서버]
+        PyServer[server.py - Python HTTP Server]
+        FileReader[로컬 파일 리더 - /api/read]
     end
 
-    subgraph Synthesis [RFP 부합성 및 기술성 분석]
-        RFPReq --> Alignment[RFP-기술성 부합성 매트릭스]
-        bioMetadata --> Alignment
-        Alignment --> RoadMap[TRL 단계별 연구 로드맵]
+    subgraph Data [데이터 스토리지]
+        MarkdownFiles[마크다운 문서군 - docs/plans/ designs/ 등]
     end
 
-    subgraph Drafting [과제계획서 집필]
-        RoadMap --> ProposalDraft[국가연구개발과제계획서 초안]
-    end
-
-    subgraph Verification [심사위원 사전 사전검증]
-        ProposalDraft --> IRBCheck[생명윤리/IRB/IACUC 검증]
-        IRBCheck --> StyleCheck[개조식 과제 문체 검증]
-        StyleCheck --> Published([최종 수주용 계획서 파일])
-    end
+    UI -->|1. 파일 읽기 요청 GET /api/read?file=...| PyServer
+    PyServer -->|2. 파일 로딩| FileReader
+    FileReader -->|3. 내용 반환| MarkdownFiles
+    FileReader -->|4. 파일 내용 전달 (Text)| PyServer
+    PyServer -->|5. HTTP Response (utf-8)| UI
+    UI -->|6. 마크다운 변환| Marked
+    UI -->|7. 수식/다이어그램 렌더링| MathJax & Mermaid
 ```
 
-## 레이어 정의 및 데이터 흐름
+---
 
-### 1. 정보 수집 레이어 (Ingestion Layer)
-- **대상**: 정부 부처 공고 RFP 문서, 표적 바이오 및 의학 논문(PubMed/PMC), 핵심 선행특허문서.
-- **역할**: 비정형 텍스트 데이터를 구조화된 텍스트로 정규화하고 관련 표/그림 데이터를 분리합니다.
+## 2. 레이어 정의 (Layer Definition)
 
-### 2. 메타데이터 및 요건 추출 (Extraction Layer)
-- **대상**: 정규화된 문서 데이터.
-- **역할**: 
-  - 정부 RFP에서 **필수 연구 목표, 지원 규모, 연차별 성과 기준, 지원 조건**을 자동으로 파싱하여 리스트화합니다.
-  - 생명과학 논문에서 **표적 유전자/단백질, 적용 동물모델(Animal Model), 투여 경로 및 농도(Dose), TRL 성적**을 발췌해 `.knows.yaml` 파일로 매핑합니다.
+### 2.1 프론트엔드 레이어 (Client Layer)
+- **HTML/CSS**: 시각적 프리미엄 화려함을 제공하는 마크업 및 스타일링. 글래스모피즘(Glassmorphism)과 산학연병 고대비 주체별 컬러 시스템 적용.
+- **JavaScript (Vanilla ES6)**: 사이드바 라우팅 제어, 툴박스(예산, TRL, 자가진단) 로직 제어. 외부 라이브러리(marked.js, mermaid.js, MathJax) 동적 연동 및 예산/자가진단 상태 계산.
 
-### 3. RFP 부합성 및 기술성 분석 (Synthesis Layer)
-- **역할**: 
-  - 추출된 RFP 요건과 매핑 가능한 선행 바이오 기술 데이터의 정합성을 측정하여 `rfp-alignment-matrix.md`를 구성합니다.
-  - 1차년도(In vitro), 2차년도(In vivo), 3차년도(전임상 독성/효능평가) 등으로 이어지는 TRL 연차별 마일스톤 로드맵을 작성합니다.
+### 2.2 백엔드 레이어 (Server Layer)
+- **Python server.py**: `http.server.SimpleHTTPRequestHandler`를 상속하여 구현된 초경량 로컬 개발 서버.
+- **`/api/read` 엔드포인트**: 클라이언트가 요청한 로컬 마크다운 파일 경로를 읽어 텍스트 파일 내용을 UTF-8 인코딩으로 전달. 디렉토리 트래버설 공격 방어 로직 내장.
 
-### 4. 과제계획서 집필 (Drafting Layer)
-- **역할**: 정부 표준 과제계획서의 각 섹션(연구개발 필요성, 연구개발 목표 및 내용, 연구개발 성과 활용방안 등)을 작성합니다.
-
-### 5. 심사위원 사전 사전검증 (Verification Layer)
-- **역할**: 
-  - 바이오 R&D 계획서 심사 기준인 **독창성, 연구 설계의 타당성, 연구비 책정의 적절성, 생명윤리 규정 준수 여부**를 엄격히 필터링합니다.
-  - 가독성을 극대화하기 위해 개조식 표현 및 가시적 표/다이어그램 배치 규칙을 검증합니다.
+### 2.3 데이터 스토리지 레이어 (Data Layer)
+- 데이터베이스 없이, `docs/` 및 `claims-matrix/`, `drafts/` 하위의 파일 시스템(File System) 자체를 데이터 스토리지로 활용하여 비개발자가 텍스트 에디터로 문서를 직접 수정·유지보수할 수 있도록 함.

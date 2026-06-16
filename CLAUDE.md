@@ -1,4 +1,4 @@
-# AGENTS.md
+# CLAUDE.md
 
 # Common Agent Harness
 
@@ -53,32 +53,12 @@
 - 테스트 없이 완료 선언 금지
 
 
-## Codex 사용법
+## Claude Code 사용법
 
-Codex에서는 이 파일을 프로젝트 지침으로 사용한다.
+이 프로젝트에서는 아래 커스텀 명령을 우선 사용한다.
 
-권장 시작 문장:
+- `/project-start [프로젝트명]`
+- `/execute-task [선택사항: Task 번호/이름]`
+- `/review-project [선택사항: 검토 관점]`
 
-```text
-AGENTS.md와 harness/PROJECT_START.md를 읽고, project-start 절차로 시작해줘.
-프로젝트명: 연구노트 계약 관리 시스템
-```
-
-구현 시:
-
-```text
-AGENTS.md와 harness/EXECUTE_TASK.md를 읽고, 다음 미완료 Task 1개만 수행해줘.
-```
-
-검토 시:
-
-```text
-AGENTS.md와 harness/REVIEW_PROJECT.md를 읽고, 코드는 수정하지 말고 review_report.md만 작성해줘.
-```
-
-## Codex 전용 주의사항
-
-- AGENTS.md의 지침을 우선 적용한다.
-- 필요한 경우 `harness/` 폴더의 원본 프롬프트를 참조한다.
-- 한 번에 여러 Task를 진행하지 않는다.
-- 테스트 명령을 실행할 수 없으면 이유와 수동 검증 방법을 남긴다.
+Claude는 `.claude/commands/` 안의 명령 파일을 읽고 작업한다.
