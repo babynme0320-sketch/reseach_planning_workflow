@@ -2376,7 +2376,7 @@ a {
         <div style="padding: 24px;">
           <div class="orgchart-wrap">
             <div class="orgchart-level">
-              <div class="orgchart-node orgchart-gov">
+              <div class="orgchart-node">
                 <div class="orgchart-node-badge">부처</div>
                 <div class="orgchart-node-title">소관 중앙행정기관</div>
                 <div class="orgchart-node-desc">정책·예산 총괄, 시행계획 확정, 사업 관리·감독</div>
@@ -2384,7 +2384,7 @@ a {
             </div>
             <div class="orgchart-arrow">↓</div>
             <div class="orgchart-level">
-              <div class="orgchart-node orgchart-agency">
+              <div class="orgchart-node">
                 <div class="orgchart-node-badge">전문기관</div>
                 <div class="orgchart-node-title">사업 전담·관리기관</div>
                 <div class="orgchart-node-desc">공고·접수·평가·협약·정산 실무 집행, 부처와 연구현장 사이의 중간관리자</div>
@@ -2392,17 +2392,17 @@ a {
             </div>
             <div class="orgchart-arrow">↓</div>
             <div class="orgchart-level orgchart-level-multi">
-              <div class="orgchart-node orgchart-host">
+              <div class="orgchart-node">
                 <div class="orgchart-node-badge">주관기관</div>
                 <div class="orgchart-node-title">연구개발 총괄 수행</div>
                 <div class="orgchart-node-desc">계획서 작성·협약·연구비 관리의 1차 책임기관</div>
               </div>
-              <div class="orgchart-node orgchart-partner">
+              <div class="orgchart-node">
                 <div class="orgchart-node-badge">공동기관</div>
                 <div class="orgchart-node-title">공동 연구개발 수행</div>
                 <div class="orgchart-node-desc">주관기관과 함께 연구개발 일부를 직접 수행, 독립된 연구비 계정 보유</div>
               </div>
-              <div class="orgchart-node orgchart-sub">
+              <div class="orgchart-node">
                 <div class="orgchart-node-badge">위탁기관</div>
                 <div class="orgchart-node-title">위탁 연구개발 수행</div>
                 <div class="orgchart-node-desc">주관기관이 위탁한 특정 범위만 수행, 위탁연구개발비로 별도 관리</div>
@@ -2884,7 +2884,7 @@ const SRC = [
 
 /* 다부처 사업 기준 일반화된 연간 흐름 — 실제 일정은 사업·부처 공고에 따라 다름 */
 const MONTHLY_TIMELINE = [
-  ['1월', 'STEP 01~02 정책·전략 수립 / RFI', '신년 정부 R&D 投자방향·기본계획 확인, 전문기관 RFI(기술수요조사) 참여로 차년도 공고 방향 파악'],
+  ['1월', 'STEP 01~02 정책·전략 수립 / RFI', '신년 정부 R&D 투자방향·기본계획 확인, 전문기관 RFI(기술수요조사) 참여로 차년도 공고 방향 파악'],
   ['2월', 'STEP 16 정산 (전년도 과제)', '전년도 수행 과제의 연구개발비 정산 및 성과활용보고서 제출(매년 정기 보고 의무)'],
   ['3월', 'STEP 03~04 신규사업기획 / 예타', '범부처 통합공고 게시 시작, 신규사업 기획연구·예비타당성조사 동향 모니터링'],
   ['4월', 'STEP 06~07 공고 확인 & Go/No-Go', '부처·전문기관별 세부 공고/RFP 게시 집중 시기, RFP 부합성 분석 및 신청 여부 결정'],
