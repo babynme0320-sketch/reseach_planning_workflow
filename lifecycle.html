@@ -12,7 +12,7 @@
   --line: rgba(15, 23, 42, 0.08);
   --ink: #0f172a;
   --muted: #475569;
-  --soft: #94a3b8;
+  --soft: #64748b;
   
   --p1: #1d4ed8; /* 정부 기획 (Blue) */
   --p2: #7c3aed; /* 수주/선정 (Purple) */
@@ -232,11 +232,23 @@ a {
   transition: all 0.2s ease;
   margin-bottom: 2px;
   border: 1px solid transparent;
+  width: 100%;
+  background: transparent;
+  appearance: none;
+  font-family: inherit;
+  text-align: left;
 }
 
 .nav-item:hover {
   background: rgba(15, 23, 42, 0.04);
   color: var(--ink);
+}
+
+.nav-item:focus-visible,
+.modal-close-btn:focus-visible,
+.modal-confirm-btn:focus-visible {
+  outline: 3px solid rgba(var(--accent-rgb), 0.28);
+  outline-offset: 2px;
 }
 
 .nav-item.active {
@@ -1314,6 +1326,58 @@ a {
 }
 
 .glossary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.glossary-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.glossary-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.glossary-section-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.glossary-section-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.glossary-section-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.glossary-section-count {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.glossary-card-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
@@ -1377,8 +1441,81 @@ a {
   color: #334155;
 }
 
+.glossary-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.glossary-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.glossary-filter-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  min-width: 72px;
+}
+
+.glossary-filter-chip {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #fff;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.glossary-filter-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.glossary-filter-chip.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb), 0.18);
+}
+
+.glossary-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.glossary-favorite-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #fff;
+  color: #cbd5e1;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+  transition: all 0.15s ease;
+}
+
+.glossary-favorite-btn.active {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.28);
+  background: rgba(245, 158, 11, 0.1);
+}
+
 @media(max-width: 768px) {
-  .glossary-grid {
+  .glossary-card-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1914,6 +2051,7 @@ a {
   font-weight: 500;
   color: var(--muted);
   line-height: 1.6;
+  overflow-y: auto;
 }
 
 .modal-footer {
@@ -2057,6 +2195,7 @@ a {
   .modal-card {
     width: 100%;
     max-width: 100%;
+    max-height: 85vh;
     border-radius: 24px 24px 0 0; /* 상단 모서리만 둥글게 */
     border-bottom: none;
     border-left: none;
@@ -2167,40 +2306,40 @@ a {
     
     <nav class="sidebar-nav">
       <!-- Global Overviews -->
-      <div class="nav-item global-tab active" data-tab="dashboard">
-        <span class="nav-item-icon">🏠</span>
+      <button type="button" class="nav-item global-tab active" data-tab="dashboard" aria-current="page">
+        <span class="nav-item-icon" aria-hidden="true">🏠</span>
         <span class="nav-item-text">종합 대시보드</span>
-      </div>
+      </button>
       
-      <div class="nav-item global-tab" data-tab="risks">
-        <span class="nav-item-icon">🛡️</span>
+      <button type="button" class="nav-item global-tab" data-tab="risks">
+        <span class="nav-item-icon" aria-hidden="true">🛡️</span>
         <span class="nav-item-text">제안서 선제 대응표</span>
-      </div>
+      </button>
       
-      <div class="nav-item global-tab" data-tab="sources">
-        <span class="nav-item-icon">🔗</span>
+      <button type="button" class="nav-item global-tab" data-tab="sources">
+        <span class="nav-item-icon" aria-hidden="true">🔗</span>
         <span class="nav-item-text">참고 자료 및 법령</span>
-      </div>
+      </button>
       
-      <div class="nav-item global-tab" data-tab="glossary">
-        <span class="nav-item-icon">📖</span>
+      <button type="button" class="nav-item global-tab" data-tab="glossary">
+        <span class="nav-item-icon" aria-hidden="true">📖</span>
         <span class="nav-item-text">실무 용어 사전</span>
-      </div>
+      </button>
 
-      <div class="nav-item global-tab" data-tab="orgchart">
-        <span class="nav-item-icon">🏛️</span>
+      <button type="button" class="nav-item global-tab" data-tab="orgchart">
+        <span class="nav-item-icon" aria-hidden="true">🏛️</span>
         <span class="nav-item-text">기관 관계도</span>
-      </div>
+      </button>
 
-      <div class="nav-item global-tab" data-tab="timeline">
-        <span class="nav-item-icon">📅</span>
+      <button type="button" class="nav-item global-tab" data-tab="timeline">
+        <span class="nav-item-icon" aria-hidden="true">📅</span>
         <span class="nav-item-text">연간 타임라인</span>
-      </div>
+      </button>
 
-      <div class="nav-item global-tab" data-tab="readiness">
-        <span class="nav-item-icon">🧯</span>
+      <button type="button" class="nav-item global-tab" data-tab="readiness">
+        <span class="nav-item-icon" aria-hidden="true">🧯</span>
         <span class="nav-item-text">제출 전 체크 & 막힘 해결</span>
-      </div>
+      </button>
 
       <div class="nav-group-title">생애주기 흐름도</div>
       
@@ -2430,6 +2569,27 @@ a {
           <div class="search-wrapper" style="margin-top: 14px; max-width: 400px;">
             <span class="search-icon">🔍</span>
             <input type="text" class="search-input" id="glossarySearchInput" placeholder="용어 및 정의 검색...">
+          </div>
+          <div class="glossary-controls">
+            <div class="glossary-filter-row" id="glossaryFavoriteFilters">
+              <span class="glossary-filter-label">보기</span>
+              <button type="button" class="glossary-filter-chip active" data-filter-group="favorites" data-filter-value="all">전체</button>
+              <button type="button" class="glossary-filter-chip" data-filter-group="favorites" data-filter-value="only">즐겨찾기만</button>
+            </div>
+            <div class="glossary-filter-row" id="glossaryAudienceFilters">
+              <span class="glossary-filter-label">난이도</span>
+              <button type="button" class="glossary-filter-chip active" data-filter-group="audience" data-filter-value="all">전체</button>
+              <button type="button" class="glossary-filter-chip" data-filter-group="audience" data-filter-value="beginner">입문자용</button>
+              <button type="button" class="glossary-filter-chip" data-filter-group="audience" data-filter-value="practitioner">실무자용</button>
+            </div>
+            <div class="glossary-filter-row" id="glossaryFlowFilters">
+              <span class="glossary-filter-label">단계</span>
+              <button type="button" class="glossary-filter-chip active" data-filter-group="flow" data-filter-value="all">전체</button>
+              <button type="button" class="glossary-filter-chip" data-filter-group="flow" data-filter-value="planning">공고 전/기획</button>
+              <button type="button" class="glossary-filter-chip" data-filter-group="flow" data-filter-value="submission">제안/접수</button>
+              <button type="button" class="glossary-filter-chip" data-filter-group="flow" data-filter-value="execution">수행/평가</button>
+              <button type="button" class="glossary-filter-chip" data-filter-group="flow" data-filter-value="outcome">성과/사후</button>
+            </div>
           </div>
         </div>
         <div style="padding: 24px;" id="glossaryContainer"></div>
@@ -2721,11 +2881,11 @@ a {
 </div>
 
 <!-- Law Clause Summary Modal -->
-<div class="modal-overlay" id="lawModalOverlay">
-  <div class="modal-card">
+<div class="modal-overlay" id="lawModalOverlay" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="lawModalTitle" tabindex="-1">
     <div class="modal-header">
       <h4 id="lawModalTitle">법령 조항 정보</h4>
-      <button class="modal-close-btn" id="lawModalCloseBtn">×</button>
+      <button class="modal-close-btn" id="lawModalCloseBtn" aria-label="법령 모달 닫기">×</button>
     </div>
     <div class="modal-body">
       <p id="lawModalContent">조문 내용 요약이 이곳에 노출됩니다.</p>
@@ -3073,6 +3233,7 @@ const MONTHLY_TIMELINE = [
 let activeView = 'dashboard'; // 'dashboard', 'risks', 'sources', 'step'
 let activeStepIndex = 0;
 let collapsedPhases = { p1: false, p2: true, p3: true, p4: true };
+let lastModalFocusedElement = null;
 let checklistStates = {}; // { step0: [true, false], ... }
 
 /* ===== App Initialization ===== */
@@ -3083,6 +3244,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRisks();
   initSources();
   initGlossary();
+  injectReadinessSupplements();
   setupEventListeners();
   updateGlobalProgress();
   setupGlossaryEvents();
@@ -3141,13 +3303,14 @@ function renderNavigation() {
           const idx = STAGES.indexOf(s);
           const isCompleted = isStepChecklistCompleted(idx);
           return `
-            <div class="nav-item step-tab ${isCompleted ? 'completed' : ''}" 
+            <button type="button"
+                 class="nav-item step-tab ${isCompleted ? 'completed' : ''}" 
                  id="nav-step-${idx}" 
                  data-idx="${idx}"
                  onclick="selectStep(${idx})">
               <span class="nav-item-status">✓</span>
               <span class="nav-item-text">${s.no} ${s.title}</span>
-            </div>
+            </button>
           `;
         }).join('')}
       </div>
@@ -3183,32 +3346,47 @@ function switchView(viewName) {
   
   // Remove active states from all tabs
   document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+  document.querySelectorAll('.global-tab').forEach(item => item.removeAttribute('aria-current'));
   
   // Hide all view containers
   document.querySelectorAll('.view-container').forEach(view => view.classList.remove('active'));
   
   if (viewName === 'dashboard') {
-    document.querySelector('.nav-item[data-tab="dashboard"]').classList.add('active');
+    const activeTab = document.querySelector('.nav-item[data-tab="dashboard"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-dashboard').classList.add('active');
     updateDashboardStats();
   } else if (viewName === 'risks') {
-    document.querySelector('.nav-item[data-tab="risks"]').classList.add('active');
+    const activeTab = document.querySelector('.nav-item[data-tab="risks"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-risks').classList.add('active');
   } else if (viewName === 'sources') {
-    document.querySelector('.nav-item[data-tab="sources"]').classList.add('active');
+    const activeTab = document.querySelector('.nav-item[data-tab="sources"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-sources').classList.add('active');
   } else if (viewName === 'glossary') {
-    document.querySelector('.nav-item[data-tab="glossary"]').classList.add('active');
+    const activeTab = document.querySelector('.nav-item[data-tab="glossary"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-glossary').classList.add('active');
   } else if (viewName === 'orgchart') {
-    document.querySelector('.nav-item[data-tab="orgchart"]').classList.add('active');
+    const activeTab = document.querySelector('.nav-item[data-tab="orgchart"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-orgchart').classList.add('active');
   } else if (viewName === 'timeline') {
-    document.querySelector('.nav-item[data-tab="timeline"]').classList.add('active');
+    const activeTab = document.querySelector('.nav-item[data-tab="timeline"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-timeline').classList.add('active');
     renderTimeline();
   } else if (viewName === 'readiness') {
-    document.querySelector('.nav-item[data-tab="readiness"]').classList.add('active');
+    const activeTab = document.querySelector('.nav-item[data-tab="readiness"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-readiness').classList.add('active');
   } else if (viewName === 'step') {
     document.getElementById('view-step').classList.add('active');
@@ -3230,8 +3408,10 @@ function selectStep(idx) {
   
   // Set active class on active tab
   document.querySelectorAll('.step-tab').forEach(item => {
+    item.removeAttribute('aria-current');
     if (+item.dataset.idx === idx) {
       item.classList.add('active');
+      item.setAttribute('aria-current', 'step');
       
       // Expand parent phase accordion if collapsed
       const parentAccordion = item.closest('.phase-accordion');
@@ -3283,27 +3463,50 @@ function renderStepDetail(idx) {
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>`;
   const midNodes = Array.isArray(s.diagram.mid) ? s.diagram.mid : [];
+  const renderNodeText = value => {
+    const lines = Array.isArray(value) ? value : [value];
+    return lines.filter(Boolean).map(line => `<div class="node-line">${applyGlossaryMarkup(line)}</div>`).join('');
+  };
+  const renderNodeMeta = values => {
+    const lines = values.filter(Boolean);
+    if (!lines.length) return '';
+    return `<div class="node-meta-list">${lines.map(line => `<div class="node-meta">${applyGlossaryMarkup(line)}</div>`).join('')}</div>`;
+  };
   const midHtml = midNodes.map(m => `
     <div class="flow-node process-node">
       <div class="node-badge">PROCESS</div>
-      <div class="node-text">${m}</div>
+      <div class="node-text">${renderNodeText(m)}</div>
+      ${renderNodeMeta([`세부 실행: ${s.no}`])}
     </div>${flowArrow}`).join('');
   diagContainer.innerHTML = `
     <div class="flow-node input-node">
       <div class="node-badge">INPUT</div>
-      <div class="node-text">${s.diagram.input}</div>
+      <div class="node-text">${renderNodeText(s.diagram.input)}</div>
+      ${renderNodeMeta([
+        s.law ? `근거: ${s.law}` : null,
+        s.refs?.length ? `참고 문서: ${s.refs.length}건` : null
+      ])}
     </div>
     ${flowArrow}
     <div class="flow-node process-node">
       <div class="node-badge">PROCESS</div>
-      <div class="node-text">${s.title}</div>
+      <div class="node-text">${renderNodeText(s.title)}</div>
       <div class="node-owner">👤 ${s.owner}</div>
+      ${renderNodeMeta([
+        s.systems?.length ? `시스템: ${s.systems.join(', ')}` : null,
+        s.eval?.length ? `판단 기준: ${s.eval.slice(0, 2).join(', ')}` : null,
+        s.chk?.length ? `실행 체크포인트: ${s.chk.length}개` : null
+      ])}
     </div>
     ${flowArrow}
     ${midHtml}
     <div class="flow-node output-node">
       <div class="node-badge">OUTPUT</div>
-      <div class="node-text">${s.diagram.output}</div>
+      <div class="node-text">${renderNodeText(s.diagram.output)}</div>
+      ${renderNodeMeta([
+        s.nextOwner ? `다음 담당: ${s.nextOwner}` : null,
+        s.attachments?.length ? `산출물: ${s.attachments.length}건` : null
+      ])}
     </div>
   `;
   
@@ -3929,6 +4132,73 @@ function enhanceStageData() {
 
 enhanceStageData();
 
+const READINESS_SUPPLEMENT_BOXES = [
+  {
+    title: '🧬 생명과학 과제 추가 확인',
+    items: [
+      'IRB, IACUC, 인체유래물, 생물안전, GMP/GLP 등 규제성 요건이 과제 범위에 걸리는지 분리 확인합니다.',
+      '전임상, 바이오마커, 시료 확보, 외부 시험기관 일정처럼 착수 후 병목이 되는 요소를 제출 전 일정표에 반영합니다.',
+      '효능 데이터만이 아니라 SOP, raw data, 분석법, 재현성 자료까지 어떤 방식으로 증빙할지 정해둡니다.'
+    ]
+  },
+  {
+    title: '📂 실무 인계 준비',
+    items: [
+      '제안서 최종본, 발표자료, 예산산출 근거, FAQ 해석본, 기관별 서류를 하나의 인계 폴더 구조로 묶습니다.',
+      '선정 이후 바로 협약 단계로 넘어갈 수 있도록 참여기관 연락망과 수정 책임자를 별도 메모로 남깁니다.',
+      '불선정되더라도 다음 공고에 재사용할 수 있도록 약점, 질의응답, 수정 포인트를 기록합니다.'
+    ]
+  }
+];
+
+const FAILURE_SUPPLEMENT_BOXES = [
+  {
+    title: '🧪 바이오 과제인데 일정은 맞는데 실험 승인 때문에 착수가 밀림',
+    meta: '계획서에는 문제가 없어 보여도 실제 수행은 윤리·동물·시설 승인과 시험기관 슬롯 확보 여부에 크게 좌우됩니다.',
+    items: [
+      'IRB, IACUC, 생물안전위원회 등 착수 전 필수 승인 목록',
+      '외부 CRO, 분석기관, 시료공급처의 예약 가능 시점',
+      '승인 전에는 집행하거나 시작할 수 없는 업무 범위'
+    ]
+  },
+  {
+    title: '📊 실적은 있는데 평가용 증빙으로 인정되지 않음',
+    meta: '성과 자체가 없는 것이 아니라 과제번호, 기간, 기여율, 시험조건 같은 평가 문맥이 빠져 있어 공식 실적으로 연결되지 않는 경우입니다.',
+    items: [
+      '성과물에 과제번호와 기관명이 정확히 표기됐는지',
+      '수치 결과의 시험 조건, 비교 기준, 원천데이터가 함께 남아 있는지',
+      'NTIS/IRIS 등록 대상과 내부 참고 실적을 혼동하지 않았는지'
+    ]
+  }
+];
+
+function buildInfoBoxHtml({ title, meta, items }) {
+  return `
+    <div class="box">
+      <h5>${title}</h5>
+      ${meta ? `<p class="failure-case-meta">${meta}</p><div class="info-list-label">먼저 확인할 것</div>` : ''}
+      <ul class="info-list">
+        ${items.map(item => `<li>${applyGlossaryMarkup(item)}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+}
+
+function injectReadinessSupplements() {
+  const readinessGrid = document.querySelector('#view-readiness .readiness-grid');
+  const failureGrid = document.querySelector('#view-readiness .failure-grid');
+
+  if (readinessGrid && !readinessGrid.dataset.enriched) {
+    readinessGrid.insertAdjacentHTML('beforeend', READINESS_SUPPLEMENT_BOXES.map(buildInfoBoxHtml).join(''));
+    readinessGrid.dataset.enriched = 'true';
+  }
+
+  if (failureGrid && !failureGrid.dataset.enriched) {
+    failureGrid.insertAdjacentHTML('beforeend', FAILURE_SUPPLEMENT_BOXES.map(buildInfoBoxHtml).join(''));
+    failureGrid.dataset.enriched = 'true';
+  }
+}
+
 function applyGlossaryMarkup(text) {
   if (typeof text !== 'string') return text;
   let temp = text;
@@ -3949,6 +4219,176 @@ function applyGlossaryMarkup(text) {
 
 function getGlossaryCategoryLabel(item) {
   return GLOSSARY_CATEGORY_LABELS[item.category] || GLOSSARY_CATEGORY_LABELS.common;
+}
+
+const GLOSSARY_CATEGORY_ORDER = [
+  'common',
+  'planning',
+  'submission',
+  'execution',
+  'outcome',
+  'bioscience',
+  'compliance'
+];
+
+const GLOSSARY_PRIORITY = {
+  common: ['RFP', 'RFI', 'IRIS', 'NTIS', 'RCMS', 'PM', 'KPI', 'TRL', '정량목표', '정성목표'],
+  planning: ['Go/No-Go', 'IP-R&D', '예타', 'POC'],
+  submission: ['주관연구개발기관', '공동연구개발기관', 'R&R', 'IRIS'],
+  execution: ['마일스톤', '연차평가', '단계평가', '위탁연구개발기관', 'RCMS', '연구노트'],
+  outcome: ['최종평가', '성과지표', '기술이전', '실시계약', 'FTO'],
+  bioscience: ['전임상', 'IND', 'CMC', 'SOP', 'GLP', 'GMP', 'IB', 'MOA', '바이오마커', 'POC'],
+  compliance: ['국가연구개발혁신법', '국가연구개발혁신법 시행령', 'IRB', 'IACUC', '연구노트', '보안과제']
+};
+
+const GLOSSARY_CATEGORY_DESCRIPTIONS = {
+  common: '공고를 읽고 제안서를 쓸 때 거의 모든 과제에서 반복적으로 등장하는 기본 용어입니다.',
+  planning: 'RFI, 예타, IP 전략처럼 공고 이전 또는 초기 기획 단계에서 방향을 정할 때 먼저 보는 용어입니다.',
+  submission: '주관/공동 구조, 역할 분담, 접수 체계처럼 제안서 제출 직전 가장 많이 확인하는 항목입니다.',
+  execution: '협약 체결 이후 일정, 연구비, 단계평가를 실제로 굴릴 때 자주 마주치는 수행 실무 용어입니다.',
+  outcome: '최종평가, 성과지표, 기술이전처럼 과제 종료와 사업화 연결 시점에서 중요한 용어입니다.',
+  bioscience: '전임상, IND, CMC, 바이오마커처럼 생명과학·의료·바이오 과제에서 빈도가 높은 전문 용어입니다.',
+  compliance: '법령, 윤리심의, 보안처럼 과제 수행 가능 여부와 리스크를 좌우하는 규정 중심 용어입니다.'
+};
+
+const GLOSSARY_AUDIENCE_LABELS = {
+  all: '전체',
+  beginner: '입문자용',
+  practitioner: '실무자용'
+};
+
+const GLOSSARY_FLOW_LABELS = {
+  all: '전체',
+  planning: '공고 전/기획',
+  submission: '제안/접수',
+  execution: '수행/평가',
+  outcome: '성과/사후'
+};
+
+const GLOSSARY_TERM_META = {
+  "RFP": { audience: 'beginner', flows: ['planning', 'submission'] },
+  "RFI": { audience: 'beginner', flows: ['planning'] },
+  "IRIS": { audience: 'beginner', flows: ['submission', 'execution', 'outcome'] },
+  "NTIS": { audience: 'beginner', flows: ['planning', 'outcome'] },
+  "RCMS": { audience: 'practitioner', flows: ['execution'] },
+  "TRL": { audience: 'beginner', flows: ['planning', 'submission'] },
+  "예타": { audience: 'practitioner', flows: ['planning'] },
+  "PM": { audience: 'beginner', flows: ['planning', 'submission', 'execution'] },
+  "주관연구개발기관": { audience: 'beginner', flows: ['submission'] },
+  "공동연구개발기관": { audience: 'beginner', flows: ['submission'] },
+  "위탁연구개발기관": { audience: 'practitioner', flows: ['execution'] },
+  "R&R": { audience: 'practitioner', flows: ['submission'] },
+  "Go/No-Go": { audience: 'beginner', flows: ['planning', 'submission'] },
+  "KPI": { audience: 'beginner', flows: ['submission', 'execution', 'outcome'] },
+  "마일스톤": { audience: 'practitioner', flows: ['execution'] },
+  "연차평가": { audience: 'practitioner', flows: ['execution'] },
+  "단계평가": { audience: 'practitioner', flows: ['execution'] },
+  "최종평가": { audience: 'beginner', flows: ['outcome'] },
+  "성과지표": { audience: 'beginner', flows: ['submission', 'execution', 'outcome'] },
+  "정량목표": { audience: 'beginner', flows: ['submission', 'execution'] },
+  "정성목표": { audience: 'beginner', flows: ['submission', 'execution'] },
+  "연구노트": { audience: 'practitioner', flows: ['execution', 'outcome'] },
+  "SOP": { audience: 'practitioner', flows: ['execution', 'outcome'] },
+  "GLP": { audience: 'practitioner', flows: ['execution'] },
+  "GMP": { audience: 'practitioner', flows: ['execution', 'outcome'] },
+  "CMC": { audience: 'practitioner', flows: ['planning', 'execution', 'outcome'] },
+  "IND": { audience: 'practitioner', flows: ['execution', 'outcome'] },
+  "IRB": { audience: 'practitioner', flows: ['execution'] },
+  "IACUC": { audience: 'practitioner', flows: ['execution'] },
+  "IB": { audience: 'practitioner', flows: ['execution', 'outcome'] },
+  "MOA": { audience: 'practitioner', flows: ['planning', 'execution'] },
+  "POC": { audience: 'beginner', flows: ['planning', 'execution'] },
+  "바이오마커": { audience: 'practitioner', flows: ['planning', 'execution', 'outcome'] },
+  "전임상": { audience: 'practitioner', flows: ['execution'] },
+  "기술이전": { audience: 'beginner', flows: ['outcome'] },
+  "실시계약": { audience: 'practitioner', flows: ['outcome'] },
+  "국가연구개발혁신법": { audience: 'beginner', flows: ['planning', 'submission', 'execution', 'outcome'] },
+  "국가연구개발혁신법 시행령": { audience: 'practitioner', flows: ['submission', 'execution', 'outcome'] },
+  "보안과제": { audience: 'practitioner', flows: ['submission', 'execution', 'outcome'] },
+  "IP-R&D": { audience: 'practitioner', flows: ['planning', 'submission'] },
+  "FTO": { audience: 'practitioner', flows: ['planning', 'outcome'] }
+};
+
+let glossaryFilters = {
+  audience: 'all',
+  flow: 'all',
+  favorites: 'all'
+};
+
+let glossaryFavorites = new Set();
+
+function sortGlossaryEntries(category, entries) {
+  const priority = GLOSSARY_PRIORITY[category] || [];
+  const priorityIndex = new Map(priority.map((key, idx) => [key, idx]));
+  return [...entries].sort((a, b) => {
+    const aRank = priorityIndex.has(a.key) ? priorityIndex.get(a.key) : Number.MAX_SAFE_INTEGER;
+    const bRank = priorityIndex.has(b.key) ? priorityIndex.get(b.key) : Number.MAX_SAFE_INTEGER;
+    if (aRank !== bRank) return aRank - bRank;
+    return a.key.localeCompare(b.key, 'ko');
+  });
+}
+
+function getGlossaryTermMeta(key) {
+  return GLOSSARY_TERM_META[key] || { audience: 'beginner', flows: ['planning', 'submission', 'execution', 'outcome'] };
+}
+
+function loadGlossaryPreferences() {
+  try {
+    const filterRaw = localStorage.getItem('rd_glossary_filters');
+    if (filterRaw) {
+      const parsed = JSON.parse(filterRaw);
+      glossaryFilters = { ...glossaryFilters, ...parsed };
+    }
+  } catch {}
+
+  try {
+    const favoriteRaw = localStorage.getItem('rd_glossary_favorites');
+    if (favoriteRaw) {
+      glossaryFavorites = new Set(JSON.parse(favoriteRaw));
+    }
+  } catch {}
+}
+
+function saveGlossaryFilters() {
+  localStorage.setItem('rd_glossary_filters', JSON.stringify(glossaryFilters));
+}
+
+function saveGlossaryFavorites() {
+  localStorage.setItem('rd_glossary_favorites', JSON.stringify([...glossaryFavorites]));
+}
+
+function syncGlossaryFilterButtons() {
+  document.querySelectorAll('#view-glossary .glossary-filter-chip').forEach(button => {
+    const group = button.dataset.filterGroup;
+    const value = button.dataset.filterValue;
+    const isActive = glossaryFilters[group] === value;
+    button.classList.toggle('active', isActive);
+  });
+}
+
+function getFilteredGlossaryKeys() {
+  const q = (document.getElementById('glossarySearchInput')?.value || '').toLowerCase().trim();
+  return Object.keys(GLOSSARY).filter(key => {
+    const item = GLOSSARY[key];
+    const meta = getGlossaryTermMeta(key);
+    const matchesSearch = getGlossarySearchBlob(key, item).includes(q);
+    const matchesAudience = glossaryFilters.audience === 'all' || meta.audience === glossaryFilters.audience;
+    const matchesFlow = glossaryFilters.flow === 'all' || meta.flows.includes(glossaryFilters.flow);
+    const matchesFavorite = glossaryFilters.favorites === 'all' || glossaryFavorites.has(key);
+    return matchesSearch && matchesAudience && matchesFlow && matchesFavorite;
+  });
+}
+
+function rerenderGlossary() {
+  syncGlossaryFilterButtons();
+  renderGlossaryCards(getFilteredGlossaryKeys());
+}
+
+function toggleGlossaryFavorite(key) {
+  if (glossaryFavorites.has(key)) glossaryFavorites.delete(key);
+  else glossaryFavorites.add(key);
+  saveGlossaryFavorites();
+  rerenderGlossary();
 }
 
 function getGlossarySearchBlob(key, item) {
@@ -4022,15 +4462,21 @@ function createTooltipElement() {
 function initGlossary() {
   const container = document.getElementById('glossaryContainer');
   container.className = 'glossary-grid';
-  
-  renderGlossaryCards(Object.keys(GLOSSARY));
-  
-  document.getElementById('glossarySearchInput').addEventListener('input', e => {
-    const q = e.target.value.toLowerCase().trim();
-    const matchedKeys = Object.keys(GLOSSARY).filter(key => {
-      return getGlossarySearchBlob(key, GLOSSARY[key]).includes(q);
+
+  loadGlossaryPreferences();
+  syncGlossaryFilterButtons();
+  renderGlossaryCards(getFilteredGlossaryKeys());
+
+  document.getElementById('glossarySearchInput').addEventListener('input', () => {
+    rerenderGlossary();
+  });
+
+  document.querySelectorAll('#view-glossary .glossary-filter-chip').forEach(button => {
+    button.addEventListener('click', () => {
+      glossaryFilters[button.dataset.filterGroup] = button.dataset.filterValue;
+      saveGlossaryFilters();
+      rerenderGlossary();
     });
-    renderGlossaryCards(matchedKeys);
   });
 }
 
@@ -4054,6 +4500,66 @@ function renderGlossaryCards(keys) {
       </div>
     `;
   }).join('');
+}
+
+function renderGlossaryCards(keys) {
+  const container = document.getElementById('glossaryContainer');
+  if (keys.length === 0) {
+    container.innerHTML = `<p style="font-size:13px;color:var(--soft);text-align:center;padding:24px 0;">검색 결과가 없습니다.</p>`;
+    return;
+  }
+
+  const grouped = new Map();
+  GLOSSARY_CATEGORY_ORDER.forEach(category => grouped.set(category, []));
+
+  keys.forEach(key => {
+    const item = GLOSSARY[key];
+    const category = item.category || 'common';
+    if (!grouped.has(category)) grouped.set(category, []);
+    grouped.get(category).push({ key, item });
+  });
+
+  const orderedCategories = [
+    ...GLOSSARY_CATEGORY_ORDER.filter(category => (grouped.get(category) || []).length > 0),
+    ...[...grouped.keys()].filter(category => !GLOSSARY_CATEGORY_ORDER.includes(category) && grouped.get(category).length > 0)
+  ];
+
+  container.innerHTML = orderedCategories.map(category => {
+    const entries = sortGlossaryEntries(category, grouped.get(category) || []);
+    return `
+      <section class="glossary-section">
+        <div class="glossary-section-head">
+          <div class="glossary-section-copy">
+            <h4 class="glossary-section-title">${GLOSSARY_CATEGORY_LABELS[category] || category}</h4>
+            <p class="glossary-section-desc">${GLOSSARY_CATEGORY_DESCRIPTIONS[category] || ''}</p>
+          </div>
+          <span class="glossary-section-count">${entries.length}개</span>
+        </div>
+        <div class="glossary-card-grid">
+          ${entries.map(({ key, item }) => `
+            <div class="glossary-card">
+              <div class="glossary-card-top">
+                <h4>${item.title}</h4>
+                <button type="button" class="glossary-favorite-btn ${glossaryFavorites.has(key) ? 'active' : ''}" data-favorite-key="${key}" aria-label="${key} 즐겨찾기">${glossaryFavorites.has(key) ? '★' : '☆'}</button>
+              </div>
+              <p>${item.desc}</p>
+              <div class="glossary-meta">
+                <span class="glossary-tag">${getGlossaryCategoryLabel(item)}</span>
+                <span class="glossary-tag">${key}</span>
+                <span class="glossary-tag">${GLOSSARY_AUDIENCE_LABELS[getGlossaryTermMeta(key).audience] || '입문자용'}</span>
+                ${getGlossaryTermMeta(key).flows.map(flow => `<span class="glossary-tag">${GLOSSARY_FLOW_LABELS[flow]}</span>`).join('')}
+              </div>
+              ${item.practice ? `<div class="glossary-practice">실무 포인트: ${item.practice}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  }).join('');
+
+  container.querySelectorAll('[data-favorite-key]').forEach(button => {
+    button.addEventListener('click', () => toggleGlossaryFavorite(button.dataset.favoriteKey));
+  });
 }
 
 /* ===== Guided Learning Pathway Course System ===== */
@@ -4407,17 +4913,66 @@ const LAW_DATABASE = {
 function showLawModal(clauseKey) {
   const data = LAW_DATABASE[clauseKey];
   if (!data) return;
+  lastModalFocusedElement = document.activeElement;
   
   document.getElementById('lawModalTitle').innerText = data.title;
   document.getElementById('lawModalContent').innerText = data.summary;
   
   const modal = document.getElementById('lawModalOverlay');
   modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  const focusables = getLawModalFocusableElements();
+  const fallbackTarget = modal.querySelector('.modal-card');
+  window.requestAnimationFrame(() => {
+    (focusables[0] || fallbackTarget)?.focus();
+  });
 }
 
 function closeLawModal() {
   const modal = document.getElementById('lawModalOverlay');
   modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  if (lastModalFocusedElement && typeof lastModalFocusedElement.focus === 'function') {
+    lastModalFocusedElement.focus();
+  }
+}
+
+function getLawModalFocusableElements() {
+  const modal = document.getElementById('lawModalOverlay');
+  if (!modal) return [];
+  return Array.from(modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+    .filter(el => !el.disabled && el.offsetParent !== null);
+}
+
+function handleLawModalKeydown(e) {
+  const modal = document.getElementById('lawModalOverlay');
+  if (!modal || !modal.classList.contains('open')) return;
+
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeLawModal();
+    return;
+  }
+
+  if (e.key !== 'Tab') return;
+
+  const focusables = getLawModalFocusableElements();
+  if (!focusables.length) {
+    e.preventDefault();
+    modal.querySelector('.modal-card')?.focus();
+    return;
+  }
+
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
 }
 
 function setupLawModalEvents() {
@@ -4435,6 +4990,8 @@ function setupLawModalEvents() {
       closeLawModal();
     }
   });
+
+  document.addEventListener('keydown', handleLawModalKeydown);
 }
 </script>
 </body>
