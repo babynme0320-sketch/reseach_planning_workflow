@@ -364,6 +364,123 @@ a {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ===== Research Question Canvas ===== */
+.canvas-field { margin-bottom: 16px; }
+.canvas-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.canvas-row .canvas-field { flex: 1 1 240px; }
+.canvas-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.canvas-req { color: var(--danger); font-weight: 800; }
+.canvas-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.6;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  resize: vertical;
+}
+.canvas-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.canvas-btn {
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.05s;
+}
+.canvas-btn:hover { border-color: var(--accent); color: var(--accent); }
+.canvas-btn:active { transform: translateY(1px); }
+.canvas-btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.canvas-btn-primary:hover { color: #fff; filter: brightness(1.08); }
+.canvas-btn-ghost { color: var(--soft); }
+.canvas-warn-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.canvas-warn-item .cw-icon { flex: 0 0 auto; font-size: 15px; }
+.canvas-warn-item.sev-warn {
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  color: #92400e;
+}
+.canvas-warn-item.sev-info {
+  background: var(--accent-soft);
+  border: 1px solid rgba(29, 78, 216, 0.2);
+  color: #1e40af;
+}
+.canvas-ok-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.3);
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 700;
+}
+.studytype-chip {
+  display: inline-block;
+  padding: 5px 11px;
+  margin: 0 6px 6px 0;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.studytype-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 16px 0 8px;
+}
+.studytype-check { list-style: none; padding: 0; margin: 0; }
+.studytype-check li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.studytype-check li input { margin-top: 3px; cursor: pointer; }
+.studytype-check li.checked {
+  background: rgba(22, 163, 74, 0.06);
+  border-color: rgba(22, 163, 74, 0.3);
+}
+
 /* ---------- Dashboard View ---------- */
 .hero {
   padding: 36px;
@@ -2310,7 +2427,12 @@ a {
         <span class="nav-item-icon" aria-hidden="true">🏠</span>
         <span class="nav-item-text">종합 대시보드</span>
       </button>
-      
+
+      <button type="button" class="nav-item global-tab" data-tab="canvas">
+        <span class="nav-item-icon" aria-hidden="true">🧭</span>
+        <span class="nav-item-text">연구 질문 캔버스</span>
+      </button>
+
       <button type="button" class="nav-item global-tab" data-tab="risks">
         <span class="nav-item-icon" aria-hidden="true">🛡️</span>
         <span class="nav-item-text">제안서 선제 대응표</span>
@@ -2764,6 +2886,109 @@ a {
           </div>
           <p class="ref-disclaimer" style="margin-top:4px;">같은 오류라도 "내용 문제"가 아니라 "권한·승인·연계 상태 문제"인 경우가 많습니다. 자체 해결이 어려우면 기관 연구행정 담당자, 고객센터, R&D 신문고(공식 문의 채널)로 문의하십시오.</p>
         </div>
+      </div>
+    </div>
+
+    <!-- Research Question Canvas View -->
+    <div class="view-container" id="view-canvas">
+      <section class="hero">
+        <div class="eyebrow">Bio Research Planning · 연구 질문 캔버스</div>
+        <h1>연구 아이디어를 <b>한 장의 컨셉 노트</b>로</h1>
+        <p>연구 질문·가설·결과변수·비교군·성공 기준을 구조화해 입력하면, 정합성 경고와 함께 1페이지 연구 컨셉 노트 초안을 자동으로 만들어 줍니다. 모든 입력은 이 브라우저에만 저장됩니다.</p>
+      </section>
+
+      <!-- 핵심 입력 -->
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:18px; font-weight:800; margin-bottom:6px;">📝 핵심 입력</h3>
+        <p style="font-size:12.5px; color:var(--muted); margin-bottom:18px; font-weight:500;">표시(<span style="color:var(--danger); font-weight:700;">*</span>)된 항목은 컨셉 노트의 필수 요소입니다.</p>
+
+        <div class="canvas-field">
+          <label class="canvas-label" for="cv-projectName">프로젝트명</label>
+          <input type="text" class="canvas-input" id="cv-projectName" data-field="projectName" placeholder="예: 항암 후보물질 A 전임상 효능 평가">
+        </div>
+        <div class="canvas-field">
+          <label class="canvas-label" for="cv-researchQuestion">연구 질문 <span class="canvas-req">*</span></label>
+          <textarea class="canvas-input" id="cv-researchQuestion" data-field="researchQuestion" rows="2" placeholder="한 문장으로. 대상·비교·측정·성공판단이 보이게. 예: 후보물질 A가 표준 처리 대비 대장암 모델에서 종양 성장을 억제하는가"></textarea>
+        </div>
+        <div class="canvas-field">
+          <label class="canvas-label" for="cv-hypothesis">가설 <span class="canvas-req">*</span></label>
+          <textarea class="canvas-input" id="cv-hypothesis" data-field="hypothesis" rows="2" placeholder="왜 그런 결과가 나올 것이라 보는가(기전/방향). 예: A는 경로 X를 억제해 종양 성장을 줄인다"></textarea>
+        </div>
+        <div class="canvas-row">
+          <div class="canvas-field">
+            <label class="canvas-label" for="cv-primaryOutcome">1차 결과변수 <span class="canvas-req">*</span></label>
+            <input type="text" class="canvas-input" id="cv-primaryOutcome" data-field="primaryOutcome" placeholder="예: 12주 종양 크기 변화율(%)">
+          </div>
+          <div class="canvas-field">
+            <label class="canvas-label" for="cv-subjectModel">대상/모델 <span class="canvas-req">*</span></label>
+            <input type="text" class="canvas-input" id="cv-subjectModel" data-field="subjectModel" placeholder="세포주·동물·환자군·데이터셋">
+          </div>
+        </div>
+        <div class="canvas-row">
+          <div class="canvas-field">
+            <label class="canvas-label" for="cv-comparator">비교군 <span class="canvas-req">*</span></label>
+            <input type="text" class="canvas-input" id="cv-comparator" data-field="comparator" placeholder="무처치 / vehicle / 표준치료(SoC) / placebo">
+          </div>
+          <div class="canvas-field">
+            <label class="canvas-label" for="cv-studyType">연구 유형</label>
+            <select class="canvas-input" id="cv-studyType" data-field="studyType">
+              <option value="">선택 안 함</option>
+            </select>
+          </div>
+        </div>
+        <div class="canvas-field">
+          <label class="canvas-label" for="cv-successCriteria">성공 기준 <span class="canvas-req">*</span></label>
+          <textarea class="canvas-input" id="cv-successCriteria" data-field="successCriteria" rows="2" placeholder="어떤 수치/방향이면 성공인가. 예: A군이 대조군보다 종양 크기 20% 이상 추가 감소"></textarea>
+        </div>
+      </div>
+
+      <!-- 선택 입력 -->
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:14px;">➕ 선택 입력</h3>
+        <div class="canvas-field">
+          <label class="canvas-label" for="cv-secondaryOutcomes">2차 결과변수</label>
+          <input type="text" class="canvas-input" id="cv-secondaryOutcomes" data-field="secondaryOutcomes" placeholder="쉼표로 구분. 예: 체중 변화, 생존율">
+        </div>
+        <div class="canvas-field">
+          <label class="canvas-label" for="cv-expectedImpact">예상 임팩트</label>
+          <textarea class="canvas-input" id="cv-expectedImpact" data-field="expectedImpact" rows="2" placeholder="성공 시 무엇을 주장할 수 있는가"></textarea>
+        </div>
+        <div class="canvas-row">
+          <div class="canvas-field">
+            <label class="canvas-label" for="cv-mainRisk">주요 리스크</label>
+            <textarea class="canvas-input" id="cv-mainRisk" data-field="mainRisk" rows="2" placeholder="가장 큰 실패 가능성 1~2개"></textarea>
+          </div>
+          <div class="canvas-field">
+            <label class="canvas-label" for="cv-goNoGo">다음 단계 Go/No-Go 기준</label>
+            <textarea class="canvas-input" id="cv-goNoGo" data-field="goNoGo" rows="2" placeholder="어떤 결과면 다음 단계로 가는가"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 정합성 경고 -->
+      <div class="table-card" style="padding:20px 24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:12px;">🔎 기본 정합성 점검</h3>
+        <div id="canvasWarnings" aria-live="polite"></div>
+      </div>
+
+      <!-- 연구 유형 가이드 (마법사) -->
+      <div class="table-card" id="studyTypeCard" style="padding:24px; margin-bottom:24px; display:none;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:4px;">🔀 연구 유형별 가이드</h3>
+        <p style="font-size:12.5px; color:var(--muted); margin-bottom:16px; font-weight:500;">선택한 유형에 맞는 핵심 질문·산출물·체크리스트·주의사항입니다.</p>
+        <div id="studyTypePanel"></div>
+      </div>
+
+      <!-- 컨셉 노트 -->
+      <div class="table-card" style="padding:24px; margin-bottom:28px;">
+        <h3 style="font-family:'Outfit'; font-size:18px; font-weight:800; margin-bottom:12px;">📄 1페이지 연구 컨셉 노트</h3>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+          <button type="button" class="canvas-btn canvas-btn-primary" id="genConceptNote">컨셉 노트 초안 만들기</button>
+          <button type="button" class="canvas-btn" id="copyConceptNote">복사</button>
+          <button type="button" class="canvas-btn" id="downloadTxt">.txt 다운로드</button>
+          <button type="button" class="canvas-btn" id="downloadMd">.md 다운로드</button>
+          <button type="button" class="canvas-btn canvas-btn-ghost" id="resetCanvas" style="margin-left:auto;">캔버스 초기화</button>
+        </div>
+        <textarea id="conceptNoteOutput" class="canvas-input" rows="16" readonly placeholder="‘컨셉 노트 초안 만들기’를 누르면 여기에 초안이 생성됩니다." style="font-family:'Inter',monospace; font-size:13px; line-height:1.7;"></textarea>
       </div>
     </div>
 
@@ -3235,10 +3460,93 @@ let activeStepIndex = 0;
 let collapsedPhases = { p1: false, p2: true, p3: true, p4: true };
 let lastModalFocusedElement = null;
 let checklistStates = {}; // { step0: [true, false], ... }
+let canvasState = {};          // 연구 질문 캔버스 입력값
+let studyTypeChecks = {};      // { basic: [true,false,...], ... }
+
+/* ===== Research Question Canvas Data ===== */
+const CANVAS_FIELDS = [
+  'projectName','researchQuestion','hypothesis','primaryOutcome','subjectModel',
+  'comparator','studyType','secondaryOutcomes','expectedImpact','mainRisk','goNoGo','successCriteria'
+];
+const CANVAS_REQUIRED = {
+  researchQuestion: '연구 질문', hypothesis: '가설', primaryOutcome: '1차 결과변수',
+  subjectModel: '대상/모델', comparator: '비교군', successCriteria: '성공 기준'
+};
+
+// 6개 연구 유형 (가이드 2장 / 5-2장). 키는 캔버스 studyType 값과 동일(단일 소스)
+const STUDY_TYPES = {
+  basic: {
+    label: '기초연구', coreQuestion: '기전이 존재하는가',
+    deliverables: ['실험 데이터', '그림', '논문 초안'],
+    risks: ['재현성 부족', '모델 부적합'],
+    checklist: [
+      '생물학적으로 타당한 모델을 선택했는가',
+      '용량-반응 관계를 확보할 설계인가',
+      '반복 실험과 독립 재현성을 확보했는가',
+      '음성/양성 대조군을 준비했는가'
+    ]
+  },
+  nonclinical: {
+    label: '비임상/전임상', coreQuestion: '효능·독성·작용기전이 충분한가',
+    deliverables: ['효능/독성 보고서', 'Go/No-Go 근거'],
+    risks: ['모델 외삽 실패', '독성 이슈'],
+    checklist: [
+      '생물학적으로 타당한 모델을 선택했는가',
+      '용량-반응 관계를 확보할 설계인가',
+      '반복 실험과 독립 재현성을 확보했는가',
+      '음성/양성 대조군을 준비했는가',
+      '다음 단계 진입 Go/No-Go 근거를 정의했는가'
+    ]
+  },
+  clinical: {
+    label: '임상연구', coreQuestion: '사람에서 안전성·유효성이 있는가',
+    deliverables: ['프로토콜', 'CRF', '통계계획', '임상결과'],
+    risks: ['대상자 모집', '규제 지연'],
+    checklist: [
+      'Phase(1/2/3) 목적을 명확히 했는가',
+      '참여기준·표본수·기간·대조군·투여법·평가시점을 사전 정의했는가',
+      '안전성 모니터링/중단 기준이 있는가',
+      'IRB·동의서·규제(IND 등) 경로를 확인했는가'
+    ]
+  },
+  observational: {
+    label: '관찰연구/실사용데이터', coreQuestion: '연관성·예후·패턴이 있는가',
+    deliverables: ['코호트 분석', '예측모형'],
+    risks: ['편향', '결측치', '혼란변수'],
+    checklist: [
+      '선택편향·정보편향·교란변수 통제 계획이 있는가',
+      '결측치 처리 원칙을 사전 정의했는가',
+      '분석 전 데이터 정의서를 확정했는가'
+    ]
+  },
+  diagnostic: {
+    label: '진단/바이오마커', coreQuestion: '정확도와 임상적 유용성이 있는가',
+    deliverables: ['민감도/특이도', 'ROC', '컷오프'],
+    risks: ['기준검사 부재', '과적합'],
+    checklist: [
+      '기준검사(reference standard)를 정의했는가',
+      '검체 취급을 표준화했는가',
+      '학습/검증 데이터를 분리했는가',
+      '임상적 컷오프와 외부검증 계획이 있는가'
+    ]
+  },
+  industrial: {
+    label: '산업화 R&D', coreQuestion: '제품·서비스로 전환 가능한가',
+    deliverables: ['개발계획', 'IP', '규제전략', '사업계획'],
+    risks: ['시장 미스매치', '제조/품질 문제'],
+    checklist: [
+      '제품 분류(의약품/바이오/기기/진단)를 정했는가',
+      '제조·품질(배치 일관성·안정성) 계획이 있는가',
+      'IP·규제전략·상업성을 함께 검토했는가',
+      '과학적 성공 외 사업 전환 경로가 있는가'
+    ]
+  }
+};
 
 /* ===== App Initialization ===== */
 document.addEventListener('DOMContentLoaded', () => {
   initLocalStorage();
+  initCanvas();
   renderNavigation();
   initDashboard();
   initRisks();
@@ -3276,6 +3584,288 @@ function initLocalStorage() {
 
 function saveChecklistStates() {
   localStorage.setItem('rd_lifecycle_checklist_states', JSON.stringify(checklistStates));
+}
+
+/* ===== Research Question Canvas ===== */
+function initCanvas() {
+  // 입력값 복원
+  try {
+    const raw = localStorage.getItem('rd_canvas_state');
+    canvasState = raw ? JSON.parse(raw) : {};
+  } catch (e) { canvasState = {}; }
+  CANVAS_FIELDS.forEach(f => { if (!(f in canvasState)) canvasState[f] = ''; });
+
+  // 유형별 체크리스트 복원
+  try {
+    const rawc = localStorage.getItem('rd_studytype_checklist');
+    studyTypeChecks = rawc ? JSON.parse(rawc) : {};
+  } catch (e) { studyTypeChecks = {}; }
+  Object.keys(STUDY_TYPES).forEach(k => {
+    const len = STUDY_TYPES[k].checklist.length;
+    if (!Array.isArray(studyTypeChecks[k]) || studyTypeChecks[k].length !== len) {
+      studyTypeChecks[k] = new Array(len).fill(false);
+    }
+  });
+
+  // studyType select 옵션 채우기 (단일 소스)
+  const sel = document.getElementById('cv-studyType');
+  if (sel && sel.options.length <= 1) {
+    Object.entries(STUDY_TYPES).forEach(([key, v]) => {
+      const opt = document.createElement('option');
+      opt.value = key; opt.textContent = v.label;
+      sel.appendChild(opt);
+    });
+  }
+
+  // 입력 DOM에 값 채우고 이벤트 연결
+  CANVAS_FIELDS.forEach(f => {
+    const el = document.getElementById('cv-' + f);
+    if (!el) return;
+    el.value = canvasState[f] || '';
+    const evt = (el.tagName === 'SELECT') ? 'change' : 'input';
+    el.addEventListener(evt, () => {
+      canvasState[f] = el.value;
+      saveCanvasState();
+      if (f === 'studyType') renderStudyTypePanel();
+      renderCanvasWarnings();
+    });
+  });
+
+  // 버튼 이벤트
+  document.getElementById('genConceptNote').addEventListener('click', () => {
+    document.getElementById('conceptNoteOutput').value = buildConceptNote('text');
+  });
+  document.getElementById('copyConceptNote').addEventListener('click', copyConceptNote);
+  document.getElementById('downloadTxt').addEventListener('click', () => downloadConceptNote('txt'));
+  document.getElementById('downloadMd').addEventListener('click', () => downloadConceptNote('md'));
+  document.getElementById('resetCanvas').addEventListener('click', resetCanvas);
+}
+
+function saveCanvasState() {
+  canvasState.updatedAt = new Date().toISOString();
+  localStorage.setItem('rd_canvas_state', JSON.stringify(canvasState));
+}
+function saveStudyTypeChecks() {
+  localStorage.setItem('rd_studytype_checklist', JSON.stringify(studyTypeChecks));
+}
+
+// 캔버스 탭 진입 시 UI 새로고침
+function refreshCanvasUI() {
+  CANVAS_FIELDS.forEach(f => {
+    const el = document.getElementById('cv-' + f);
+    if (el) el.value = canvasState[f] || '';
+  });
+  renderStudyTypePanel();
+  renderCanvasWarnings();
+}
+
+// 순수 함수: 입력 상태 -> 경고 배열
+function evaluateCanvas(state) {
+  const warns = [];
+  const lc = s => (s || '').toLowerCase();
+  const has = (s, arr) => arr.some(k => lc(s).includes(k.toLowerCase()));
+
+  const COMPARE = ['대비','보다','대조','비교','versus','vs','compared'];
+  const MEASURE = ['율','률','%','퍼센트','점수','score','크기','농도','수치','시간','생존','발현','ic50','roc','민감도','특이도','수준','변화'];
+  const THRESHOLD = ['이상','이하','초과','미만','%','감소','증가','p<','p <','유의','향상'];
+  const EFFICACY = ['효능','억제','감소','개선','효과','치료','반응'];
+  const SAFETY = ['안전성','독성','부작용','이상반응','toxicity'];
+
+  // C-01 필수 빈칸
+  const empty = Object.entries(CANVAS_REQUIRED)
+    .filter(([k]) => !(state[k] && state[k].trim()))
+    .map(([, label]) => label);
+  if (empty.length) {
+    warns.push({ id: 'C-01', severity: 'warn',
+      message: `필수 항목이 비어 있습니다: ${empty.join(', ')}. 비어 있으면 컨셉 노트가 불완전합니다.` });
+  }
+  // C-02 질문에 비교 표현 없음
+  if (state.researchQuestion && state.researchQuestion.trim() && !has(state.researchQuestion, COMPARE)) {
+    warns.push({ id: 'C-02', severity: 'info',
+      message: '연구 질문에 비교 기준이 보이지 않습니다. ‘표준 처리 대비’처럼 비교 대상을 넣으면 좋은 질문이 됩니다.' });
+  }
+  // C-03 질문엔 비교 있는데 비교군 비었음
+  if (state.researchQuestion && has(state.researchQuestion, COMPARE) && !(state.comparator && state.comparator.trim())) {
+    warns.push({ id: 'C-03', severity: 'warn',
+      message: '질문에는 비교가 있는데 비교군이 비어 있습니다. 비교군을 명시하세요.' });
+  }
+  // C-04 1차 결과변수 측정 가능성 약함
+  if (state.primaryOutcome && state.primaryOutcome.trim() && !has(state.primaryOutcome, MEASURE)) {
+    warns.push({ id: 'C-04', severity: 'info',
+      message: '1차 결과변수가 ‘측정 가능한 지표’로 보이지 않습니다. 수치·비율·점수 등 측정 형태로 적으세요.' });
+  }
+  // C-05 성공 기준에 임계값 없음
+  if (state.successCriteria && state.successCriteria.trim() && !has(state.successCriteria, THRESHOLD)) {
+    warns.push({ id: 'C-05', severity: 'info',
+      message: '성공 기준에 판단 임계값이 없습니다. ‘20% 이상 감소’처럼 합격선을 적으세요.' });
+  }
+  // C-06 가설=효능인데 결과변수=안전성만 (또는 반대)
+  if (state.hypothesis && state.primaryOutcome) {
+    const hypEff = has(state.hypothesis, EFFICACY), hypSaf = has(state.hypothesis, SAFETY);
+    const outEff = has(state.primaryOutcome, EFFICACY), outSaf = has(state.primaryOutcome, SAFETY);
+    if (hypEff && !hypSaf && outSaf && !outEff) {
+      warns.push({ id: 'C-06', severity: 'warn',
+        message: '가설은 ‘효능’을 말하는데 1차 결과변수는 ‘안전성’만 측정합니다. 목표와 변수가 어긋날 수 있습니다.' });
+    } else if (hypSaf && !hypEff && outEff && !outSaf) {
+      warns.push({ id: 'C-06', severity: 'warn',
+        message: '가설은 ‘안전성’을 말하는데 1차 결과변수는 ‘효능’만 측정합니다. 목표와 변수가 어긋날 수 있습니다.' });
+    }
+  }
+  // C-07 유형 미선택
+  if (!(state.studyType && state.studyType.trim())) {
+    warns.push({ id: 'C-07', severity: 'info',
+      message: '연구 유형을 고르면 유형별 체크리스트와 주의사항을 함께 볼 수 있습니다.' });
+  }
+  return warns.sort((a, b) => a.id.localeCompare(b.id));
+}
+
+function renderCanvasWarnings() {
+  const box = document.getElementById('canvasWarnings');
+  if (!box) return;
+  const warns = evaluateCanvas(canvasState);
+  if (!warns.length) {
+    box.innerHTML = '<div class="canvas-ok-badge">✅ 기본 정합성 점검 통과</div>';
+    return;
+  }
+  box.innerHTML = warns.map(w => `
+    <div class="canvas-warn-item sev-${w.severity}">
+      <span class="cw-icon" aria-hidden="true">${w.severity === 'warn' ? '⚠️' : 'ℹ️'}</span>
+      <span><b>${w.id}</b> · ${escapeHtml(w.message)}</span>
+    </div>`).join('');
+}
+
+function renderStudyTypePanel() {
+  const card = document.getElementById('studyTypeCard');
+  const panel = document.getElementById('studyTypePanel');
+  if (!card || !panel) return;
+  const key = canvasState.studyType;
+  if (!key || !STUDY_TYPES[key]) { card.style.display = 'none'; panel.innerHTML = ''; return; }
+  const t = STUDY_TYPES[key];
+  card.style.display = 'block';
+
+  // 분기 주의 배너 (W-03~W-05)
+  const banners = [];
+  if ((key === 'clinical' || key === 'nonclinical') && !(canvasState.comparator && canvasState.comparator.trim())) {
+    banners.push({ sev: 'warn', msg: '효능 평가형 연구는 비교군 정의가 핵심입니다. 비교군을 채우세요.' });
+  }
+  if (key === 'clinical' || key === 'observational' || key === 'diagnostic') {
+    banners.push({ sev: 'info', msg: '사람 대상 가능성이 있어 IRB/규제 점검이 필요합니다(후속 IRB 허브 예정).' });
+  }
+  if (key === 'industrial') {
+    banners.push({ sev: 'info', msg: '과학적 성공뿐 아니라 제조·허가·상업성도 계획에 포함하세요.' });
+  }
+
+  const checks = studyTypeChecks[key] || [];
+  panel.innerHTML = `
+    <div class="studytype-sub">핵심 질문</div>
+    <div style="font-size:13.5px; color:var(--ink); font-weight:600;">${escapeHtml(t.coreQuestion)}</div>
+    <div class="studytype-sub">핵심 산출물</div>
+    <div>${t.deliverables.map(d => `<span class="studytype-chip">${escapeHtml(d)}</span>`).join('')}</div>
+    <div class="studytype-sub">유형별 체크리스트</div>
+    <ul class="studytype-check">
+      ${t.checklist.map((c, i) => `
+        <li class="${checks[i] ? 'checked' : ''}" data-st-idx="${i}">
+          <input type="checkbox" ${checks[i] ? 'checked' : ''} aria-label="${escapeHtml(c)}">
+          <span>${escapeHtml(c)}</span>
+        </li>`).join('')}
+    </ul>
+    <div class="studytype-sub">대표 리스크 &amp; 주의사항</div>
+    <div style="margin-bottom:10px;">${t.risks.map(r => `<span class="studytype-chip" style="background:rgba(220,38,38,0.08); color:var(--danger);">${escapeHtml(r)}</span>`).join('')}</div>
+    ${banners.map(b => `
+      <div class="canvas-warn-item sev-${b.sev}">
+        <span class="cw-icon" aria-hidden="true">${b.sev === 'warn' ? '⚠️' : 'ℹ️'}</span>
+        <span>${escapeHtml(b.msg)}</span>
+      </div>`).join('')}
+  `;
+
+  // 체크박스 이벤트
+  panel.querySelectorAll('.studytype-check li').forEach(li => {
+    li.addEventListener('click', (e) => {
+      const idx = +li.dataset.stIdx;
+      const cb = li.querySelector('input');
+      if (e.target !== cb) cb.checked = !cb.checked;
+      studyTypeChecks[key][idx] = cb.checked;
+      li.classList.toggle('checked', cb.checked);
+      saveStudyTypeChecks();
+    });
+  });
+}
+
+function buildConceptNote(format) {
+  const s = canvasState;
+  const v = x => (x && String(x).trim()) ? String(x).trim() : '(미작성)';
+  const sec = s.secondaryOutcomes && s.secondaryOutcomes.trim() ? s.secondaryOutcomes.trim() : '(미작성)';
+  const typeLabel = (s.studyType && STUDY_TYPES[s.studyType]) ? STUDY_TYPES[s.studyType].label : '(미선택)';
+  const empty = Object.entries(CANVAS_REQUIRED)
+    .filter(([k]) => !(s[k] && s[k].trim())).map(([, label]) => label);
+
+  const lines = [
+    `프로젝트명: ${v(s.projectName)}`,
+    `배경과 문제: ${v(s.expectedImpact)}`,
+    `핵심 연구 질문: ${v(s.researchQuestion)}`,
+    `가설: ${v(s.hypothesis)}`,
+    `대상/모델: ${v(s.subjectModel)}`,
+    `비교군: ${v(s.comparator)}`,
+    `핵심 방법: ${typeLabel} (상세 방법은 후속 단계에서)`,
+    `1차 결과변수: ${v(s.primaryOutcome)}`,
+    `2차 결과변수: ${sec}`,
+    `성공 기준: ${v(s.successCriteria)}`,
+    `예상 임팩트: ${v(s.expectedImpact)}`,
+    `주요 리스크: ${v(s.mainRisk)}`,
+    `다음 단계 Go/No-Go 기준: ${v(s.goNoGo)}`
+  ];
+
+  if (format === 'md') {
+    let md = '# 연구 컨셉 노트\n\n';
+    if (empty.length) md += `> ⚠️ **미완성 초안** — 빈 필수 항목: ${empty.join(', ')}\n\n`;
+    md += lines.map(l => {
+      const i = l.indexOf(': ');
+      return `- **${l.slice(0, i)}**: ${l.slice(i + 2)}`;
+    }).join('\n');
+    md += '\n\n_이 초안은 자동 생성본입니다. 통계·IRB·규제 담당자 검토 전 최종본이 아닙니다._\n';
+    return md;
+  }
+
+  let txt = '';
+  if (empty.length) txt += `⚠️ 미완성 초안 — 빈 필수 항목: ${empty.join(', ')}\n\n`;
+  txt += lines.join('\n');
+  txt += '\n\n(이 초안은 자동 생성본입니다. 통계·IRB·규제 담당자 검토 전 최종본이 아닙니다.)';
+  return txt;
+}
+
+function copyConceptNote() {
+  const out = document.getElementById('conceptNoteOutput');
+  if (!out.value) out.value = buildConceptNote('text');
+  const text = out.value;
+  const done = () => { const b = document.getElementById('copyConceptNote'); const o = b.textContent; b.textContent = '복사됨!'; setTimeout(() => b.textContent = o, 1500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => { out.select(); document.execCommand('copy'); done(); });
+  } else { out.select(); document.execCommand('copy'); done(); }
+}
+
+function downloadConceptNote(ext) {
+  const content = buildConceptNote(ext === 'md' ? 'md' : 'text');
+  const name = (canvasState.projectName && canvasState.projectName.trim())
+    ? canvasState.projectName.trim().replace(/[\\/:*?"<>|]/g, '_') : '연구컨셉노트';
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `${name}.${ext}`;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+function resetCanvas() {
+  if (!confirm('캔버스 입력값과 유형별 체크를 모두 비우시겠습니까?')) return;
+  CANVAS_FIELDS.forEach(f => canvasState[f] = '');
+  Object.keys(STUDY_TYPES).forEach(k => studyTypeChecks[k] = new Array(STUDY_TYPES[k].checklist.length).fill(false));
+  saveCanvasState(); saveStudyTypeChecks();
+  document.getElementById('conceptNoteOutput').value = '';
+  refreshCanvasUI();
+}
+
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 }
 
 /* ===== Render Left Navigation ===== */
@@ -3357,6 +3947,12 @@ function switchView(viewName) {
     activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-dashboard').classList.add('active');
     updateDashboardStats();
+  } else if (viewName === 'canvas') {
+    const activeTab = document.querySelector('.nav-item[data-tab="canvas"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
+    document.getElementById('view-canvas').classList.add('active');
+    refreshCanvasUI();
   } else if (viewName === 'risks') {
     const activeTab = document.querySelector('.nav-item[data-tab="risks"]');
     activeTab.classList.add('active');
@@ -3977,7 +4573,7 @@ function handleRouting(route) {
     if (idx >= 0 && idx < STAGES.length) {
       selectStep(idx);
     }
-  } else if (['dashboard', 'risks', 'sources', 'glossary'].includes(route)) {
+  } else if (['dashboard', 'canvas', 'risks', 'sources', 'glossary', 'orgchart', 'timeline', 'readiness'].includes(route)) {
     switchView(route);
   }
 }
