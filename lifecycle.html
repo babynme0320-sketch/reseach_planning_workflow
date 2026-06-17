@@ -680,6 +680,24 @@ a {
   font-weight: 600;
 }
 
+.node-line + .node-line {
+  margin-top: 4px;
+}
+
+.node-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.node-meta {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.45;
+  font-weight: 600;
+}
+
 .flow-arrow {
   color: var(--soft);
   display: flex;
@@ -1329,6 +1347,34 @@ a {
   color: var(--muted);
   line-height: 1.6;
   font-weight: 500;
+}
+
+.glossary-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.glossary-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.glossary-practice {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  font-size: 12px;
+  line-height: 1.65;
+  color: #334155;
 }
 
 @media(max-width: 768px) {
@@ -2069,8 +2115,27 @@ a {
 }
 .ref-disclaimer { margin: 10px 0 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
 
+/* ---------- Readiness & Failure-Mode Grids ---------- */
+.readiness-grid, .failure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.failure-case-meta { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: -2px; margin-bottom: 4px; }
+.info-list-label {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px;
+  color: var(--muted); margin-top: 10px; margin-bottom: 4px;
+}
+.info-list { display: flex; flex-direction: column; gap: 6px; }
+.info-list li {
+  font-size: 12.5px; color: #1e293b; font-weight: 500;
+  list-style: none; padding-left: 16px; position: relative; line-height: 1.55;
+}
+.info-list li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+
 @media (max-width: 768px) {
   .legal-ref-grid { grid-template-columns: 1fr; }
+  .readiness-grid, .failure-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -2130,6 +2195,11 @@ a {
       <div class="nav-item global-tab" data-tab="timeline">
         <span class="nav-item-icon">📅</span>
         <span class="nav-item-text">연간 타임라인</span>
+      </div>
+
+      <div class="nav-item global-tab" data-tab="readiness">
+        <span class="nav-item-icon">🧯</span>
+        <span class="nav-item-text">제출 전 체크 & 막힘 해결</span>
       </div>
 
       <div class="nav-group-title">생애주기 흐름도</div>
@@ -2438,6 +2508,105 @@ a {
       </div>
     </div>
 
+    <!-- 8. Readiness & Failure-Mode View -->
+    <div class="view-container" id="view-readiness">
+      <div class="table-card">
+        <div class="table-header">
+          <h3>🧯 제출 전 필수 이행사항</h3>
+          <p>연구개발계획서를 모두 작성했더라도, 실제 제출은 별도의 준비 상태와 승인 조건이 맞아야 완료됩니다. 아래 항목을 먼저 확인하면 마지막 단계에서 막히는 위험을 크게 줄일 수 있습니다.</p>
+        </div>
+        <div style="padding: 24px;">
+          <div class="readiness-grid">
+            <div class="box">
+              <h5>👤 연구자 기본 준비</h5>
+              <ul class="info-list">
+                <li>연구책임자 및 참여연구자 정보가 최신 상태인지 확인합니다.</li>
+                <li>소속기관 정보, 연구자 등록 상태, 필수 입력 정보 누락 여부를 먼저 점검합니다.</li>
+                <li>제안서 작성 전에 본인 계정이 실제 신청 가능한 역할로 설정되어 있는지 확인합니다.</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h5>🏢 기관 승인/담당자 확인</h5>
+              <ul class="info-list">
+                <li>기관담당자가 승인해야 하는 단계가 있는지 사전에 확인합니다.</li>
+                <li>연구자가 제출 버튼을 보기 전에 기관 측 검토나 승인 대기 상태가 숨어 있을 수 있습니다.</li>
+                <li>과제가 기관담당자 화면에 보이지 않는 경우, 입력 오류보다 권한·노출 조건 문제일 가능성이 큽니다.</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h5>💻 시스템/권한/로그인 상태 확인</h5>
+              <ul class="info-list">
+                <li>현재 단계가 IRIS인지, RND24인지, 또는 연계 시스템 단계인지 먼저 확인합니다.</li>
+                <li>동일한 과제라도 시스템에 따라 보이는 메뉴와 수행 가능한 작업이 다를 수 있습니다.</li>
+                <li>화면이 안내와 다르게 보이면 브라우저 캐시, 배포 반영 시점, 권한 상태를 의심해야 합니다.</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h5>✅ 제출 직전 최종 점검</h5>
+              <ul class="info-list">
+                <li>필수 첨부파일, 서명/날인, 기관 확인 절차가 모두 완료되었는지 점검합니다.</li>
+                <li>"작성 완료"와 "제출 가능"은 같은 뜻이 아니라는 점을 기억해야 합니다.</li>
+                <li>제출 직전 오류가 나면 본문 수정만 반복하지 말고 승인 경로·역할·시스템 반영 상태를 함께 확인합니다.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="ref-disclaimer" style="margin-top:4px;">핵심은 문서를 다 쓰는 것이 아니라, 제출 가능한 상태를 미리 만드는 것입니다.</p>
+        </div>
+      </div>
+
+      <div class="table-card" style="margin-top:24px;">
+        <div class="table-header">
+          <h3>🆘 자주 막히는 상황</h3>
+          <p>실제 사용자는 단계 자체보다 "왜 안 되는지"에서 더 오래 멈춥니다. 공고 준비부터 제출, 협약, 연계 반영까지 자주 겪는 대표적인 막힘 사례입니다.</p>
+        </div>
+        <div style="padding: 24px;">
+          <div class="failure-grid">
+            <div class="box">
+              <h5>📝 계획서는 다 작성했는데 제출이 되지 않음</h5>
+              <p class="failure-case-meta">흔히 본문 내용이나 첨부파일에 문제가 있다고 생각하기 쉽지만, 실제로는 제출 전 필수 이행사항·기관 승인·제출 권한·시스템 상태 문제일 가능성이 큽니다.</p>
+              <div class="info-list-label">먼저 확인할 것</div>
+              <ul class="info-list">
+                <li>연구자 필수 이행사항 완료 여부</li>
+                <li>기관담당자 승인 필요 여부</li>
+                <li>현재 계정의 역할·권한 및 제출 버튼이 보이는 시스템</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h5>🔍 기관담당자 승인/반려 대상 과제가 보이지 않음</h5>
+              <p class="failure-case-meta">과제가 사라졌거나 시스템 오류라고 느끼기 쉽지만, 실제로는 승인 대상 조건 미충족이나 화면·권한 혼동인 경우가 많습니다.</p>
+              <div class="info-list-label">먼저 확인할 것</div>
+              <ul class="info-list">
+                <li>현재 사용자의 기관담당자 권한 여부</li>
+                <li>해당 과제가 실제 승인 대상 단계에 도달했는지</li>
+                <li>기관 전용 업무 화면에서 확인 중인지</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h5>🖥️ 화면이 안내와 다르게 보이거나 개선 화면이 안 보임</h5>
+              <p class="failure-case-meta">매뉴얼이 틀렸거나 본인이 잘못 따라온 것으로 느끼기 쉽지만, 실제로는 브라우저 캐시, 배포 반영 지연, 권한별 화면 차이가 원인인 경우가 많습니다.</p>
+              <div class="info-list-label">먼저 확인할 것</div>
+              <ul class="info-list">
+                <li>브라우저 새로고침 및 캐시 확인</li>
+                <li>현재 접속한 시스템과 메뉴 경로</li>
+                <li>공지사항에 UI 변경·배포 안내가 있는지</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h5>🔄 협약변경/연계 변경 내용이 다른 시스템에 반영되지 않음</h5>
+              <p class="failure-case-meta">저장이 안 되었거나 시스템이 깨졌다고 느끼기 쉽지만, 실제로는 연계 반영 시간차나 승인 전 상태인 경우가 많습니다.</p>
+              <div class="info-list-label">먼저 확인할 것</div>
+              <ul class="info-list">
+                <li>어느 시스템에서 수정했는지, 반영 대상 시스템이 어디인지</li>
+                <li>승인 완료 전 반영인지, 승인 후 반영인지</li>
+                <li>연계 시스템 공지·FAQ에 동일 이슈가 있는지</li>
+              </ul>
+            </div>
+          </div>
+          <p class="ref-disclaimer" style="margin-top:4px;">같은 오류라도 "내용 문제"가 아니라 "권한·승인·연계 상태 문제"인 경우가 많습니다. 자체 해결이 어려우면 기관 연구행정 담당자, 고객센터, R&D 신문고(공식 문의 채널)로 문의하십시오.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- 4. Dynamic Step View Template -->
     <div class="view-container" id="view-step">
       <!-- Header Card -->
@@ -2451,6 +2620,8 @@ a {
           <div class="step-meta-item">👤 주체: <b id="stepOwner"></b></div>
           <div class="step-meta-item">🗓️ 기간: <b id="stepDuration"></b></div>
           <div class="step-meta-item" id="stepLawBasisWrapper">⚖️ 법적근거: <span id="stepLawBasis" style="color:var(--accent); font-weight:700; text-decoration:underline; cursor:pointer;"></span></div>
+          <div class="step-meta-item" id="stepSystemsWrapper" style="display:none;">💻 사용 시스템: <b id="stepSystems"></b></div>
+          <div class="step-meta-item" id="stepNextOwnerWrapper" style="display:none;">➡️ 다음 액션 담당자: <b id="stepNextOwner"></b></div>
         </div>
       </div>
 
@@ -2582,7 +2753,7 @@ const PHASES = [
 
 const STAGES = [
   /* ---------- Phase 1 : 정부 기획 ---------- */
-  {p:'p1', no:'STEP 01', title:'중장기 정책·전략 수립', law:'제6조', owner:'과기정통부·국가과학기술자문회의·각 부처', dur:'상시 / 5년 단위',
+  {p:'p1', no:'STEP 01', title:'중장기 정책·전략 수립', law:'제6조', owner:'과기정통부·국가과학기술자문회의·각 부처', dur:'상시 / 5년 단위', systems: ["부처 정책기획 체계"], nextOwner: "공고 준비 전문기관",
    gov:['과학기술기본계획(5년) 및 부처별 R&D 중장기 전략 수립','국가전략기술·미래성장동력 등 투자 우선순위 설정','정부 R&D 총예산 방향(투자 배분·조정) 결정'],
    bid:['우리 기관 기술이 어느 국가전략기술·중점분야에 속하는지 매핑','부처별 중장기계획·예타 통과 사업 모니터링으로 향후 공고 예측','기관 보유 역량을 정책 키워드(디지털바이오, 첨단재생 등)에 정렬'],
    out:['과학기술기본계획','부처 R&D 중장기계획','정부 R&D 투자방향'],
@@ -2604,7 +2775,7 @@ const STAGES = [
    ],
    attachments: [{name: "제5차 과학기술기본계획(2023-2027).pdf", size: "3.2MB"}, {name: "12대 국가전략기술 육성기본계획.pdf", size: "2.1MB"}]},
 
-  {p:'p1', no:'STEP 02', title:'기술수요조사 (RFI)', law:'제7조', owner:'부처 / 전문기관 → 산·학·연 대상', dur:'매년 상·하반기',
+  {p:'p1', no:'STEP 02', title:'기술수요조사 (RFI)', law:'제7조', owner:'부처 / 전문기관 → 산·학·연 대상', dur:'매년 상·하반기', systems: ["전문기관 수요조사 채널"], nextOwner: "기획·공고 담당 기관",
    gov:['신규사업 발굴을 위해 산학연 대상 기술수요·아이디어 공개 접수','제출된 수요를 분류·검토하여 기획 후보 풀(pool) 구성','유망 수요는 기획연구·사업기획의 씨앗으로 활용'],
    bid:['★ 가장 강력한 진입점 — 내 아이디어를 직접 제출해 미래 RFP에 반영','경쟁사보다 먼저 문제 정의와 목표 스펙을 선점','현장 미충족 수요(Unmet Needs)를 데이터와 함께 제출'],
    out:['기술수요조사서(RFI 응답)','수요 아이디어 제안'],
@@ -2618,7 +2789,7 @@ const STAGES = [
    refs: [{type: "운영요령", name: "기술수요조사(RFI) 운영 안내", url: "https://www.ntis.go.kr"}],
    attachments: [{name: "기술수요조사 제안서(RFI) 표준서식.docx", size: "120KB"}, {name: "기술수요조사 공고 및 안내서.pdf", size: "750KB"}]},
 
-  {p:'p1', no:'STEP 03', title:'신규사업 기획 (기획위원회·기획연구)', law:'제8조', owner:'부처·전문기관·기획위원회', dur:'수개월~1년',
+  {p:'p1', no:'STEP 03', title:'신규사업 기획 (기획위원회·기획연구)', law:'제8조', owner:'부처·전문기관·기획위원회', dur:'수개월~1년', systems: ["부처·전문기관 기획체계"], nextOwner: "공고 작성 기관",
    gov:['기획위원회 구성, 사전기획연구(기획과제) 발주','사업 목표·내용·성과지표·총사업비·추진체계·로드맵 설계','사업 타당성·중복성 검토, 사업제안서(사업계획) 작성'],
    bid:['기획위원·기획연구 참여로 사업 설계에 직접 관여','공청회·전문가 간담회에 참석해 방향성 파악','경쟁구도·예상 컨소시엄을 사전 스케치'],
    out:['사업기획보고서','성과목표·지표','예산규모(안)'],
@@ -2632,7 +2803,7 @@ const STAGES = [
    refs: [{type: "운영요령", name: "신규 R&D 사업 기획연구 가이드라인", url: "https://www.ntis.go.kr"}],
    attachments: [{name: "신규 R&D 사업 기획연구 가이드라인.pdf", size: "1.4MB"}]},
 
-  {p:'p1', no:'STEP 04', title:'예비타당성조사 (예타)', law:'국가재정법 제38조', owner:'과기정통부(R&D 예타)·기재부', dur:'약 6~12개월',
+  {p:'p1', no:'STEP 04', title:'예비타당성조사 (예타)', law:'국가재정법 제38조', owner:'과기정통부(R&D 예타)·기재부', dur:'약 6~12개월', systems: ["기재부 예타(KISTEP) 시스템"], nextOwner: "예산 편성 담당(기재부)",
    gov:['대형 신규사업(총사업비 500억+·국비 300억+ 등) 대상 예타 수행','기술성·정책성·경제성(비용대비효과) 종합 평가','통과 시 다년도 사업으로 예산 반영 근거 확보'],
    bid:['예타 통과 사업 목록 = 향후 수년간 공고가 쏟아질 "예약된 시장"','대형 사업의 세부 내역사업·연차 구조를 미리 파악','컨소시엄·인프라·인력 확보를 선제적으로 준비'],
    out:['예타 결과(시행/미시행)','총사업비 규모'],
@@ -2646,7 +2817,7 @@ const STAGES = [
    refs: [{type: "운영요령", name: "국가연구개발사업 예비타당성조사 지침", url: "https://www.ntis.go.kr"}],
    attachments: [{name: "국가연구개발사업 예비타당성조사 지침.pdf", size: "1.9MB"}]},
 
-  {p:'p1', no:'STEP 05', title:'예산 편성·확정 (정부안 → 국회)', law:'제6조', owner:'기재부·국회·각 부처', dur:'전년도 하반기',
+  {p:'p1', no:'STEP 05', title:'예산 편성·확정 (정부안 → 국회)', law:'제6조', owner:'기재부·국회·각 부처', dur:'전년도 하반기', systems: ["국회·기재부 예산 시스템"], nextOwner: "공고 작성 전문기관",
    gov:['부처 예산요구 → 기재부 정부예산안 → 국회 심의·의결로 확정','확정 예산에 따라 부처별 시행계획·통합시행계획 수립','당해 연도 사업별 예산·과제 수 결정'],
    bid:['국회 통과 예산 규모로 당해 사업 신규/계속 과제 수 가늠','부처 업무계획·예산 브리핑에서 신규사업 신호 포착','내부 인력·매칭자금(민간부담금) 계획을 예산 규모에 맞춰 수립'],
    out:['확정 예산','부처 시행계획'],
@@ -2660,7 +2831,7 @@ const STAGES = [
    refs: [{type: "운영요령", name: "정부 R&D 예산 편성 요약본", url: "https://www.ntis.go.kr"}],
    attachments: [{name: "2026년 정부 R&D 예산 편성 요약본.pdf", size: "980KB"}]},
 
-  {p:'p1', no:'STEP 06', title:'사업 공고 & RFP 도출', law:'제9조', owner:'부처 / 전문기관', dur:'연초~연중 (사업별)',
+  {p:'p1', no:'STEP 06', title:'사업 공고 & RFP 도출', law:'제9조', owner:'부처 / 전문기관', dur:'연초~연중 (사업별)', systems: ["IRIS", "공고문/첨부문서"], nextOwner: "연구책임자·제안기관",
    gov:['통합공고 → 부처·전문기관별 세부 공고 게시','지정공모형은 과제별 RFP(과제제안요구서) 작성·공개','지원자격·연구기간·연구비·평가지표·의무성과목표·가점 명시'],
    bid:['공고·RFP 전문을 정독하여 신청 가능 여부 1차 판단','RFP의 필수요건·성과목표·평가배점을 표로 해체','설명회(사업설명회) 참석으로 행간·심사 관점 파악'],
    out:['사업 공고문','RFP(과제제안요구서)'],
@@ -2678,7 +2849,7 @@ const STAGES = [
    attachments: [{name: "과제제안요구서(RFP) 표준서식.hwp", size: "85KB"}, {name: "R&D 통합공고 공고문 양식.pdf", size: "640KB"}]},
 
   /* ---------- Phase 2 : 수주·선정 ---------- */
-  {p:'p2', no:'STEP 07', title:'공고·RFP 분석 & Go/No-Go 결정', law:'제9조', owner:'수주 희망기관(연구기획 담당)', dur:'공고 후 3~7일',
+  {p:'p2', no:'STEP 07', title:'공고·RFP 분석 & Go/No-Go 결정', law:'제9조', owner:'수주 희망기관(연구기획 담당)', dur:'공고 후 3~7일', systems: ["공고문·설명회 자료", "IRIS 공지/FAQ"], nextOwner: "연구책임자(컨소시엄 구성 착수)",
    gov:['(전문기관) 질의응답 접수·FAQ 공지','신청서식·평가표·연구비 작성기준 안내'],
    bid:['RFP 100% 매핑: 요구 기술·목표치·최종성과를 우리 역량과 대조','평가지표 배점 기준으로 강·약점 자가진단','신청 여부(Go/No-Go)와 주관/공동/위탁 역할 분담 결정'],
    out:['RFP 부합성 매트릭스','Go/No-Go 의사결정서'],
@@ -2692,7 +2863,7 @@ const STAGES = [
    refs: [{type: "실무양식", name: "R&D 제안 공모 Go-NoGo 자가진단표", url: "https://www.iris.go.kr"}],
    attachments: [{name: "R&D 제안 공모 Go-NoGo 자가진단표.xlsx", size: "45KB"}]},
 
-  {p:'p2', no:'STEP 08', title:'연구개발계획서 작성 & 컨소시엄 구성', law:'제10조', owner:'주관·공동·위탁 연구개발기관', dur:'공고 후 ~마감 (3~6주)',
+  {p:'p2', no:'STEP 08', title:'연구개발계획서 작성 & 컨소시엄 구성', law:'제10조', owner:'주관·공동·위탁 연구개발기관', dur:'공고 후 ~마감 (3~6주)', systems: ["IRIS", "RND24", "기관 내부 검토체계"], nextOwner: "기관담당자",
    gov:['(전문기관) 연구비 비목·계상기준, 보안등급, 윤리 요건 안내'],
    bid:['주관/공동/위탁 기관 및 연구책임자 확정, 역할(R&R) 정의','연구개발 목표·내용·추진전략·연차별 마일스톤(TRL) 작성','연구비 산정(인건비·장비·재료·위탁·간접비), 민간부담 편성','참여기관 협약(MOU)·보안·윤리(IRB/IACUC) 사전 검토'],
    out:['연구개발계획서','연구비 산정내역','컨소시엄 협약(안)'],
@@ -2712,7 +2883,7 @@ const STAGES = [
    ],
    attachments: [{name: "연구개발계획서(공통 서식).docx", size: "280KB"}, {name: "국가연구개발비 계상 및 집행 편람.pdf", size: "2.8MB"}]},
 
-  {p:'p2', no:'STEP 09', title:'신청·접수 (IRIS)', law:'제10조', owner:'주관기관 + 기관 연구지원부서', dur:'마감일 (단일 시점)',
+  {p:'p2', no:'STEP 09', title:'신청·접수 (IRIS)', law:'제10조', owner:'주관기관 + 기관 연구지원부서', dur:'마감일 (단일 시점)', systems: ["IRIS"], nextOwner: "전문기관(평가 단계)",
    gov:['(전문기관) IRIS 온라인 접수·형식요건 자동 검증','접수증 발급, 마감 후 접수 마감'],
    bid:['IRIS에 과제정보·계획서·연구비·참여연구자 입력 및 업로드','기관 대표(산학협력단 등) 최종 승인·제출 처리','마감 직전 서버 폭주 대비, 최소 하루 전 제출 완료'],
    out:['IRIS 접수증','제출 완료 확인'],
@@ -2727,7 +2898,7 @@ const STAGES = [
    refs: [{type: "IRIS서식", name: "IRIS 연구자용 과제접수 매뉴얼", url: "https://www.iris.go.kr"}],
    attachments: [{name: "IRIS 연구자용 과제접수 매뉴얼.pdf", size: "3.5MB"}, {name: "참여의사확약서 및 정보동의서 양식.zip", size: "180KB"}]},
 
-  {p:'p2', no:'STEP 10', title:'선정평가 (요건검토 → 서면 → 발표)', law:'제11조', owner:'전문기관 + 평가위원회', dur:'마감 후 1~2개월',
+  {p:'p2', no:'STEP 10', title:'선정평가 (요건검토 → 서면 → 발표)', law:'제11조', owner:'전문기관 + 평가위원회', dur:'마감 후 1~2개월', systems: ["IRIS", "평가시스템(EVAL)"], nextOwner: "전문기관(협약 담당)",
    gov:['1차 요건·형식 검토(자격 미달 탈락)','전문가 서면평가 → 발표(대면/PT)평가, 필요시 토론·현장실사','평가결과 종합·순위 결정, 선정/탈락 통보, 이의신청 접수'],
    bid:['발표자료(요약본)·예상 질의(Q&A) 준비와 리허설','평가위원 관점의 약점(타당성·중복성·예산)에 대한 방어 논리','탈락 시 평가의견 회신 분석 → 차기 공모 보완'],
    out:['발표자료','선정결과 통보','(필요시) 이의신청서'],
@@ -2742,7 +2913,7 @@ const STAGES = [
    refs: [{type: "실무양식", name: "발표평가(PT) 준비 및 디펜스 가이드", url: "https://www.ntis.go.kr"}],
    attachments: [{name: "발표평가(PT) 준비 및 디펜스 가이드.pdf", size: "1.1MB"}, {name: "선정평가 위원용 질문 예시집.docx", size: "90KB"}]},
 
-  {p:'p2', no:'STEP 11', title:'협약 체결', law:'제12조', owner:'전문기관 ↔ 주관연구개발기관', dur:'선정 후 약 1개월',
+  {p:'p2', no:'STEP 11', title:'협약 체결', law:'제12조', owner:'전문기관 ↔ 주관연구개발기관', dur:'선정 후 약 1개월', systems: ["IRIS", "협약 행정 시스템"], nextOwner: "연구책임자·기관담당자",
    gov:['연구개발계획·연구비·성과목표 최종 확정','협약 체결, 연구개발비 지급(선지급/분할)','보안등급·연구윤리·연구노트 의무 고지'],
    bid:['선정 조건부 보완사항(예산 조정·목표 수정) 반영','참여기관 간 공동연구개발협약·기술료 배분 사전 약정','연구비 카드·RCMS 계정 등 집행 인프라 셋업'],
    out:['연구개발협약서','확정 연구개발계획서','연구개발비 지급'],
@@ -2761,7 +2932,7 @@ const STAGES = [
    attachments: [{name: "국가연구개발사업 표준협약서(IRIS).pdf", size: "480KB"}, {name: "공동연구개발 및 성과배분 계약서 표준안.docx", size: "150KB"}]},
 
   /* ---------- Phase 3 : 수행 ---------- */
-  {p:'p3', no:'STEP 12', title:'연구 착수 & 연구비 집행', law:'제13조', owner:'연구책임자·참여연구자·기관', dur:'협약 후 즉시~연중',
+  {p:'p3', no:'STEP 12', title:'연구 착수 & 연구비 집행', law:'제13조', owner:'연구책임자·참여연구자·기관', dur:'협약 후 즉시~연중', systems: ["IRIS", "RCMS/Ezbaro", "기관 내부 연구비관리"], nextOwner: "연구책임자·기관담당자",
    gov:['(전문기관) RCMS 통한 연구비 집행 모니터링','연구노트·참여연구원 변경·보안 점검'],
    bid:['연차 목표에 맞춘 연구 수행, 연구노트 상시 기록','비목별 집행(인건비·장비·재료·위탁·간접비), 증빙 관리','생명윤리 승인(IRB/IACUC/LMO) 취득 후 해당 연구 착수','연구장비 도입(필요시 심의)·참여연구자 등록 관리'],
    out:['연구노트','집행 증빙','윤리 승인서'],
@@ -2778,7 +2949,7 @@ const STAGES = [
    ],
    attachments: [{name: "국가연구개발 연구노트 지침 가이드.pdf", size: "820KB"}, {name: "생명윤리(IRB) 심의 신청 표준 양식.docx", size: "110KB"}]},
 
-  {p:'p3', no:'STEP 13', title:'연차·단계 평가 / 진도점검', law:'제14조', owner:'전문기관 + 평가위원', dur:'매 연차 / 단계 말',
+  {p:'p3', no:'STEP 13', title:'연차·단계 평가 / 진도점검', law:'제14조', owner:'전문기관 + 평가위원', dur:'매 연차 / 단계 말', systems: ["IRIS", "평가/보고 시스템"], nextOwner: "전문기관 또는 연구책임자",
    gov:['연차실적·계획서 검토, 진도점검(현장점검 포함)','단계평가(단계 구분 시): 계속·중단·연구비 조정 결정','연차 연구비 정산 검토'],
    bid:['연차실적·계획서 작성: 목표 대비 달성도·정량성과 제시','미달성 항목의 원인·만회계획을 선제적으로 소명','다음 연차 계획·연구비 사용계획 갱신'],
    out:['연차실적·계획서','단계평가 결과','연차 정산서'],
@@ -2793,7 +2964,7 @@ const STAGES = [
    refs: [{type: "실무양식", name: "연차실적 및 차년도 계획서 양식", url: "https://www.iris.go.kr"}],
    attachments: [{name: "연차실적 및 차년도 계획서 양식.docx", size: "320KB"}, {name: "연차정산 제출 가이드라인.pdf", size: "910KB"}]},
 
-  {p:'p3', no:'STEP 14', title:'변경·관리 (연구계획·윤리·보안)', law:'제12조', owner:'연구책임자·기관·전문기관', dur:'상시(필요 발생 시)',
+  {p:'p3', no:'STEP 14', title:'변경·관리 (연구계획·윤리·보안)', law:'제12조', owner:'연구책임자·기관·전문기관', dur:'상시(필요 발생 시)', systems: ["IRIS", "RCMS/Ezbaro", "기관 내부 승인체계"], nextOwner: "전문기관 또는 승인권자",
    gov:['(전문기관) 계획변경 승인(연구책임자·기관·비목·기간 등)','중요변경/경미변경 구분 처리, 보안·윤리 준수 점검'],
    bid:['연구책임자·참여기관·연구비 비목·연구기간 변경 시 사전 승인','연차 이월·비목 조정은 규정 한도·절차 준수','보안과제 관리, 연구실 안전, 윤리 재심의(프로토콜 변경 시)'],
    out:['연구개발계획 변경신청','변경 승인서'],
@@ -2808,7 +2979,7 @@ const STAGES = [
    attachments: [{name: "연구개발계획 변경 승인 신청서 서식.docx", size: "95KB"}]},
 
   /* ---------- Phase 4 : 종료·사후관리 ---------- */
-  {p:'p4', no:'STEP 15', title:'최종평가 & 성과 등록', law:'제15조', owner:'전문기관 + 평가위원회', dur:'종료 직후 1~3개월',
+  {p:'p4', no:'STEP 15', title:'최종평가 & 성과 등록', law:'제15조', owner:'전문기관 + 평가위원회', dur:'종료 직후 1~3개월', systems: ["IRIS", "NTIS", "성과등록 시스템"], nextOwner: "연구책임자 또는 기관 성과담당",
    gov:['최종보고서·자체평가서 검토, 최종평가(목표달성도) 수행','성공/불성공(또는 등급) 판정, 결과 통보','성과(논문·특허·기술이전 등) 등록 확인(NTIS/IRIS)'],
    bid:['최종보고서·자체평가서 작성: 목표 대비 최종 달성도 입증','연구성과를 NTIS/IRIS에 등록(과제 사사 표기 포함)','우수성과 부각 → 후속·연계과제 가점 확보'],
    out:['최종보고서','자체평가서','성과 등록'],
@@ -2826,7 +2997,7 @@ const STAGES = [
    ],
    attachments: [{name: "최종보고서 표준서식.docx", size: "450KB"}, {name: "국가 R&D 성과 사사 표기 매뉴얼.pdf", size: "520KB"}]},
 
-  {p:'p4', no:'STEP 16', title:'연구개발비 정산', law:'제18조', owner:'주관기관 + 전문기관(정산기관)', dur:'종료 후 수개월',
+  {p:'p4', no:'STEP 16', title:'연구개발비 정산', law:'제18조', owner:'주관기관 + 전문기관(정산기관)', dur:'종료 후 수개월', systems: ["IRIS", "RCMS/Ezbaro", "기관 정산체계"], nextOwner: "전문기관 또는 기관 정산담당",
    gov:['연구개발비 사용실적 정산, 정밀정산(필요시)','집행잔액·이자 반납 처리, 부적정 집행 환수','정산 결과 확정'],
    bid:['비목별 집행실적·증빙 정리 및 정산보고','집행잔액·발생이자 반납, 불인정 항목 소명','정산 지적사항 시정 및 재발방지'],
    out:['정산보고서','집행 증빙','잔액 반납'],
@@ -2843,7 +3014,7 @@ const STAGES = [
    ],
    attachments: [{name: "RCMS 정산 및 부적정 집행 환수 사례집.pdf", size: "2.3MB"}, {name: "연구비 정산 자가 체크리스트.xlsx", size: "75KB"}]},
 
-  {p:'p4', no:'STEP 17', title:'성과활용·기술료 & 추적평가', law:'제16조', owner:'기관·전문기관·부처', dur:'종료 후 ~5년',
+  {p:'p4', no:'STEP 17', title:'성과활용·기술료 & 추적평가', law:'제16조', owner:'기관·전문기관·부처', dur:'종료 후 ~5년', systems: ["NTIS", "성과활용/추적평가 시스템"], nextOwner: "연구책임자 또는 기관 성과담당",
    gov:['성과활용보고서 접수(통상 종료 후 수년간)','기술료 징수·정부납부기술료 관리','추적평가/성과활용평가로 사업화·후속성과 점검'],
    bid:['기술실시(이전)계약 체결, 기술료 납부·재투자','성과활용보고서 매년 제출(사업화·매출·후속연구)','우수성과 실적화 → 차기 과제 수주 경쟁력으로 환류'],
    out:['기술실시계약','기술료 납부','성과활용보고서'],
@@ -3036,6 +3207,9 @@ function switchView(viewName) {
     document.querySelector('.nav-item[data-tab="timeline"]').classList.add('active');
     document.getElementById('view-timeline').classList.add('active');
     renderTimeline();
+  } else if (viewName === 'readiness') {
+    document.querySelector('.nav-item[data-tab="readiness"]').classList.add('active');
+    document.getElementById('view-readiness').classList.add('active');
   } else if (viewName === 'step') {
     document.getElementById('view-step').classList.add('active');
     renderStepDetail(activeStepIndex);
@@ -3085,6 +3259,22 @@ function renderStepDetail(idx) {
   document.getElementById('stepTitle').innerText = s.title;
   document.getElementById('stepOwner').innerText = s.owner;
   document.getElementById('stepDuration').innerText = s.dur;
+
+  // 사용 시스템 / 다음 액션 담당자 — 있을 때만 렌더
+  const systemsWrapper = document.getElementById('stepSystemsWrapper');
+  if (Array.isArray(s.systems) && s.systems.length) {
+    systemsWrapper.style.display = 'inline-block';
+    document.getElementById('stepSystems').innerText = s.systems.join(', ');
+  } else {
+    systemsWrapper.style.display = 'none';
+  }
+  const nextOwnerWrapper = document.getElementById('stepNextOwnerWrapper');
+  if (s.nextOwner) {
+    nextOwnerWrapper.style.display = 'inline-block';
+    document.getElementById('stepNextOwner').innerText = s.nextOwner;
+  } else {
+    nextOwnerWrapper.style.display = 'none';
+  }
   
   // Flowchart Diagram (모식도) — mid[]가 있으면 PROCESS 노드 사이에 세부 절차 노드를 추가 삽입
   const diagContainer = document.getElementById('stepFlowDiagram');
@@ -3604,6 +3794,141 @@ const GLOSSARY = {
   "국가연구개발혁신법": { title: "국가연구개발혁신법 (혁신법)", desc: "2021년 제정되어 모든 정부 부처 R&D 사업에 공동 적용되는 최상위 법률입니다. 복잡한 부처별 행정 지침을 하나로 통일하고 연구자 자율성을 보장하는 핵심 공통 규칙입니다." }
 };
 
+const GLOSSARY_CATEGORY_LABELS = {
+  common: '공통',
+  planning: '기획',
+  submission: '접수/평가',
+  execution: '수행/정산',
+  outcome: '성과/사후',
+  bioscience: '생명과학',
+  compliance: '규정/인증'
+};
+
+Object.assign(GLOSSARY, {
+  "PM": { title: "PM (Program Manager)", desc: "전문기관 또는 사업 운영기관에서 과제 공고, 평가, 협약, 진도관리 전반을 실무적으로 운영하는 담당자입니다.", category: "common", practice: "질의 대응 속도, 해석 일관성, 보완 요구 포인트를 좌우하므로 공고 단계부터 커뮤니케이션 로그를 남겨두는 편이 안전합니다." },
+  "주관연구개발기관": { title: "주관연구개발기관", desc: "과제 전체를 대표하여 신청, 협약, 총괄관리, 보고의무를 수행하는 기관입니다.", category: "submission", practice: "컨소시엄 구조가 복잡할수록 주관기관의 내부 결재선과 자료 취합 책임자를 먼저 고정해야 제출 마감 직전 병목이 줄어듭니다." },
+  "공동연구개발기관": { title: "공동연구개발기관", desc: "주관기관과 함께 동일 과제 목표를 분담 수행하는 참여기관입니다.", category: "submission", practice: "역할이 겹치지 않도록 세부 목표, 인력, 예산, 산출물 귀속을 계획서 표와 협약 부속문서에서 같은 표현으로 맞춰야 합니다." },
+  "위탁연구개발기관": { title: "위탁연구개발기관", desc: "주요 연구개발기관이 일부 업무를 외부에 위탁하여 수행하게 하는 기관입니다.", category: "execution", practice: "위탁은 편의상 넣는 구조가 아니라 필요성과 범위가 설명돼야 하므로, 왜 내부 수행이 아닌지와 관리 방식을 함께 적어야 평가 저항이 낮습니다." },
+  "R&R": { title: "R&R (Role and Responsibility)", desc: "참여기관과 인력별 역할 및 책임 범위를 뜻합니다.", category: "submission", practice: "R&R이 모호하면 중복예산과 목표 중복으로 해석되기 쉬우므로 기관별 산출물과 KPI를 한 줄씩 대응시키는 편이 좋습니다." },
+  "Go/No-Go": { title: "Go/No-Go 의사결정", desc: "과제에 실제로 지원할지 여부를 자원, 적합성, 경쟁구도 기준으로 판단하는 내부 게이트입니다.", category: "planning", practice: "지원 여부를 늦게 정하면 모든 문서 품질이 떨어지므로 공고 후 24~72시간 내에 1차 판단 기준표를 돌리는 체계가 효율적입니다." },
+  "KPI": { title: "KPI (핵심성과지표)", desc: "과제 수행과 평가에서 달성 수준을 판단하기 위한 핵심 정량/정성 지표입니다.", category: "common", practice: "지표 숫자 자체보다 측정 가능성과 증빙 가능성이 중요합니다. 보고 시점에 어떤 파일과 데이터로 입증할지까지 같이 설계해야 합니다." },
+  "마일스톤": { title: "마일스톤", desc: "연차 또는 단계 내에서 반드시 통과해야 하는 중간 목표와 검증 시점입니다.", category: "execution", practice: "실무에서는 일정표보다 마일스톤 기준으로 인력과 예산 집행을 묶어두는 편이 단계평가 대응에 유리합니다." },
+  "연차평가": { title: "연차평가", desc: "계속과제에서 다음 연차 계속 여부를 판단하기 위해 실시하는 연차 단위 평가입니다.", category: "execution", practice: "최종보고서처럼 쓰기보다 다음 연차 예산 승인 논리로 써야 하므로 잔여 리스크와 다음 연차 보완계획을 반드시 적어야 합니다." },
+  "단계평가": { title: "단계평가", desc: "다년도 과제의 특정 단계 종료 시점에 단계 목표 달성도를 판단하는 평가입니다.", category: "execution", practice: "단계 종료 직전에 자료를 만들기 시작하면 늦습니다. 실험 raw data, 회의록, 성능비교표를 단계 초반부터 평가 폴더로 누적 관리해야 합니다." },
+  "최종평가": { title: "최종평가", desc: "과제 종료 시 최종 목표 달성도와 성과의 질을 종합 판정하는 평가입니다.", category: "outcome", practice: "최종평가는 '무엇을 했는가'보다 'RFP 약속을 얼마나 지켰는가'의 구조로 재배열해야 설득력이 올라갑니다." },
+  "성과지표": { title: "성과지표", desc: "논문, 특허, 기술이전, 인허가, 시제품, 매출 등 과제 성과를 계량화한 기준입니다.", category: "outcome", practice: "실적 입력 대상인지, 평가 참고용인지, 기관 내부 KPI인지 성격이 다르므로 같은 숫자를 여러 표에 복제하기보다 근거 출처를 먼저 고정하는 것이 안전합니다." },
+  "정량목표": { title: "정량목표", desc: "수치로 직접 측정할 수 있는 목표입니다. 예: 민감도, 정확도, 생산수율, 특허 건수.", category: "common", practice: "수치만 쓰지 말고 측정조건과 비교기준을 함께 적어야 평가자가 목표 수준을 해석할 수 있습니다." },
+  "정성목표": { title: "정성목표", desc: "체계 구축, 프로토콜 확립, 네트워크 확보처럼 수치 외 방식으로 제시되는 목표입니다.", category: "common", practice: "정성목표는 증빙자료 형태가 중요하므로 운영규정, SOP, 회의체, 승인문서 등 증빙 패키지를 미리 정해두는 것이 좋습니다." },
+  "연구노트": { title: "연구노트", desc: "연구 수행 과정과 결과를 사실대로 기록한 공식 기록물입니다.", category: "compliance", practice: "특허와 성과인정, 부정사용 소명에 모두 영향을 주므로 실험 직후 작성 원칙과 검토 주기를 팀 규칙으로 두는 편이 낫습니다." },
+  "SOP": { title: "SOP (표준작업절차서)", desc: "실험, 제조, 분석, 검증 절차를 문서화한 표준 운영 절차입니다.", category: "bioscience", practice: "재현성과 규제대응이 중요한 바이오 과제에서는 SOP 버전관리와 교육이력까지 묶어 관리해야 합니다." },
+  "GLP": { title: "GLP (비임상시험관리기준)", desc: "비임상시험의 계획, 수행, 보고, 보관 체계를 규정하는 품질 기준입니다.", category: "bioscience", practice: "GLP 자체가 필요한지, GLP 유사 관리만 필요한지 과제 단계별로 다르므로 시험 목적과 인허가 활용 여부를 먼저 분리해야 합니다." },
+  "GMP": { title: "GMP (의약품 제조 및 품질관리기준)", desc: "의약품 및 일부 바이오 제품 생산 시 요구되는 제조·품질관리 기준입니다.", category: "bioscience", practice: "연구개발 단계에서도 제조확대 가능성을 묻는 경우가 많아 CMC와 공정 밸리데이션 로드맵을 초기에 준비하면 좋습니다." },
+  "CMC": { title: "CMC (Chemistry, Manufacturing and Controls)", desc: "의약품/바이오 제품의 제조공정, 품질특성, 관리전략을 포괄하는 영역입니다.", category: "bioscience", practice: "후반부에 정리하려 하면 늦으므로 물질 규격, 분석법, 배치 일관성 정보를 과제 중반부터 축적해야 합니다." },
+  "IND": { title: "IND (임상시험계획 승인 신청)", desc: "임상시험 개시를 위해 규제기관에 제출하는 승인 신청 패키지입니다.", category: "bioscience", practice: "IND 진입이 목표인 과제는 독성, 약리, CMC, 임상 프로토콜 초안을 같은 일정표로 묶어 관리해야 합니다." },
+  "IRB": { title: "IRB (기관생명윤리위원회)", desc: "인체대상연구의 윤리성과 안전성을 심의하는 위원회입니다.", category: "compliance", practice: "과제 개시 후 준비하면 전체 일정이 밀리기 쉬우므로 연구설계 확정 시점에 제출문서 초안을 같이 잡아두는 편이 좋습니다." },
+  "IACUC": { title: "IACUC (동물실험윤리위원회)", desc: "동물실험 계획의 윤리성과 적정성을 심의하는 위원회입니다.", category: "compliance", practice: "실험 시작 가능일은 승인일과 연동되므로 동물실험이 있는 과제는 평가 직후 바로 프로토콜 제출 준비가 들어가야 합니다." },
+  "IB": { title: "IB (Investigational Brochure)", desc: "임상개발 후보물질의 비임상/임상 정보를 정리한 자료집입니다.", category: "bioscience", practice: "IND 또는 임상 연계 과제에서는 단편 성과보다 IB 구성요소별 데이터 완결성을 중심으로 관리하는 편이 후속개발에 유리합니다." },
+  "MOA": { title: "MOA (기전, Mechanism of Action)", desc: "약물이나 기술이 작용하는 생물학적 메커니즘입니다.", category: "bioscience", practice: "평가자는 효능 데이터만이 아니라 MOA 설명 가능성을 봅니다. 바이오마커와 기전 검증 실험을 분리하지 말고 같이 설계해야 합니다." },
+  "POC": { title: "POC (Proof of Concept)", desc: "기술 또는 후보물질이 의도한 개념대로 작동함을 보여주는 초기 검증입니다.", category: "bioscience", practice: "POC는 보여주기용 결과가 아니라 다음 단계 투자판단 자료이므로 비교군, 반복수, 실패 기준까지 명확해야 합니다." },
+  "바이오마커": { title: "바이오마커", desc: "질환 상태, 약물반응, 독성 등을 측정할 수 있는 생물학적 지표입니다.", category: "bioscience", practice: "발견과 검증을 혼동하지 않도록 후보군 스크리닝 단계와 임상 적용 가능성 검증 단계를 구분해 일정화해야 합니다." },
+  "전임상": { title: "전임상", desc: "인체 적용 전 단계에서 수행하는 약리, 독성, 약동학 등 비임상 연구입니다.", category: "bioscience", practice: "전임상 과제는 실험 자체보다 시험기관 선정, 시험법 표준화, 결과 해석 기준이 일정에 더 큰 영향을 줍니다." },
+  "기술이전": { title: "기술이전", desc: "연구개발 성과를 외부 기관 또는 기업에 이전하여 활용하도록 하는 행위입니다.", category: "outcome", practice: "과제 종료 후 뒤늦게 찾기보다 수행 중 후보 수요처와 접촉 로그를 남겨두는 편이 실적화 가능성이 높습니다." },
+  "실시계약": { title: "실시계약", desc: "기술이전 또는 특허 활용을 위해 체결하는 상용화 계약입니다.", category: "outcome", practice: "기술료 조건만 볼 것이 아니라 독점/비독점, 성실실시, 성과보고 의무를 함께 검토해야 합니다." },
+  "국가연구개발혁신법 시행령": { title: "국가연구개발혁신법 시행령", desc: "혁신법 본문을 실제 운영 기준으로 구체화한 하위 법령입니다.", category: "compliance", practice: "현장 실무는 본법보다 시행령과 각 부처 지침에 직접 영향을 받는 경우가 많아, 판단이 애매하면 시행령 문구까지 같이 봐야 합니다." },
+  "보안과제": { title: "보안과제", desc: "연구 결과, 자료, 시스템 접근이 제한되는 보안등급 적용 과제입니다.", category: "compliance", practice: "보안과제는 단순 비공개가 아니라 저장매체, 협업도구, 발표자료 배포 범위까지 별도 통제가 필요합니다." },
+  "IP-R&D": { title: "IP-R&D", desc: "특허와 지식재산 전략을 연구개발 기획 및 수행과 병행하는 접근입니다.", category: "planning", practice: "경쟁특허 맵 없이 개발만 진행하면 성과 활용이 막히기 쉬우므로 FTO 검토와 특허 포지셔닝을 중간평가 전까지 잡아두는 편이 좋습니다." },
+  "FTO": { title: "FTO (Freedom To Operate)", desc: "기술 상용화 시 타인의 특허를 침해하지 않고 사업화 가능한지 검토하는 분석입니다.", category: "outcome", practice: "특히 바이오/의료기기 과제는 후속사업화 가능성을 묻기 때문에 FTO 방향성만이라도 기획 단계에 언급해 두면 신뢰도가 올라갑니다." }
+});
+
+const PHASE_CHECKLIST_ADDONS = {
+  p1: [
+    '관련 부처·전문기관 공고 일정과 정책 문서를 같은 폴더 체계로 정리했는가',
+    '이번 단계 산출물이 다음 단계 입력자료로 어떻게 넘어가는지 내부 담당자에게 설명 가능한가'
+  ],
+  p2: [
+    '평가자가 보는 공식 양식과 내부 작성본의 항목 순서가 일치하는가',
+    '마감일 기준이 아니라 기관 내부 결재·취합 마감 시점을 별도로 잡았는가'
+  ],
+  p3: [
+    '실행 중 변경 가능성이 높은 항목과 변경 승인 필요 항목을 구분했는가',
+    '증빙 파일, 원천데이터, 회의록 보관 위치를 팀 내에서 하나로 통일했는가'
+  ],
+  p4: [
+    '종료 후에도 남는 의무사항(성과등록, 기술료, 활용보고)을 일정표에 남겨두었는가',
+    '최종성과를 다음 과제 제안서에 재사용할 수 있도록 실적 문장을 정리했는가'
+  ]
+};
+
+const STAGE_CHECKLIST_ADDONS = {
+  'STEP 01': ['기관 보유기술이 국가 전략기술·부처 중점분야와 어디서 만나는지 한 장으로 정리했는가', '유관 부처의 중장기 계획, 기본계획, 시행계획을 최소 최근 2개 연도까지 비교했는가'],
+  'STEP 02': ['문제정의, 수요배경, 해결기술, 기대효과가 1페이지 안에서 이어지는 RFI 초안을 만들었는가', '제출 후 재활용할 수 있도록 RFI 문안을 차기 제안서 소재은행에 저장했는가'],
+  'STEP 03': ['기획위원 또는 외부 자문 접점이 있다면 질문 리스트와 메시지를 사전에 준비했는가', '사업 기획안에서 우리 기관이 반드시 맡아야 할 역할과 대체 가능한 역할을 분리했는가'],
+  'STEP 04': ['예타 대상 사업이라면 총사업비, 국비 비중, 연차 구조를 표로 정리했는가', '예타 통과 시 첫 공고가 나올 가능 시점을 기준으로 인력·파트너 준비 일정을 역산했는가'],
+  'STEP 05': ['증액·감액 시나리오별로 참여범위와 예산구조를 2안 이상 준비했는가', '다음 연도 공고 가능성이 높은 세부사업명을 예산안 기준으로 체크했는가'],
+  'STEP 06': ['RFP의 필수요건, 우대요건, 제출제한, 성과지표를 별도 표로 추출했는가', '설명회나 FAQ에서 나온 해석 이슈를 팀 전체와 공유했는가'],
+  'STEP 07': ['지원 적합성, 경쟁강도, 내부 자원, 파트너 가용성을 기준으로 Go/No-Go 회의를 했는가', '지원하기로 했다면 총괄 책임자와 문서 편집 책임자를 즉시 지정했는가'],
+  'STEP 08': ['기관별 역할, 예산, 인력투입, 산출물을 한 표에서 맞췄는가', '생명과학 과제라면 IRB·IACUC·GLP·GMP 등 후속 규제요건을 계획서 일정에 반영했는가'],
+  'STEP 09': ['IRIS 업로드용 파일명 규칙, 직인/서명본, PDF 변환본을 제출 전날까지 고정했는가', '마감 직전 시스템 오류를 대비해 내부 최종 제출 목표시점을 공식 마감보다 앞당겼는가'],
+  'STEP 10': ['평가표 기준으로 PT 목차를 재구성하고 예상 질의응답 문안을 준비했는가', '평가위원이 우려할 만한 리스크와 대응책을 한 장짜리 보조자료로 정리했는가'],
+  'STEP 11': ['삭감 예산 반영 후에도 연차 목표와 인력 구조가 유지되는지 다시 검산했는가', '협약 전 IP, 기술료, 성과 귀속, 데이터 활용 범위를 참여기관 간 문서로 합의했는가'],
+  'STEP 12': ['월별 마일스톤, 구매계획, 외주계약, 시험일정을 같은 캘린더에서 관리하고 있는가', '연구노트, 원천데이터, 증빙자료를 누가 언제 검토할지 운영규칙을 정했는가'],
+  'STEP 13': ['중간·연차평가 기준과 실제 누적 실적을 항목별로 대조했는가', '미달 우려 지표는 남은 기간 보완계획과 책임자를 붙여 설명 가능하게 만들었는가'],
+  'STEP 14': ['변경 전후 범위, 예산, 일정, 인력 차이를 비교표로 정리했는가', '변경승인 전에 집행하면 안 되는 항목을 팀 전체에 공지했는가'],
+  'STEP 15': ['최종보고서 서술 순서를 RFP 약속, 수행내용, 성과, 한계, 후속활용 순으로 정리했는가', 'NTIS/IRIS 등록 대상 성과와 비공개 처리 대상 성과를 구분했는가'],
+  'STEP 16': ['RCMS·회계증빙·계약서·검수서의 금액과 날짜가 상호 일치하는지 샘플 점검했는가', '부적정 집행 가능 항목을 종료 전에 선제 정리해 환수 리스크를 줄였는가'],
+  'STEP 17': ['성과활용보고서 제출 기한을 기관 공용 일정에 등록했는가', '기술이전·실시계약·후속과제 연결 가능 성과를 별도 목록으로 관리하고 있는가']
+};
+
+function dedupeChecklistItems(items) {
+  const seen = new Set();
+  return items.filter(item => {
+    const normalized = String(item || '').trim();
+    if (!normalized || seen.has(normalized)) return false;
+    seen.add(normalized);
+    return true;
+  });
+}
+
+function buildDetailedChecklist(stage) {
+  const items = [
+    ...(Array.isArray(stage.chk) ? stage.chk : []),
+    ...(PHASE_CHECKLIST_ADDONS[stage.p] || []),
+    ...(STAGE_CHECKLIST_ADDONS[stage.no] || [])
+  ];
+
+  if (stage.systems?.length) {
+    items.push(`사용 시스템(${stage.systems.join(', ')}) 접근 권한과 실제 메뉴 경로를 확인했는가`);
+  }
+  if (stage.attachments?.length) {
+    items.push(`제출·보관해야 할 산출물과 첨부문서(${stage.attachments.length}건)를 누락 없이 목록화했는가`);
+  }
+  if (stage.refs?.length) {
+    items.push('참고 지침, 매뉴얼, FAQ 해석이 내부 작성본과 충돌하지 않는지 확인했는가');
+  }
+  if (stage.eval?.length) {
+    items.push(`핵심 판단기준(${stage.eval.slice(0, 3).join(', ')})에 대한 증빙 논리를 준비했는가`);
+  }
+  if (stage.law || (stage.laws && stage.laws.length)) {
+    items.push('법령·지침상 필수 요건을 실제 문서와 운영 방식에 반영했는가');
+  }
+  if (stage.nextOwner) {
+    items.push(`다음 단계 담당(${stage.nextOwner})에게 넘길 자료와 인계 시점을 정의했는가`);
+  }
+  if (stage.caution?.length) {
+    items.push(`주요 리스크(${stage.caution[0]})에 대한 대응자와 우회경로를 정했는가`);
+  }
+
+  return dedupeChecklistItems(items);
+}
+
+function enhanceStageData() {
+  STAGES.forEach(stage => {
+    stage.chk = buildDetailedChecklist(stage);
+  });
+}
+
+enhanceStageData();
+
 function applyGlossaryMarkup(text) {
   if (typeof text !== 'string') return text;
   let temp = text;
@@ -3622,6 +3947,20 @@ function applyGlossaryMarkup(text) {
   return temp;
 }
 
+function getGlossaryCategoryLabel(item) {
+  return GLOSSARY_CATEGORY_LABELS[item.category] || GLOSSARY_CATEGORY_LABELS.common;
+}
+
+function getGlossarySearchBlob(key, item) {
+  return [
+    key,
+    item.title || '',
+    item.desc || '',
+    item.practice || '',
+    getGlossaryCategoryLabel(item)
+  ].join(' ').toLowerCase();
+}
+
 function setupGlossaryEvents() {
   const tooltip = document.getElementById('glossaryTooltip') || createTooltipElement();
   
@@ -3634,6 +3973,7 @@ function setupGlossaryEvents() {
         tooltip.innerHTML = `
           <div class="tooltip-title">${data.title}</div>
           <div class="tooltip-desc">${data.desc}</div>
+          ${data.practice ? `<div class="tooltip-desc" style="margin-top:8px;color:#cbd5e1;">실무 포인트: ${data.practice}</div>` : ''}
         `;
         tooltip.style.display = 'block';
         tooltip.style.opacity = '0';
@@ -3688,9 +4028,7 @@ function initGlossary() {
   document.getElementById('glossarySearchInput').addEventListener('input', e => {
     const q = e.target.value.toLowerCase().trim();
     const matchedKeys = Object.keys(GLOSSARY).filter(key => {
-      return key.toLowerCase().includes(q) || 
-             GLOSSARY[key].title.toLowerCase().includes(q) || 
-             GLOSSARY[key].desc.toLowerCase().includes(q);
+      return getGlossarySearchBlob(key, GLOSSARY[key]).includes(q);
     });
     renderGlossaryCards(matchedKeys);
   });
@@ -3708,6 +4046,11 @@ function renderGlossaryCards(keys) {
       <div class="glossary-card">
         <h4>${item.title}</h4>
         <p>${item.desc}</p>
+        <div class="glossary-meta">
+          <span class="glossary-tag">${getGlossaryCategoryLabel(item)}</span>
+          <span class="glossary-tag">${key}</span>
+        </div>
+        ${item.practice ? `<div class="glossary-practice">실무 포인트: ${item.practice}</div>` : ''}
       </div>
     `;
   }).join('');
