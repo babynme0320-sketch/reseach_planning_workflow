@@ -1969,6 +1969,39 @@ a {
     padding: 8px 20px 16px 20px; /* 핸들 바 아래 간격 최적화 */
   }
 }
+
+/* ---------- 보강: 심층 설명 / 법적 근거 / 참조 문서 ---------- */
+.detail-card { border-left: 4px solid var(--accent); }
+.detail-content { font-size: 14px; line-height: 1.75; color: var(--text); }
+.detail-content p { margin: 0 0 10px 0; }
+.detail-content p:last-child { margin-bottom: 0; }
+
+.legal-ref-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.law-list, .ref-list { display: flex; flex-direction: column; gap: 8px; }
+.law-item, .ref-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; border-radius: 10px;
+  background: var(--accent-soft); text-decoration: none;
+  border: 1px solid rgba(15,23,42,0.06); transition: transform .12s, box-shadow .12s;
+}
+.law-item:hover, .ref-item:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15,23,42,0.08); }
+.law-item-body, .ref-item-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.law-item-article { font-weight: 700; color: var(--accent); font-size: 13px; }
+.law-item-name, .ref-item-name { font-size: 13px; color: var(--text); word-break: keep-all; }
+.ref-item-type {
+  flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 999px; background: var(--accent); color: #fff; align-self: flex-start;
+}
+.ref-disclaimer { margin: 10px 0 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+@media (max-width: 768px) {
+  .legal-ref-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -2269,6 +2302,12 @@ a {
         </div>
       </div>
 
+      <!-- 심층 설명 (Deep Detail) -->
+      <div class="box detail-card" id="stepDetailCard" style="display:none;">
+        <h5>📘 단계 심층 설명</h5>
+        <div class="detail-content" id="stepDetailContent"></div>
+      </div>
+
       <!-- Flow Diagram (모식도) -->
       <div class="flow-diagram-card">
         <div class="flow-diagram-title">
@@ -2311,6 +2350,19 @@ a {
       <div class="box eval-box" id="stepEvalBox">
         <h5>🔎 심사·평가 관점 (평가위원이 보는 것)</h5>
         <div class="eval-chips" id="stepEvalChips"></div>
+      </div>
+
+      <!-- 법적 근거 & 참조 문서 -->
+      <div class="legal-ref-grid">
+        <div class="box law-list-card" id="stepLawsCard" style="display:none;">
+          <h5>⚖️ 법적 근거 (관련 법령·조항)</h5>
+          <div class="law-list" id="stepLawsList"></div>
+          <p class="ref-disclaimer">※ 조항·내용은 AI 초안입니다. 적용 전 담당자가 law.go.kr 원문으로 정확성을 확인하세요.</p>
+        </div>
+        <div class="box ref-list-card" id="stepRefsCard" style="display:none;">
+          <h5>🔗 참조 문서 (서식·법령·운영요령·양식)</h5>
+          <div class="ref-list" id="stepRefsList"></div>
+        </div>
       </div>
 
       <!-- Best vs Mistake Comparison Card -->
@@ -2388,6 +2440,16 @@ const STAGES = [
    bestPractice: '부처별 5개년 기본계획과 예산 심의 동향을 모니터링하여 내년도 신규 사업 키워드를 연구소 내부 세미나로 선제 정의함.',
    commonMistake: '당해 연도 공고가 뜬 직후에야 기술 개발 기획을 시작하여 매칭 펀드 확보 및 인력 구성 시간 부족으로 포기함.',
    diagram: {input: "정부 중장기 정책 로드맵", output: "기본계획 수립 & 투자순위 확정"},
+   detail: "이 단계는 개별 과제가 아니라 향후 수년간의 R&D 투자 '판'이 짜이는 시기다. 정부는 「과학기술기본법」에 따라 5년 단위 과학기술기본계획을 세우고, 각 부처는 이를 받아 분야별 중장기 R&D 전략과 투자 우선순위를 정한다. 수주자 입장에서 이 흐름은 '아직 공고가 없는' 시기지만, 바로 여기서 미래 공고의 키워드와 예산 규모의 윤곽이 결정된다.\n\n실무적으로는 관심 부처의 기본계획·예타 통과 사업·예산 배분 동향을 정기적으로 모니터링하는 것이 핵심이다. 우리 기관의 보유 기술이 어떤 국가전략기술·중점분야에 매핑되는지 1줄로 정리해 두면, 이후 수요조사(RFI)·기획(RFP) 단계에서 빠르게 포지셔닝할 수 있다.\n\n주의할 점은 이 단계의 정보가 대부분 '공고' 형태가 아니라 계획서·보도자료·국회 예산자료 형태로 흩어져 있다는 것이다. 따라서 알림 구독과 내부 세미나 등 선제적 정보 수집 체계가 경쟁력의 출발점이 된다.",
+   laws: [
+     {name: "국가연구개발혁신법", article: "제6조 (국가연구개발 5개년 계획 등)", url: "https://www.law.go.kr/법령/국가연구개발혁신법"},
+     {name: "과학기술기본법", article: "제7조 (과학기술기본계획의 수립)", url: "https://www.law.go.kr/법령/과학기술기본법"}
+   ],
+   refs: [
+     {type: "법령", name: "국가연구개발혁신법 원문 (law.go.kr)", url: "https://www.law.go.kr/법령/국가연구개발혁신법"},
+     {type: "운영요령", name: "제5차 과학기술기본계획(2023~2027)", url: "https://www.ntis.go.kr"},
+     {type: "운영요령", name: "12대 국가전략기술 육성 기본계획", url: "https://www.msit.go.kr"}
+   ],
    attachments: [{name: "제5차 과학기술기본계획(2023-2027).pdf", size: "3.2MB"}, {name: "12대 국가전략기술 육성기본계획.pdf", size: "2.1MB"}]},
 
   {p:'p1', no:'STEP 02', title:'기술수요조사 (RFI)', law:'제7조', owner:'부처 / 전문기관 → 산·학·연 대상', dur:'매년 상·하반기',
@@ -2854,6 +2916,47 @@ function renderStepDetail(idx) {
     lawBasis.onclick = null;
   }
   
+  // 심층 설명 (detail) — 있을 때만 렌더
+  const detailCard = document.getElementById('stepDetailCard');
+  if (s.detail) {
+    detailCard.style.display = 'block';
+    const paras = Array.isArray(s.detail) ? s.detail : String(s.detail).split('\n\n');
+    document.getElementById('stepDetailContent').innerHTML =
+      paras.filter(p => p.trim()).map(p => `<p>${applyGlossaryMarkup(p.trim())}</p>`).join('');
+  } else {
+    detailCard.style.display = 'none';
+  }
+
+  // 법적 근거 (laws[]) — 있을 때만 렌더
+  const lawsCard = document.getElementById('stepLawsCard');
+  if (Array.isArray(s.laws) && s.laws.length) {
+    lawsCard.style.display = 'block';
+    document.getElementById('stepLawsList').innerHTML = s.laws.map(l => `
+      <a class="law-item" href="${l.url || '#'}" target="_blank" rel="noopener">
+        <div class="law-item-body">
+          <span class="law-item-article">${l.article || ''}</span>
+          <span class="law-item-name">${l.name || ''}</span>
+        </div>
+      </a>`).join('');
+  } else {
+    lawsCard.style.display = 'none';
+  }
+
+  // 참조 문서 (refs[]) — 있을 때만 렌더
+  const refsCard = document.getElementById('stepRefsCard');
+  if (Array.isArray(s.refs) && s.refs.length) {
+    refsCard.style.display = 'block';
+    document.getElementById('stepRefsList').innerHTML = s.refs.map(r => `
+      <a class="ref-item" href="${r.url || '#'}" target="_blank" rel="noopener">
+        <span class="ref-item-type">${r.type || '문서'}</span>
+        <div class="ref-item-body">
+          <span class="ref-item-name">${r.name || ''}</span>
+        </div>
+      </a>`).join('');
+  } else {
+    refsCard.style.display = 'none';
+  }
+
   // Best vs Mistake
   document.getElementById('stepBestPractice').innerHTML = applyGlossaryMarkup(s.bestPractice || '');
   document.getElementById('stepCommonMistake').innerHTML = applyGlossaryMarkup(s.commonMistake || '');
