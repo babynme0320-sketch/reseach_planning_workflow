@@ -18,11 +18,15 @@ Every agent must read this file before planning, editing, implementing, reviewin
 
 Never assume you are the only agent working on this project.
 
+The canonical coordination board for this repository is the repo-root file `AGENT_STATUS.md`.
+
+If an agent is working from a parent folder, copied template, or another checkout, that agent must still read and update this repository's own `AGENT_STATUS.md` before editing files here.
+
 Before doing any work:
 
 1. Read `START_HERE.md`
 2. Read `MULTI_AGENT_COORDINATION.md`
-3. Read `AGENT_STATUS.md` if it exists
+3. Read the repo-root `AGENT_STATUS.md`
 4. Read `tasks.md` and `execution_plan.md` if they exist
 5. Check whether another agent is already working on the same task or file
 
@@ -118,6 +122,15 @@ Avoid:
 All agents should use `AGENT_STATUS.md` as the shared coordination board.
 
 If `AGENT_STATUS.md` does not exist, create it before implementation.
+
+`AGENT_STATUS.md` must live in the repository root and be treated as the single source of truth for:
+
+- active agents
+- file ownership
+- task assignment
+- blockers and user decisions
+
+Do not keep a separate status board outside this repository for active work happening inside this repository.
 
 Required structure:
 
@@ -254,6 +267,8 @@ If the user has already explicitly assigned the task, the agent may proceed afte
 
 If task ownership is unclear, ask before editing.
 
+Every agent must also update the corresponding row in `AGENT_STATUS.md` before editing files so the other agents can see current ownership in real time.
+
 ---
 
 # 7. Work Completion Protocol
@@ -372,6 +387,7 @@ After any meaningful work:
 - Update `README.md` if usage changed
 - Update `review_report.md` only during review
 - Do not silently change requirements or scope
+- If your task or file ownership changes mid-task, update `AGENT_STATUS.md` immediately rather than waiting until the end
 
 ---
 
@@ -409,6 +425,8 @@ The agent must then summarize:
 - Which agent is doing what
 - What files are currently owned
 - What the safest next action is
+
+Before making edits, that agent must claim its files in the repo-root `AGENT_STATUS.md`.
 
 ---
 

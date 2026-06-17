@@ -14,6 +14,8 @@ You are not allowed to immediately start coding.
 
 Read all applicable files if they exist.
 
+Before any edit, check the repo-root `AGENT_STATUS.md` and confirm that no other agent currently owns the files you plan to touch. If the file does not exist, create it first.
+
 Priority order:
 
 1. START_HERE.md
