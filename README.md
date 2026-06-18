@@ -2,6 +2,17 @@
 
 Claude Code, Codex CLI, Google Antigravity를 같은 프로젝트 운영 방식으로 쓰기 위한 템플릿입니다.
 
+## lifecycle.html 실행 방법
+
+`lifecycle.html`은 검색 기능에서 JSON 인덱스를 `fetch()`로 불러옵니다. 브라우저 보안 정책상
+파일을 더블클릭해서 `file://`로 직접 열면 `fetch()`가 차단되어 검색이 동작하지 않습니다.
+
+대신 `run_server.bat`을 더블클릭하세요.
+
+1. `reseach_planning_workflow/run_server.bat` 파일을 더블클릭합니다.
+2. 로컬 서버(127.0.0.1:8765)가 콘솔 창에서 실행되고, 기본 브라우저로 `lifecycle.html`이 자동으로 열립니다.
+3. 사용이 끝나면 콘솔 창을 닫아서 서버를 종료합니다.
+
 ## 핵심 구조
 
 ```text
