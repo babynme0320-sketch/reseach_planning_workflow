@@ -446,6 +446,130 @@ a {
   font-size: 13px;
   font-weight: 700;
 }
+
+/* ===== Literature Review Board ===== */
+.lit-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+.lit-side-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 1100px) {
+  .lit-columns-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .lit-columns-grid, .lit-side-grid { grid-template-columns: 1fr; }
+}
+.lit-column {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lit-column-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.lit-column-form { display: flex; flex-direction: column; gap: 6px; }
+.lit-column-form input,
+.lit-column-form textarea {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 12.5px;
+  resize: vertical;
+}
+.lit-column-add-btn {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.lit-column-add-btn:hover { background: var(--accent); color: #fff; }
+.lit-card-list { display: flex; flex-direction: column; gap: 8px; }
+.lit-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: rgba(15, 23, 42, 0.02);
+  position: relative;
+}
+.lit-card-title { font-size: 12.5px; font-weight: 700; color: var(--ink); padding-right: 18px; }
+.lit-card-source { font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 2px; }
+.lit-card-note { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.lit-card-delete {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+}
+.lit-card-delete:hover { color: var(--danger); }
+.lit-empty-hint { font-size: 12px; color: var(--muted); }
+
+/* ===== IRB/Regulation Hub ===== */
+.irb-breadcrumb { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.irb-breadcrumb-item {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.irb-question-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+.irb-answer-btn {
+  padding: 10px 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.irb-answer-btn:hover { border-color: var(--accent); color: var(--accent); }
+.irb-law-chip {
+  display: inline-block;
+  padding: 5px 11px;
+  margin: 0 6px 6px 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(15,23,42,0.08);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.irb-law-chip:hover { text-decoration: underline; }
+
 .studytype-chip {
   display: inline-block;
   padding: 5px 11px;
@@ -2133,6 +2257,70 @@ a {
   transform: translateY(0);
 }
 
+.modal-card.doc-viewer-card {
+  width: 92vw;
+  max-width: 1100px;
+  height: 90vh;
+}
+
+.doc-viewer-card .modal-body {
+  flex: 1;
+  padding: 0;
+  display: flex;
+}
+
+.doc-viewer-card iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.legal-doc-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.legal-doc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+}
+
+.legal-doc-item-name {
+  font-size: 0.92em;
+  line-height: 1.35;
+}
+
+.legal-doc-item-type {
+  display: inline-block;
+  font-size: 0.78em;
+  color: var(--text-secondary, #666);
+  margin-bottom: 2px;
+}
+
+.legal-doc-open-btn {
+  flex-shrink: 0;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.85em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.legal-doc-open-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
 .modal-header {
   padding: 16px 20px;
   border-bottom: 1px solid var(--line);
@@ -2440,11 +2628,31 @@ a {
         <span class="nav-item-text">연구 질문 캔버스</span>
       </button>
 
+      <button type="button" class="nav-item global-tab" data-tab="litboard">
+        <span class="nav-item-icon" aria-hidden="true">📑</span>
+        <span class="nav-item-text">문헌조사 보드</span>
+      </button>
+
       <button type="button" class="nav-item global-tab" data-tab="risks">
         <span class="nav-item-icon" aria-hidden="true">🛡️</span>
         <span class="nav-item-text">제안서 선제 대응표</span>
       </button>
       
+      <button type="button" class="nav-item global-tab" data-tab="irbhub">
+        <span class="nav-item-icon" aria-hidden="true">🧬</span>
+        <span class="nav-item-text">IRB/규제 체크 허브</span>
+      </button>
+
+      <button type="button" class="nav-item global-tab" data-tab="proposal">
+        <span class="nav-item-icon" aria-hidden="true">📝</span>
+        <span class="nav-item-text">연구계획서 초안 생성기</span>
+      </button>
+
+      <button type="button" class="nav-item global-tab" data-tab="budget">
+        <span class="nav-item-icon" aria-hidden="true">💰</span>
+        <span class="nav-item-text">예산·인력·일정·리스크</span>
+      </button>
+
       <button type="button" class="nav-item global-tab" data-tab="sources">
         <span class="nav-item-icon" aria-hidden="true">🔗</span>
         <span class="nav-item-text">참고 자료 및 법령</span>
@@ -2684,8 +2892,18 @@ a {
 
       <div class="table-card" style="margin-top: 24px;">
         <div class="table-header">
+          <h3>📂 법령·매뉴얼 문서함 (전체 문서 보기)</h3>
+          <p>국가연구개발혁신법·시행령·2026년도 매뉴얼(본권/별권/신구대비표) 11종 PDF 전체를 프로그램 화면 안에서 바로 펼쳐 읽을 수 있습니다.</p>
+        </div>
+        <div style="padding: 24px;">
+          <div class="legal-doc-list" id="legalDocList"></div>
+        </div>
+      </div>
+
+      <div class="table-card" style="margin-top: 24px;">
+        <div class="table-header">
           <h3>📚 법령·매뉴얼 원문 검색</h3>
-          <p>국가연구개발혁신법·시행령·2026년도 매뉴얼(본권/별권/신구대비표) 11종 PDF 원문을 검색합니다. 검색 결과를 클릭하면 해당 PDF의 해당 페이지가 새 창으로 열립니다.</p>
+          <p>국가연구개발혁신법·시행령·2026년도 매뉴얼(본권/별권/신구대비표) 11종 PDF 원문을 검색합니다. 검색 결과를 클릭하면 화면 안에서 바로 해당 페이지를 열어 볼 수 있습니다.</p>
           <div class="search-wrapper" style="margin-top: 14px; max-width: 400px;">
             <span class="search-icon">🔍</span>
             <input type="text" class="search-input" id="legalSearchInput" placeholder="예: 기술료, 납부, 제재처분...">
@@ -3013,6 +3231,146 @@ a {
       </div>
     </div>
 
+    <!-- 3-b. Literature Review Board View -->
+    <div class="view-container" id="view-litboard">
+      <section class="hero">
+        <div class="eyebrow">Bio Research Planning · 문헌조사 보드</div>
+        <h1>선행연구를 <b>5가지 관점</b>으로 정리</h1>
+        <p>표준지식·핵심근거·모순지점·미충족질문·기획함의로 나눠 기록하면 우리 연구가 채워야 할 지식공백이 보입니다. 경쟁연구·실패사례는 별도로 분리해 관리합니다. 모든 입력은 이 브라우저에만 저장됩니다.</p>
+      </section>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:18px; font-weight:800; margin-bottom:14px;">🗂️ 문헌조사 5컬럼 보드</h3>
+        <div class="lit-columns-grid" id="litColumnsGrid"></div>
+      </div>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:14px;">⚔️ 경쟁연구 · 실패사례</h3>
+        <div class="lit-side-grid" id="litSideGrid"></div>
+      </div>
+
+      <div class="table-card" style="padding:20px 24px; margin-bottom:28px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:10px;">🕳️ 지식공백 요약</h3>
+        <textarea id="litGapSummary" class="canvas-input" rows="4" placeholder="문헌조사를 통해 아직 답이 없다고 판단한 지식공백을 정리하세요."></textarea>
+      </div>
+    </div>
+
+    <!-- 3-c. IRB / Regulation Hub View -->
+    <div class="view-container" id="view-irbhub">
+      <section class="hero">
+        <div class="eyebrow">Bio Research Planning · IRB/규제 체크 허브</div>
+        <h1>몇 가지 질문으로 <b>필요한 규제 절차</b>를 확인하세요</h1>
+        <p>연구 대상에 따라 IRB·IACUC 심의 여부와 관련 법령이 달라집니다. 질문에 답하면 분기별 체크리스트와 법령 근거를 안내합니다.</p>
+      </section>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <div id="irbBreadcrumb" class="irb-breadcrumb"></div>
+        <div id="irbHubBody"></div>
+      </div>
+
+      <div class="foot-disclaimer">
+        ※ 본 체크 허브는 일반적인 절차를 교육·기획용으로 안내합니다. 실제 IRB 심의 필요 여부와 절차는 소속 기관 IRB·생명윤리위원회의 최종 판단을 따라야 합니다.
+      </div>
+    </div>
+
+    <!-- 3-d. Proposal Draft Generator View -->
+    <div class="view-container" id="view-proposal">
+      <section class="hero">
+        <div class="eyebrow">Bio Research Planning · 연구계획서 초안 생성기</div>
+        <h1>캔버스 입력으로 <b>연구계획서 초안</b>을 한 번에</h1>
+        <p>연구 질문 캔버스와 문헌조사 보드에 입력한 내용을 재사용해 Specific Aims·목차·통계계획을 포함한 7섹션 초안을 생성합니다.</p>
+      </section>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:4px;">📋 캔버스에서 가져온 값</h3>
+        <p style="font-size:12.5px; color:var(--muted); margin-bottom:14px; font-weight:500;">아래 값은 `연구 질문 캔버스` 탭의 입력을 그대로 보여줍니다(읽기 전용). 수정하려면 캔버스 탭으로 이동하세요.</p>
+        <div id="proposalCanvasSummary" class="lit-card-list"></div>
+      </div>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:14px;">➕ 초안 전용 입력</h3>
+        <div class="canvas-field">
+          <label class="canvas-label" for="pp-proposalDuration">연구 기간</label>
+          <input type="text" class="canvas-input" id="pp-proposalDuration" placeholder="예: 2026.07 ~ 2027.06 (12개월)">
+        </div>
+        <div class="canvas-field">
+          <label class="canvas-label" for="pp-proposalStatMethod">통계분석 방법</label>
+          <textarea class="canvas-input" id="pp-proposalStatMethod" rows="2" placeholder="예: 독립표본 t-검정, 양측 검정, 유의수준 0.05"></textarea>
+        </div>
+      </div>
+
+      <div class="table-card" style="padding:24px; margin-bottom:28px;">
+        <h3 style="font-family:'Outfit'; font-size:18px; font-weight:800; margin-bottom:12px;">📄 연구계획서 초안</h3>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+          <button type="button" class="canvas-btn canvas-btn-primary" id="genProposalDraft">연구계획서 초안 생성하기</button>
+          <button type="button" class="canvas-btn" id="copyProposalDraft">복사</button>
+          <button type="button" class="canvas-btn" id="downloadProposalTxt">.txt 다운로드</button>
+          <button type="button" class="canvas-btn" id="downloadProposalMd">.md 다운로드</button>
+        </div>
+        <textarea id="proposalOutput" class="canvas-input" rows="20" readonly placeholder="‘연구계획서 초안 생성하기’를 누르면 여기에 초안이 생성됩니다." style="font-family:'Inter',monospace; font-size:13px; line-height:1.7;"></textarea>
+      </div>
+
+      <div class="foot-disclaimer">
+        ※ 이 초안은 자동 생성본입니다. 통계·IRB·규제 담당자 검토 전 최종본이 아닙니다.
+      </div>
+    </div>
+
+    <!-- 3-e. Budget / Manpower / Timeline / Risk Panel View -->
+    <div class="view-container" id="view-budget">
+      <section class="hero">
+        <div class="eyebrow">Bio Research Planning · 예산·인력·일정·리스크</div>
+        <h1>연구비·참여인력·마일스톤·리스크를 <b>한 화면에서 관리</b></h1>
+        <p>비목별 예산, 참여인력 R&amp;R, 연차별 마일스톤, 리스크 레지스터를 등록하고 관리합니다.</p>
+      </section>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:14px;">💰 예산 (비목별)</h3>
+        <div class="lit-column-form" style="max-width:480px; margin-bottom:14px;">
+          <select id="bp-budget-category"></select>
+          <input type="number" id="bp-budget-amount" placeholder="금액(만원)" min="0">
+          <input type="text" id="bp-budget-note" placeholder="비고(선택)">
+          <button type="button" class="lit-column-add-btn" id="bp-budget-add">+ 추가</button>
+        </div>
+        <div id="bp-budget-list"></div>
+        <div id="budgetTotalSummary" style="margin-top:14px;"></div>
+      </div>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:14px;">👥 참여인력 (R&amp;R)</h3>
+        <div class="lit-column-form" style="max-width:480px; margin-bottom:14px;">
+          <input type="text" id="bp-manpower-role" placeholder="역할(예: 연구책임자)">
+          <input type="text" id="bp-manpower-name" placeholder="이름(선택)">
+          <input type="number" id="bp-manpower-fte" placeholder="참여율 FTE(0~1)" min="0" max="1" step="0.1">
+          <input type="text" id="bp-manpower-period" placeholder="참여기간(선택)">
+          <button type="button" class="lit-column-add-btn" id="bp-manpower-add">+ 추가</button>
+        </div>
+        <div id="bp-manpower-list"></div>
+      </div>
+
+      <div class="table-card" style="padding:24px; margin-bottom:24px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:14px;">📅 일정 (마일스톤)</h3>
+        <div class="lit-column-form" style="max-width:480px; margin-bottom:14px;">
+          <input type="text" id="bp-timeline-when" placeholder="시점(예: 1년차 3개월)">
+          <input type="text" id="bp-timeline-milestone" placeholder="마일스톤">
+          <input type="text" id="bp-timeline-deliverable" placeholder="산출물(선택)">
+          <button type="button" class="lit-column-add-btn" id="bp-timeline-add">+ 추가</button>
+        </div>
+        <div id="bp-timeline-list"></div>
+      </div>
+
+      <div class="table-card" style="padding:24px; margin-bottom:28px;">
+        <h3 style="font-family:'Outfit'; font-size:16px; font-weight:800; margin-bottom:14px;">⚠️ 리스크 레지스터</h3>
+        <div class="lit-column-form" style="max-width:480px; margin-bottom:14px;">
+          <input type="text" id="bp-risk-risk" placeholder="리스크 내용">
+          <select id="bp-risk-probability"></select>
+          <select id="bp-risk-impact"></select>
+          <textarea id="bp-risk-mitigation" rows="2" placeholder="완화 계획(선택)"></textarea>
+          <button type="button" class="lit-column-add-btn" id="bp-risk-add">+ 추가</button>
+        </div>
+        <div id="bp-risk-list"></div>
+      </div>
+    </div>
+
     <!-- 4. Dynamic Step View Template -->
     <div class="view-container" id="view-step">
       <!-- Header Card -->
@@ -3138,6 +3496,19 @@ a {
     </div>
     <div class="modal-footer">
       <button class="modal-confirm-btn" id="lawModalConfirmBtn">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- Legal/Manual PDF Full Document Viewer Modal -->
+<div class="modal-overlay" id="docViewerOverlay" aria-hidden="true">
+  <div class="modal-card doc-viewer-card" role="dialog" aria-modal="true" aria-labelledby="docViewerTitle" tabindex="-1">
+    <div class="modal-header">
+      <h4 id="docViewerTitle">문서 보기</h4>
+      <button class="modal-close-btn" id="docViewerCloseBtn" aria-label="문서 보기 닫기">×</button>
+    </div>
+    <div class="modal-body">
+      <iframe id="docViewerFrame" title="법령·매뉴얼 PDF 뷰어"></iframe>
     </div>
   </div>
 </div>
@@ -3566,10 +3937,16 @@ const STUDY_TYPES = {
 document.addEventListener('DOMContentLoaded', () => {
   initLocalStorage();
   initCanvas();
+  initLitBoard();
+  initIrbHub();
+  initProposal();
+  initBudgetPanel();
   renderNavigation();
   initDashboard();
   initRisks();
   initSources();
+  renderLegalDocList();
+  setupDocViewerEvents();
   setupLegalSearchListeners();
   initGlossary();
   injectReadinessSupplements();
@@ -3679,11 +4056,13 @@ function refreshCanvasUI() {
   renderCanvasWarnings();
 }
 
+// 텍스트 매칭 공용 헬퍼: evaluateCanvas, evaluateAdvancedAlignment에서 공유
+const lc = s => (s || '').toLowerCase();
+const has = (s, arr) => arr.some(k => lc(s).includes(k.toLowerCase()));
+
 // 순수 함수: 입력 상태 -> 경고 배열
 function evaluateCanvas(state) {
   const warns = [];
-  const lc = s => (s || '').toLowerCase();
-  const has = (s, arr) => arr.some(k => lc(s).includes(k.toLowerCase()));
 
   const COMPARE = ['대비','보다','대조','비교','versus','vs','compared'];
   const MEASURE = ['율','률','%','퍼센트','점수','score','크기','농도','수치','시간','생존','발현','ic50','roc','민감도','특이도','수준','변화'];
@@ -3739,10 +4118,84 @@ function evaluateCanvas(state) {
   return warns.sort((a, b) => a.id.localeCompare(b.id));
 }
 
+/* ===== 심화 정렬 검사기 (SPEC 03, A-01~A-06) ===== */
+const ALIGNMENT_KEYWORDS = {
+  basic: ['기전'],
+  nonclinical: ['효능', '독성', '기전'],
+  clinical: ['안전성', '유효성'],
+  observational: ['연관성', '예후', '패턴'],
+  diagnostic: ['정확도', '민감도', '특이도', '유용성'],
+  industrial: ['전환', '제품', '서비스', '상업']
+};
+const PCT_UNIT_WORDS = ['%', '퍼센트', '율', '률'];
+const TIME_UNIT_WORDS = ['주', '개월', '년', '일', '시간'];
+
+function evaluateAdvancedAlignment(state, litBoardState) {
+  const warns = [];
+  const unitCategory = s => {
+    if (has(s, PCT_UNIT_WORDS)) return 'pct';
+    if (has(s, TIME_UNIT_WORDS)) return 'time';
+    return null;
+  };
+
+  // A-01: 성공 기준 단위가 1차 결과변수 단위 계열과 다름
+  if (state.primaryOutcome && state.successCriteria) {
+    const outCat = unitCategory(state.primaryOutcome);
+    const critCat = unitCategory(state.successCriteria);
+    if (outCat && critCat && outCat !== critCat) {
+      warns.push({ id: 'A-01', severity: 'info',
+        message: '성공 기준의 단위가 1차 결과변수의 측정 단위와 다르게 보입니다. 결과변수와 같은 단위로 합격선을 표현하세요.' });
+    }
+  }
+
+  // A-02: 연구 질문이 선택한 유형의 핵심 키워드와 거리가 있음
+  if (state.studyType && ALIGNMENT_KEYWORDS[state.studyType] && state.researchQuestion && state.researchQuestion.trim()) {
+    const keywords = ALIGNMENT_KEYWORDS[state.studyType];
+    if (!has(state.researchQuestion, keywords)) {
+      const label = (STUDY_TYPES[state.studyType] || {}).label || state.studyType;
+      warns.push({ id: 'A-02', severity: 'info',
+        message: `연구 질문이 선택한 유형(${label})의 핵심 질문과 거리가 있어 보입니다. 유형에 맞는 핵심 질문을 참고해 보세요.` });
+    }
+  }
+
+  // A-03: 임상/비임상인데 주요 리스크 미기입
+  if ((state.studyType === 'clinical' || state.studyType === 'nonclinical') && !(state.mainRisk && state.mainRisk.trim())) {
+    warns.push({ id: 'A-03', severity: 'warn',
+      message: '임상/비임상 연구는 주요 리스크 식별이 필수적입니다. 가장 큰 실패 가능성을 적어주세요.' });
+  }
+
+  // A-04: 비임상인데 Go/No-Go 기준 미기입
+  if (state.studyType === 'nonclinical' && !(state.goNoGo && state.goNoGo.trim())) {
+    warns.push({ id: 'A-04', severity: 'warn',
+      message: '비임상 연구는 다음 단계(임상/추가 검증) 진입 여부를 가를 Go/No-Go 기준이 필요합니다.' });
+  }
+
+  // A-05: 2차 결과변수가 1차 결과변수와 동일
+  if (state.primaryOutcome && state.secondaryOutcomes) {
+    const norm = s => lc(s).trim();
+    const primaryNorm = norm(state.primaryOutcome);
+    const secondaryList = String(state.secondaryOutcomes).split(',').map(norm).filter(Boolean);
+    if (secondaryList.includes(primaryNorm)) {
+      warns.push({ id: 'A-05', severity: 'info',
+        message: '2차 결과변수가 1차 결과변수와 동일합니다. 서로 다른 지표를 보완적으로 선택하세요.' });
+    }
+  }
+
+  // A-06: 문헌조사 보드의 지식공백이 아직 정리되지 않음 (읽기 전용 참조)
+  const gapList = (litBoardState && litBoardState.columns && Array.isArray(litBoardState.columns.gap)) ? litBoardState.columns.gap : [];
+  const gapSummary = (litBoardState && typeof litBoardState.gapSummary === 'string') ? litBoardState.gapSummary : '';
+  if (!gapList.length && !gapSummary.trim()) {
+    warns.push({ id: 'A-06', severity: 'info',
+      message: '문헌조사 보드에 아직 지식공백이 정리되지 않았습니다. 문헌조사 보드에서 미충족질문을 먼저 정리하면 연구 질문을 더 다듬을 수 있습니다.' });
+  }
+
+  return warns.sort((a, b) => a.id.localeCompare(b.id));
+}
+
 function renderCanvasWarnings() {
   const box = document.getElementById('canvasWarnings');
   if (!box) return;
-  const warns = evaluateCanvas(canvasState);
+  const warns = [...evaluateCanvas(canvasState), ...evaluateAdvancedAlignment(canvasState, litBoardState)];
   if (!warns.length) {
     box.innerHTML = '<div class="canvas-ok-badge">✅ 기본 정합성 점검 통과</div>';
     return;
@@ -3863,16 +4316,22 @@ function copyConceptNote() {
   } else { out.select(); document.execCommand('copy'); done(); }
 }
 
-function downloadConceptNote(ext) {
-  const content = buildConceptNote(ext === 'md' ? 'md' : 'text');
-  const name = (canvasState.projectName && canvasState.projectName.trim())
-    ? canvasState.projectName.trim().replace(/[\\/:*?"<>|]/g, '_') : '연구컨셉노트';
+// 공용 텍스트 다운로드 헬퍼: 컨셉노트/연구계획서 초안이 함께 사용
+function downloadTextFile(content, filename, ext) {
+  const safeName = filename.replace(/[\\/:*?"<>|]/g, '_');
   const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = `${name}.${ext}`;
+  a.href = url; a.download = `${safeName}.${ext}`;
   document.body.appendChild(a); a.click();
   document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+function downloadConceptNote(ext) {
+  const content = buildConceptNote(ext === 'md' ? 'md' : 'text');
+  const name = (canvasState.projectName && canvasState.projectName.trim())
+    ? canvasState.projectName.trim() : '연구컨셉노트';
+  downloadTextFile(content, name, ext);
 }
 
 function resetCanvas() {
@@ -3884,8 +4343,614 @@ function resetCanvas() {
   refreshCanvasUI();
 }
 
+/* ===== Proposal Draft Generator (SPEC 05) ===== */
+const PROPOSAL_FIELDS = ['proposalDuration', 'proposalStatMethod'];
+let proposalState = {};
+
+function defaultProposalState() {
+  return { proposalDuration: '', proposalStatMethod: '', updatedAt: '' };
+}
+
+function initProposal() {
+  try {
+    const raw = localStorage.getItem('rd_proposal_state');
+    proposalState = raw ? JSON.parse(raw) : defaultProposalState();
+  } catch (e) { proposalState = defaultProposalState(); }
+  PROPOSAL_FIELDS.forEach(f => { if (!(f in proposalState)) proposalState[f] = ''; });
+
+  PROPOSAL_FIELDS.forEach(f => {
+    const el = document.getElementById('pp-' + f);
+    if (!el) return;
+    el.value = proposalState[f] || '';
+    el.addEventListener('input', () => {
+      proposalState[f] = el.value;
+      saveProposalState();
+    });
+  });
+
+  document.getElementById('genProposalDraft').addEventListener('click', () => {
+    document.getElementById('proposalOutput').value = buildProposalDraft('text');
+  });
+  document.getElementById('copyProposalDraft').addEventListener('click', copyProposalDraft);
+  document.getElementById('downloadProposalTxt').addEventListener('click', () => downloadProposalDraft('txt'));
+  document.getElementById('downloadProposalMd').addEventListener('click', () => downloadProposalDraft('md'));
+}
+
+function saveProposalState() {
+  proposalState.updatedAt = new Date().toISOString();
+  localStorage.setItem('rd_proposal_state', JSON.stringify(proposalState));
+}
+
+// 캔버스 탭으로 이동해야 수정 가능 — 여기서는 읽기 전용으로만 참조
+function refreshProposalUI() {
+  PROPOSAL_FIELDS.forEach(f => {
+    const el = document.getElementById('pp-' + f);
+    if (el) el.value = proposalState[f] || '';
+  });
+  renderProposalCanvasSummary();
+}
+
+function renderProposalCanvasSummary() {
+  const box = document.getElementById('proposalCanvasSummary');
+  if (!box) return;
+  const s = canvasState;
+  const v = x => (x && String(x).trim()) ? String(x).trim() : '(미작성)';
+  const typeLabel = (s.studyType && STUDY_TYPES[s.studyType]) ? STUDY_TYPES[s.studyType].label : '(미선택)';
+  const rows = [
+    ['프로젝트명', v(s.projectName)], ['연구 질문', v(s.researchQuestion)], ['가설', v(s.hypothesis)],
+    ['대상/모델', v(s.subjectModel)], ['비교군', v(s.comparator)], ['연구 유형', typeLabel],
+    ['1차 결과변수', v(s.primaryOutcome)], ['성공 기준', v(s.successCriteria)]
+  ];
+  box.innerHTML = rows.map(([label, value]) => `
+    <div class="lit-card">
+      <div class="lit-card-title">${escapeHtml(label)}</div>
+      <div class="lit-card-note">${escapeHtml(value)}</div>
+    </div>
+  `).join('');
+}
+
+function buildProposalDraft(format) {
+  const s = canvasState;
+  const v = x => (x && String(x).trim()) ? String(x).trim() : '(미작성)';
+  const typeInfo = (s.studyType && STUDY_TYPES[s.studyType]) ? STUDY_TYPES[s.studyType] : null;
+  const typeLabel = typeInfo ? typeInfo.label : '(연구 유형 미선택)';
+  const coreQuestion = typeInfo ? typeInfo.coreQuestion : '(연구 유형 미선택)';
+  const gapSummary = (litBoardState && litBoardState.gapSummary && litBoardState.gapSummary.trim())
+    ? litBoardState.gapSummary.trim()
+    : '(문헌조사 보드 미작성 — 문헌조사 보드 탭에서 먼저 정리 권장)';
+  const statMethod = (proposalState.proposalStatMethod && proposalState.proposalStatMethod.trim())
+    ? proposalState.proposalStatMethod.trim() : '(미작성 — 통계 담당자와 상의 필요)';
+  const duration = (proposalState.proposalDuration && proposalState.proposalDuration.trim())
+    ? proposalState.proposalDuration.trim() : '(미작성)';
+
+  const empty = Object.entries(CANVAS_REQUIRED).filter(([k]) => !(s[k] && s[k].trim())).map(([, label]) => label);
+
+  const sections = [
+    `# 연구계획서 초안 — ${v(s.projectName)}`,
+    `## 1. Specific Aims\n${v(s.researchQuestion)} 에 대한 가설(${v(s.hypothesis)})을 ${v(s.subjectModel)}에서 ${v(s.comparator)} 대비 검증한다.\n1차 결과변수: ${v(s.primaryOutcome)}. 성공 기준: ${v(s.successCriteria)}.`,
+    `## 2. 목차\n1. 서론 및 배경\n2. 연구 목적 및 가설\n3. 연구 방법 (${typeLabel})\n4. 통계분석 계획\n5. 예상 결과 및 의의\n6. 연구 일정\n7. 참고문헌`,
+    `## 3. 연구 배경 (문헌조사 보드 연계)\n지식공백: ${gapSummary}`,
+    `## 4. 연구 방법 개요\n대상/모델: ${v(s.subjectModel)} · 비교군: ${v(s.comparator)}\n유형: ${typeLabel} — 핵심 질문: ${coreQuestion}`,
+    `## 5. 통계분석 계획 (초안)\n1차 결과변수(${v(s.primaryOutcome)})를 비교군(${v(s.comparator)})과 비교하여 성공 기준(${v(s.successCriteria)}) 충족 여부를 검정한다.\n통계 방법: ${statMethod}`,
+    `## 6. 연구 일정\n${duration}`,
+    `## 7. 주요 리스크 및 Go/No-Go\n주요 리스크: ${v(s.mainRisk)}\n다음 단계 Go/No-Go 기준: ${v(s.goNoGo)}`
+  ];
+
+  const footer = '이 초안은 자동 생성본입니다. 통계·IRB·규제 담당자 검토 전 최종본이 아닙니다.';
+  const warningNote = empty.length ? `미완성 초안 — 캔버스의 빈 필수 항목: ${empty.join(', ')}` : '';
+
+  if (format === 'md') {
+    const warningMd = warningNote ? `> ⚠️ **${warningNote}**\n\n` : '';
+    return warningMd + sections.join('\n\n') + `\n\n_${footer}_\n`;
+  }
+  const warningTxt = warningNote ? `⚠️ ${warningNote}\n\n` : '';
+  return warningTxt + sections.join('\n\n') + `\n\n(${footer})`;
+}
+
+function copyProposalDraft() {
+  const out = document.getElementById('proposalOutput');
+  if (!out.value) out.value = buildProposalDraft('text');
+  const text = out.value;
+  const done = () => { const b = document.getElementById('copyProposalDraft'); const o = b.textContent; b.textContent = '복사됨!'; setTimeout(() => b.textContent = o, 1500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => { out.select(); document.execCommand('copy'); done(); });
+  } else { out.select(); document.execCommand('copy'); done(); }
+}
+
+function downloadProposalDraft(ext) {
+  const content = buildProposalDraft(ext === 'md' ? 'md' : 'text');
+  const name = (canvasState.projectName && canvasState.projectName.trim())
+    ? canvasState.projectName.trim() : '연구계획서초안';
+  downloadTextFile(content, name, ext);
+}
+
+/* ===== Budget / Manpower / Timeline / Risk Panel (SPEC 06) ===== */
+const BUDGET_CATEGORIES = ['인건비', '장비비', '재료비', '위탁비', '간접비'];
+const RISK_LEVELS = ['낮음', '중간', '높음'];
+
+let budgetPanelState = {};
+
+function defaultBudgetPanelState() {
+  return { budgetItems: [], manpowerItems: [], timelineItems: [], riskItems: [], updatedAt: '' };
+}
+
+function initBudgetPanel() {
+  try {
+    const raw = localStorage.getItem('rd_budget_panel_state');
+    budgetPanelState = raw ? JSON.parse(raw) : defaultBudgetPanelState();
+  } catch (e) { budgetPanelState = defaultBudgetPanelState(); }
+  ['budgetItems', 'manpowerItems', 'timelineItems', 'riskItems'].forEach(k => {
+    if (!Array.isArray(budgetPanelState[k])) budgetPanelState[k] = [];
+  });
+
+  const fillOptions = (selectId, options) => {
+    const sel = document.getElementById(selectId);
+    if (!sel || sel.options.length) return;
+    options.forEach(opt => {
+      const o = document.createElement('option');
+      o.value = opt; o.textContent = opt;
+      sel.appendChild(o);
+    });
+  };
+  fillOptions('bp-budget-category', BUDGET_CATEGORIES);
+  fillOptions('bp-risk-probability', RISK_LEVELS);
+  fillOptions('bp-risk-impact', RISK_LEVELS);
+
+  document.getElementById('bp-budget-add').addEventListener('click', addBudgetItem);
+  document.getElementById('bp-manpower-add').addEventListener('click', addManpowerItem);
+  document.getElementById('bp-timeline-add').addEventListener('click', addTimelineItem);
+  document.getElementById('bp-risk-add').addEventListener('click', addRiskItem);
+}
+
+function saveBudgetPanelState() {
+  budgetPanelState.updatedAt = new Date().toISOString();
+  localStorage.setItem('rd_budget_panel_state', JSON.stringify(budgetPanelState));
+}
+
+function makeBudgetId() {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
+function addBudgetItem() {
+  const category = document.getElementById('bp-budget-category').value;
+  const amountEl = document.getElementById('bp-budget-amount');
+  const amount = Number(amountEl.value);
+  if (!category || !amountEl.value || Number.isNaN(amount) || amount < 0) { amountEl.focus(); return; }
+  const note = document.getElementById('bp-budget-note').value.trim();
+  budgetPanelState.budgetItems.push({ id: makeBudgetId(), category, amount, note });
+  amountEl.value = ''; document.getElementById('bp-budget-note').value = '';
+  saveBudgetPanelState();
+  renderBudgetPanel();
+}
+
+function addManpowerItem() {
+  const roleEl = document.getElementById('bp-manpower-role');
+  const role = roleEl.value.trim();
+  if (!role) { roleEl.focus(); return; }
+  const name = document.getElementById('bp-manpower-name').value.trim();
+  const fte = Number(document.getElementById('bp-manpower-fte').value) || 0;
+  const period = document.getElementById('bp-manpower-period').value.trim();
+  budgetPanelState.manpowerItems.push({ id: makeBudgetId(), role, name, fte, period });
+  roleEl.value = '';
+  document.getElementById('bp-manpower-name').value = '';
+  document.getElementById('bp-manpower-fte').value = '';
+  document.getElementById('bp-manpower-period').value = '';
+  saveBudgetPanelState();
+  renderBudgetPanel();
+}
+
+function addTimelineItem() {
+  const milestoneEl = document.getElementById('bp-timeline-milestone');
+  const milestone = milestoneEl.value.trim();
+  if (!milestone) { milestoneEl.focus(); return; }
+  const when = document.getElementById('bp-timeline-when').value.trim();
+  const deliverable = document.getElementById('bp-timeline-deliverable').value.trim();
+  budgetPanelState.timelineItems.push({ id: makeBudgetId(), when, milestone, deliverable });
+  document.getElementById('bp-timeline-when').value = '';
+  milestoneEl.value = '';
+  document.getElementById('bp-timeline-deliverable').value = '';
+  saveBudgetPanelState();
+  renderBudgetPanel();
+}
+
+function addRiskItem() {
+  const riskEl = document.getElementById('bp-risk-risk');
+  const risk = riskEl.value.trim();
+  if (!risk) { riskEl.focus(); return; }
+  const probability = document.getElementById('bp-risk-probability').value;
+  const impact = document.getElementById('bp-risk-impact').value;
+  const mitigation = document.getElementById('bp-risk-mitigation').value.trim();
+  budgetPanelState.riskItems.push({ id: makeBudgetId(), risk, probability, impact, mitigation });
+  riskEl.value = '';
+  document.getElementById('bp-risk-mitigation').value = '';
+  saveBudgetPanelState();
+  renderBudgetPanel();
+}
+
+function deleteBudgetRow(section, id) {
+  const list = budgetPanelState[section];
+  const idx = list.findIndex(item => item.id === id);
+  if (idx !== -1) list.splice(idx, 1);
+  saveBudgetPanelState();
+  renderBudgetPanel();
+}
+
+// 카드 1개를 렌더링하는 공용 템플릿: 제목/부가정보/삭제 버튼
+function budgetCardHtml(section, id, titleHtml, noteHtml) {
+  return `
+    <div class="lit-card">
+      <button type="button" class="lit-card-delete" data-budget-delete="${section}|${id}" aria-label="삭제">✕</button>
+      <div class="lit-card-title">${titleHtml}</div>
+      ${noteHtml ? `<div class="lit-card-note">${noteHtml}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderBudgetList(listId, section, items, emptyText, buildCard) {
+  const box = document.getElementById(listId);
+  if (!box) return;
+  if (!items.length) { box.innerHTML = `<p class="lit-empty-hint">${emptyText}</p>`; return; }
+  box.innerHTML = `<div class="lit-card-list">${items.map(buildCard).join('')}</div>`;
+  box.querySelectorAll('[data-budget-delete]').forEach(btn => {
+    const [sec, id] = btn.dataset.budgetDelete.split('|');
+    btn.addEventListener('click', () => deleteBudgetRow(sec, id));
+  });
+}
+
+function renderBudgetTotalSummary() {
+  const box = document.getElementById('budgetTotalSummary');
+  if (!box) return;
+  const items = budgetPanelState.budgetItems;
+  if (!items.length) { box.innerHTML = ''; return; }
+  const byCategory = {};
+  let total = 0;
+  items.forEach(it => {
+    byCategory[it.category] = (byCategory[it.category] || 0) + it.amount;
+    total += it.amount;
+  });
+  const chips = Object.entries(byCategory)
+    .map(([cat, sum]) => `<span class="studytype-chip">${escapeHtml(cat)}: ${sum.toLocaleString()}만원</span>`)
+    .join('');
+  box.innerHTML = `<div>${chips}</div><div style="margin-top:8px; font-weight:800;">총합계: ${total.toLocaleString()}만원</div>`;
+}
+
+function renderBudgetPanel() {
+  renderBudgetList('bp-budget-list', 'budgetItems', budgetPanelState.budgetItems, '아직 등록된 예산 항목이 없습니다.', item =>
+    budgetCardHtml('budgetItems', item.id,
+      `${escapeHtml(item.category)} · ${item.amount.toLocaleString()}만원`,
+      item.note ? escapeHtml(item.note) : '')
+  );
+  renderBudgetTotalSummary();
+
+  renderBudgetList('bp-manpower-list', 'manpowerItems', budgetPanelState.manpowerItems, '아직 등록된 참여인력이 없습니다.', item =>
+    budgetCardHtml('manpowerItems', item.id,
+      `${escapeHtml(item.role)}${item.name ? ' · ' + escapeHtml(item.name) : ''}${item.fte ? ' · FTE ' + item.fte : ''}`,
+      item.period ? escapeHtml(item.period) : '')
+  );
+
+  renderBudgetList('bp-timeline-list', 'timelineItems', budgetPanelState.timelineItems, '아직 등록된 일정이 없습니다.', item =>
+    budgetCardHtml('timelineItems', item.id,
+      `${item.when ? escapeHtml(item.when) + ' · ' : ''}${escapeHtml(item.milestone)}`,
+      item.deliverable ? escapeHtml(item.deliverable) : '')
+  );
+
+  renderBudgetList('bp-risk-list', 'riskItems', budgetPanelState.riskItems, '아직 등록된 리스크가 없습니다.', item =>
+    budgetCardHtml('riskItems', item.id,
+      `${escapeHtml(item.risk)} <span class="studytype-chip">발생가능성: ${escapeHtml(item.probability)}</span><span class="studytype-chip" style="background:rgba(220,38,38,0.08); color:var(--danger);">영향도: ${escapeHtml(item.impact)}</span>`,
+      item.mitigation ? escapeHtml(item.mitigation) : '')
+  );
+}
+
+/* ===== Literature Review Board ===== */
+const LIT_COLUMNS = [
+  { key: 'standard', label: '표준지식' },
+  { key: 'evidence', label: '핵심근거' },
+  { key: 'contradiction', label: '모순지점' },
+  { key: 'gap', label: '미충족질문' },
+  { key: 'implication', label: '기획함의' }
+];
+const LIT_SIDE = [
+  { key: 'competitors', label: '경쟁연구' },
+  { key: 'failures', label: '실패사례' }
+];
+
+let litBoardState = {};
+
+function defaultLitBoardState() {
+  const columns = {};
+  LIT_COLUMNS.forEach(c => { columns[c.key] = []; });
+  return { columns, competitors: [], failures: [], gapSummary: '', updatedAt: '' };
+}
+
+function initLitBoard() {
+  try {
+    const raw = localStorage.getItem('rd_lit_board_state');
+    litBoardState = raw ? JSON.parse(raw) : defaultLitBoardState();
+  } catch (e) { litBoardState = defaultLitBoardState(); }
+
+  const def = defaultLitBoardState();
+  if (!litBoardState.columns) litBoardState.columns = {};
+  LIT_COLUMNS.forEach(c => { if (!Array.isArray(litBoardState.columns[c.key])) litBoardState.columns[c.key] = []; });
+  LIT_SIDE.forEach(s => { if (!Array.isArray(litBoardState[s.key])) litBoardState[s.key] = []; });
+  if (typeof litBoardState.gapSummary !== 'string') litBoardState.gapSummary = '';
+
+  const gapInput = document.getElementById('litGapSummary');
+  if (gapInput) {
+    gapInput.value = litBoardState.gapSummary;
+    gapInput.addEventListener('input', () => {
+      litBoardState.gapSummary = gapInput.value;
+      saveLitBoardState();
+    });
+  }
+}
+
+function saveLitBoardState() {
+  litBoardState.updatedAt = new Date().toISOString();
+  localStorage.setItem('rd_lit_board_state', JSON.stringify(litBoardState));
+}
+
+function getLitList(group, key) {
+  return group === 'column' ? litBoardState.columns[key] : litBoardState[key];
+}
+
+function addLitCard(group, key) {
+  const prefix = group === 'column' ? `litcol-${key}` : `litside-${key}`;
+  const titleEl = document.getElementById(`${prefix}-title`);
+  const sourceEl = document.getElementById(`${prefix}-source`);
+  const noteEl = document.getElementById(`${prefix}-note`);
+  const title = (titleEl?.value || '').trim();
+  if (!title) { titleEl?.focus(); return; }
+
+  const card = { id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, title, note: (noteEl?.value || '').trim() };
+  if (group === 'column') card.source = (sourceEl?.value || '').trim();
+
+  getLitList(group, key).push(card);
+  saveLitBoardState();
+
+  if (titleEl) titleEl.value = '';
+  if (sourceEl) sourceEl.value = '';
+  if (noteEl) noteEl.value = '';
+  renderLitBoard();
+}
+
+function deleteLitCard(group, key, id) {
+  const list = getLitList(group, key);
+  const idx = list.findIndex(c => c.id === id);
+  if (idx !== -1) list.splice(idx, 1);
+  saveLitBoardState();
+  renderLitBoard();
+}
+
+function renderLitCardList(group, key) {
+  const list = getLitList(group, key);
+  if (!list.length) return '<p class="lit-empty-hint">아직 입력된 항목이 없습니다.</p>';
+  return `<div class="lit-card-list">${list.map(c => `
+    <div class="lit-card">
+      <button type="button" class="lit-card-delete" data-lit-delete="${group}|${key}|${c.id}" aria-label="삭제">✕</button>
+      <div class="lit-card-title">${escapeHtml(c.title)}</div>
+      ${c.source ? `<div class="lit-card-source">${escapeHtml(c.source)}</div>` : ''}
+      ${c.note ? `<div class="lit-card-note">${escapeHtml(c.note)}</div>` : ''}
+    </div>
+  `).join('')}</div>`;
+}
+
+function renderLitColumnCard(group, item) {
+  const prefix = group === 'column' ? `litcol-${item.key}` : `litside-${item.key}`;
+  const sourceField = group === 'column' ? `<input type="text" id="${prefix}-source" placeholder="출처(저자/연도/저널 등)">` : '';
+  return `
+    <div class="lit-column">
+      <div class="lit-column-title">${escapeHtml(item.label)}</div>
+      <div class="lit-column-form">
+        <input type="text" id="${prefix}-title" placeholder="제목/요지">
+        ${sourceField}
+        <textarea id="${prefix}-note" rows="2" placeholder="메모"></textarea>
+        <button type="button" class="lit-column-add-btn" data-lit-add="${group}|${item.key}">+ 추가</button>
+      </div>
+      ${renderLitCardList(group, item.key)}
+    </div>
+  `;
+}
+
+function renderLitBoard() {
+  const columnsGrid = document.getElementById('litColumnsGrid');
+  const sideGrid = document.getElementById('litSideGrid');
+  if (!columnsGrid || !sideGrid) return;
+
+  columnsGrid.innerHTML = LIT_COLUMNS.map(c => renderLitColumnCard('column', c)).join('');
+  sideGrid.innerHTML = LIT_SIDE.map(s => renderLitColumnCard('side', s)).join('');
+
+  columnsGrid.querySelectorAll('[data-lit-add]').forEach(btn => {
+    const [group, key] = btn.dataset.litAdd.split('|');
+    btn.addEventListener('click', () => addLitCard(group, key));
+  });
+  sideGrid.querySelectorAll('[data-lit-add]').forEach(btn => {
+    const [group, key] = btn.dataset.litAdd.split('|');
+    btn.addEventListener('click', () => addLitCard(group, key));
+  });
+
+  [columnsGrid, sideGrid].forEach(grid => {
+    grid.querySelectorAll('[data-lit-delete]').forEach(btn => {
+      const [group, key, id] = btn.dataset.litDelete.split('|');
+      btn.addEventListener('click', () => deleteLitCard(group, key, id));
+    });
+  });
+}
+
 function escapeHtml(str) {
   return String(str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+}
+
+/* ===== IRB / Regulation Hub (SPEC 04) ===== */
+const IRB_FLOW = {
+  start: 'q1',
+  questions: {
+    q1: { text: '연구 대상이 사람인가요?', yes: 'q2', no: 'q3' },
+    q2: { text: '연구자가 직접 개입(시술/투여/검사/설문/인터뷰)하나요?', yes: 'humanIntervention', no: 'humanDataOnly' },
+    q3: { text: '동물을 대상으로 하나요?', yes: 'animal', no: 'none' }
+  }
+};
+
+const IRB_LEAVES = {
+  humanIntervention: {
+    label: '사람 대상 · 직접 개입',
+    notice: 'IRB 심의가 필수이며 연구대상자 동의서가 필요합니다.',
+    checklist: [
+      'IRB(기관위원회) 심의 신청',
+      '동의서·설명문 작성',
+      '임상시험인 경우 IND/식약처 별도 검토 확인',
+      '개인정보 수집 시 안전성 확보조치 적용'
+    ],
+    laws: ['생명윤리법 제15조', '생명윤리법 제16조', '개인정보보호법 제15조']
+  },
+  humanDataOnly: {
+    label: '사람 대상 · 기존 데이터/인체유래물만 활용',
+    notice: 'IRB의 면제 심사를 포함한 심의가 필요할 수 있습니다.',
+    checklist: [
+      'IRB에 면제 심사 신청',
+      '동의 면제 요건 검토',
+      '인체유래물은행 이용 시 별도 동의 확인',
+      '데이터 비식별화 조치 적용'
+    ],
+    laws: ['생명윤리법 제15조', '개인정보보호법 제15조']
+  },
+  animal: {
+    label: '동물 대상',
+    notice: '동물실험윤리위원회(IACUC) 승인이 필요합니다.',
+    checklist: [
+      'IACUC 승인 신청',
+      '3R 원칙(Replacement·Reduction·Refinement) 검토',
+      '사육시설 기준 준수 확인'
+    ],
+    laws: ['동물보호법 제47조']
+  },
+  none: {
+    label: '사람/동물 직접 대상 아님',
+    notice: '별도 IRB·IACUC 절차가 불필요할 가능성이 높습니다. 다만 소속 기관 정책을 재확인하세요.',
+    checklist: [
+      '소속 기관의 자체 정책 재확인',
+      '공개 데이터 활용 시 출처·라이선스 확인',
+      '연구윤리 자가점검 체크'
+    ],
+    laws: []
+  }
+};
+
+let irbState = {};
+
+function defaultIrbState() {
+  return { answers: {}, leaf: null, checklist: {}, updatedAt: '' };
+}
+
+function initIrbHub() {
+  try {
+    const raw = localStorage.getItem('rd_irb_state');
+    irbState = raw ? JSON.parse(raw) : defaultIrbState();
+  } catch (e) { irbState = defaultIrbState(); }
+  if (!irbState.answers) irbState.answers = {};
+  if (!irbState.checklist) irbState.checklist = {};
+}
+
+function saveIrbState() {
+  irbState.updatedAt = new Date().toISOString();
+  localStorage.setItem('rd_irb_state', JSON.stringify(irbState));
+}
+
+function answerIrbQuestion(qId, answer) {
+  irbState.answers[qId] = answer;
+  const q = IRB_FLOW.questions[qId];
+  const next = answer === 'yes' ? q.yes : q.no;
+  if (IRB_FLOW.questions[next]) {
+    irbState.leaf = null;
+  } else {
+    irbState.leaf = next;
+    if (!Array.isArray(irbState.checklist[next])) {
+      irbState.checklist[next] = new Array(IRB_LEAVES[next].checklist.length).fill(false);
+    }
+  }
+  saveIrbState();
+  renderIrbHub();
+}
+
+function resetIrbFlow() {
+  irbState.answers = {};
+  irbState.leaf = null;
+  saveIrbState();
+  renderIrbHub();
+}
+
+function toggleIrbCheck(leaf, idx) {
+  if (!Array.isArray(irbState.checklist[leaf])) return;
+  irbState.checklist[leaf][idx] = !irbState.checklist[leaf][idx];
+  saveIrbState();
+  renderIrbHub();
+}
+
+// 답변 기록을 따라가며 현재 멈춰 있는 질문 ID를 찾는다. 없으면(=리프 도달) null.
+function currentIrbQuestionId() {
+  let qId = IRB_FLOW.start;
+  while (IRB_FLOW.questions[qId] && irbState.answers[qId] !== undefined) {
+    const q = IRB_FLOW.questions[qId];
+    const next = irbState.answers[qId] === 'yes' ? q.yes : q.no;
+    if (!IRB_FLOW.questions[next]) return null;
+    qId = next;
+  }
+  return IRB_FLOW.questions[qId] ? qId : null;
+}
+
+function renderIrbHub() {
+  const breadcrumb = document.getElementById('irbBreadcrumb');
+  const body = document.getElementById('irbHubBody');
+  if (!breadcrumb || !body) return;
+
+  breadcrumb.innerHTML = Object.entries(irbState.answers).map(([qId, ans]) => {
+    const q = IRB_FLOW.questions[qId];
+    if (!q) return '';
+    const label = ans === 'yes' ? '예' : '아니오';
+    return `<span class="irb-breadcrumb-item">${escapeHtml(q.text)} → ${label}</span>`;
+  }).join('');
+
+  if (irbState.leaf && IRB_LEAVES[irbState.leaf]) {
+    const leafKey = irbState.leaf;
+    const leaf = IRB_LEAVES[leafKey];
+    const checks = irbState.checklist[leafKey] || [];
+    body.innerHTML = `
+      <div class="caution-card">
+        <h5>🧬 ${escapeHtml(leaf.label)}</h5>
+        <p style="font-size:13px; color:#78350f; font-weight:600; margin-bottom:12px;">${escapeHtml(leaf.notice)}</p>
+        <ul class="studytype-check">
+          ${leaf.checklist.map((c, i) => `
+            <li>
+              <label style="display:flex; gap:8px; align-items:flex-start; cursor:pointer;">
+                <input type="checkbox" data-irb-check="${i}" ${checks[i] ? 'checked' : ''}>
+                <span>${escapeHtml(c)}</span>
+              </label>
+            </li>`).join('')}
+        </ul>
+        ${leaf.laws.length ? `<div style="margin-top:14px;">${leaf.laws.map(k => `<span class="irb-law-chip" data-irb-law="${escapeHtml(k)}">📖 ${escapeHtml(k)}</span>`).join('')}</div>` : ''}
+      </div>
+      <button type="button" class="canvas-btn" id="irbResetBtn">처음부터 다시</button>
+    `;
+    body.querySelectorAll('[data-irb-check]').forEach(input => {
+      input.addEventListener('change', () => toggleIrbCheck(leafKey, Number(input.dataset.irbCheck)));
+    });
+    body.querySelectorAll('[data-irb-law]').forEach(chip => {
+      chip.addEventListener('click', () => showLawModal(chip.dataset.irbLaw));
+    });
+    document.getElementById('irbResetBtn').addEventListener('click', resetIrbFlow);
+    return;
+  }
+
+  const qId = currentIrbQuestionId();
+  if (!qId) { resetIrbFlow(); return; }
+  const q = IRB_FLOW.questions[qId];
+  body.innerHTML = `
+    <div class="irb-question-text">${escapeHtml(q.text)}</div>
+    <button type="button" class="irb-answer-btn" data-irb-answer="yes">예</button>
+    <button type="button" class="irb-answer-btn" data-irb-answer="no">아니오</button>
+  `;
+  body.querySelectorAll('[data-irb-answer]').forEach(btn => {
+    btn.addEventListener('click', () => answerIrbQuestion(qId, btn.dataset.irbAnswer));
+  });
 }
 
 /* ===== Render Left Navigation ===== */
@@ -3973,6 +5038,30 @@ function switchView(viewName) {
     activeTab.setAttribute('aria-current', 'page');
     document.getElementById('view-canvas').classList.add('active');
     refreshCanvasUI();
+  } else if (viewName === 'litboard') {
+    const activeTab = document.querySelector('.nav-item[data-tab="litboard"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
+    document.getElementById('view-litboard').classList.add('active');
+    renderLitBoard();
+  } else if (viewName === 'irbhub') {
+    const activeTab = document.querySelector('.nav-item[data-tab="irbhub"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
+    document.getElementById('view-irbhub').classList.add('active');
+    renderIrbHub();
+  } else if (viewName === 'proposal') {
+    const activeTab = document.querySelector('.nav-item[data-tab="proposal"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
+    document.getElementById('view-proposal').classList.add('active');
+    refreshProposalUI();
+  } else if (viewName === 'budget') {
+    const activeTab = document.querySelector('.nav-item[data-tab="budget"]');
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-current', 'page');
+    document.getElementById('view-budget').classList.add('active');
+    renderBudgetPanel();
   } else if (viewName === 'risks') {
     const activeTab = document.querySelector('.nav-item[data-tab="risks"]');
     activeTab.classList.add('active');
@@ -4480,6 +5569,87 @@ function initSources() {
   });
 }
 
+/* ===== Legal/Manual PDF Document List ===== */
+const LEGAL_DOCS = [
+  { doc: "국가연구개발혁신법(법률)(제21421호)(20260611)", type: "법률" },
+  { doc: "국가연구개발혁신법 시행령(대통령령)(제36291호)(20260611)", type: "시행령" },
+  { doc: "붙임1.[본권] 26년도 국가연구개발혁신법 매뉴얼", type: "매뉴얼(본권)" },
+  { doc: "붙임2.[별권1] 26년도 학생인건비통합관리 제도 매뉴얼", type: "매뉴얼(별권1)" },
+  { doc: "붙임3.[별권2] 26년도 국가연구개발사업 기술료제도 매뉴얼", type: "매뉴얼(별권2)" },
+  { doc: "붙임4.[별권3] 26년도 국가연구개발사업 제재처분 가이드라인", type: "매뉴얼(별권3)" },
+  { doc: "붙임5.[별권4] 26년도 연구시설·장비비 통합관리제 운영·관리 매뉴얼", type: "매뉴얼(별권4)" },
+  { doc: "붙임6.[신구대비표] 26년도 혁신법 매뉴얼(본권)", type: "신구대비표(본권)" },
+  { doc: "붙임7.[신구대비표] 26년도 혁신법 매뉴얼(별권1-학생인건비)", type: "신구대비표(별권1)" },
+  { doc: "붙임8.[신구대비표] 26년도 혁신법 매뉴얼(별권3-제재처분)", type: "신구대비표(별권3)" },
+  { doc: "붙임9.[신구대비표] 26년도 혁신법 매뉴얼(별권4-연구시설·장비비)", type: "신구대비표(별권4)" }
+];
+
+function renderLegalDocList() {
+  const list = document.getElementById('legalDocList');
+  if (!list) return;
+  list.innerHTML = LEGAL_DOCS.map((d, i) => `
+    <div class="legal-doc-item">
+      <div>
+        <span class="legal-doc-item-type">${d.type}</span>
+        <div class="legal-doc-item-name">${d.doc}</div>
+      </div>
+      <button type="button" class="legal-doc-open-btn" data-doc-index="${i}">전체보기</button>
+    </div>
+  `).join('');
+
+  list.querySelectorAll('.legal-doc-open-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const entry = LEGAL_DOCS[Number(btn.dataset.docIndex)];
+      if (entry) openDocViewer(entry.doc, 1);
+    });
+  });
+}
+
+let lastDocViewerFocusedElement = null;
+
+function openDocViewer(docName, page) {
+  const overlay = document.getElementById('docViewerOverlay');
+  const frame = document.getElementById('docViewerFrame');
+  const title = document.getElementById('docViewerTitle');
+  if (!overlay || !frame) return;
+
+  lastDocViewerFocusedElement = document.activeElement;
+  title.innerText = docName;
+  frame.src = encodeURI(`법령, 매뉴얼/${docName}.pdf`) + `#page=${page || 1}`;
+
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  window.requestAnimationFrame(() => {
+    document.getElementById('docViewerCloseBtn')?.focus();
+  });
+}
+
+function closeDocViewer() {
+  const overlay = document.getElementById('docViewerOverlay');
+  const frame = document.getElementById('docViewerFrame');
+  if (!overlay) return;
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  if (frame) frame.src = '';
+  if (lastDocViewerFocusedElement && typeof lastDocViewerFocusedElement.focus === 'function') {
+    lastDocViewerFocusedElement.focus();
+  }
+}
+
+function setupDocViewerEvents() {
+  const overlay = document.getElementById('docViewerOverlay');
+  const closeBtn = document.getElementById('docViewerCloseBtn');
+  if (!overlay || !closeBtn) return;
+
+  closeBtn.addEventListener('click', closeDocViewer);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeDocViewer();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeDocViewer();
+  });
+}
+
 /* ===== Legal/Manual PDF Full-text Search ===== */
 let LEGAL_INDEX = null;
 let legalIndexLoadPromise = null;
@@ -4548,17 +5718,27 @@ function renderLegalSearchResults(results, query) {
     return;
   }
 
-  container.innerHTML = results.slice(0, 30).map(r => {
+  container.innerHTML = results.slice(0, 30).map((r) => {
     const pdfPath = encodeURI(`법령, 매뉴얼/${r.doc}.pdf`) + `#page=${r.page}`;
     return `
-      <a class="ref-item" href="${pdfPath}" target="_blank" rel="noopener" style="display:block; margin-bottom:10px;">
+      <div class="ref-item" style="display:block; margin-bottom:10px;">
         <span class="ref-item-type">${r.type || '문서'} · ${r.page}p</span>
         <div class="ref-item-body">
           <span class="ref-item-name">${r.doc}</span>
           <p style="margin:4px 0 0; font-size:0.9em; color:var(--text-secondary,#666);">${r.snippet}</p>
+          <div style="margin-top:8px; display:flex; gap:8px;">
+            <button type="button" class="legal-doc-open-btn">📖 여기서 전체보기</button>
+            <a href="${pdfPath}" target="_blank" rel="noopener" style="font-size:0.85em; align-self:center;">새 탭에서 열기 ↗</a>
+          </div>
         </div>
-      </a>`;
+      </div>`;
   }).join('');
+
+  container.querySelectorAll('.legal-doc-open-btn').forEach((btn, i) => {
+    const r = results[i];
+    if (!r) return;
+    btn.addEventListener('click', () => openDocViewer(r.doc, r.page));
+  });
 }
 
 function runLegalSearch(query) {
@@ -4711,7 +5891,7 @@ function handleRouting(route) {
     if (idx >= 0 && idx < STAGES.length) {
       selectStep(idx);
     }
-  } else if (['dashboard', 'canvas', 'risks', 'sources', 'glossary', 'orgchart', 'timeline', 'readiness'].includes(route)) {
+  } else if (['dashboard', 'canvas', 'litboard', 'irbhub', 'proposal', 'budget', 'risks', 'sources', 'glossary', 'orgchart', 'timeline', 'readiness'].includes(route)) {
     switchView(route);
   }
 }
@@ -5641,6 +6821,22 @@ const LAW_DATABASE = {
   "국가재정법 제38조": {
     title: "국가재정법 제38조 (예비타당성조사)",
     summary: "기재부 장관은 총사업비 500억원 이상이고 국가 재정 지원 규모가 300억원 이상인 대형 신규 사업(R&D 포함)에 대해 예산 편성에 앞서 기술적·정책적·경제성 타당성을 검증하는 예비타당성조사를 실시하여야 합니다."
+  },
+  "생명윤리법 제15조": {
+    title: "생명윤리 및 안전에 관한 법률 제15조 (기관위원회의 설치 및 운영 등)",
+    summary: "인간대상연구 또는 인체유래물연구를 수행하려는 기관은 기관위원회(IRB)를 설치하거나 다른 기관의 위원회에 연구계획서 심의를 위탁하여야 합니다. 위원회는 연구의 윤리적·과학적 타당성을 심의합니다."
+  },
+  "생명윤리법 제16조": {
+    title: "생명윤리 및 안전에 관한 법률 제16조 (인간대상연구의 동의)",
+    summary: "인간대상연구자는 연구대상자로부터 연구의 목적·방법·위험성 등을 충분히 설명한 후 서면 동의를 받아야 합니다. 일정 요건을 충족하는 경우 기관위원회의 심의를 거쳐 동의 면제가 가능합니다."
+  },
+  "개인정보보호법 제15조": {
+    title: "개인정보보호법 제15조 (개인정보의 수집·이용)",
+    summary: "개인정보처리자는 정보주체의 동의를 받거나 법령에 근거가 있는 경우 등에 한해 개인정보를 수집·이용할 수 있습니다. 연구 목적의 가명처리 정보 활용 등은 관련 특례 규정을 함께 검토하여야 합니다."
+  },
+  "동물보호법 제47조": {
+    title: "동물보호법 제47조 (동물실험윤리위원회의 설치 등)",
+    summary: "동물실험을 수행하는 기관은 동물실험윤리위원회(IACUC)를 설치하여 실험의 윤리성·필요성을 심의받아야 합니다. 실험은 Replacement·Reduction·Refinement(3R) 원칙에 따라 고통을 최소화하도록 수행하여야 합니다."
   }
 };
 

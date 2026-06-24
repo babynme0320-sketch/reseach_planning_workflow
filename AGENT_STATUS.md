@@ -2,46 +2,72 @@
 
 ## Current Project Phase
 
-Planning (바이오 연구기획 기능 확장 — 스펙 단계)
+Planning (바이오 연구기획 기능 확장 — FEAT-01~08 구현 완료, SPEC-06 검증 진행 중 토큰 제한으로 중단됨)
 
 ## Active Agents
 
-| Agent | Current Task | Files Owned | Status | Started At | Notes |
-|---|---|---|---|---|---|
-| Claude | FEAT-01/02 캔버스+유형 마법사 구현 완료 | (해제됨) | Completed | 2026-06-17 | 사용자 지시로 Claude가 직접 구현(옵션2). 통합 탭이라 FEAT-01·02 동시 완료 |
-| Codex |  |  | Idle |  | - |
-| Antigravity |  |  | Idle |  | 구현 후 UI 검증 예정 |
+| Agent       | Current Task                                           | Files Owned                                                                              | Status      | Started At | Notes                                                                                                                   |
+| ----------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ----------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Claude      | FEAT-01~08 구현 완료, VERIFY-07 자동 검증 작성 중 중단 | (해제됨)                                                                                 | Interrupted | 2026-06-24 | 사용자 지시로 Claude가 직접 구현·검증. SPEC-06 구현 완료 후 플레이라이트 자동 검증 스크립트 작성 중 토큰 초과로 중단됨. |
+| Codex       | VERIFY-01/02 확대 검증 및 문서 동기화                  | README.md, AGENT_STATUS.md, PROGRESS_BIO_PLANNING.md, scripts/verify_lifecycle_canvas.js | Completed   | 2026-06-24 | `file://` 기준 캔버스 검증과 PDF 뷰어 상호작용 일부까지 확대 완료. fetch/광범위 회귀는 Claude가 후속 완료               |
+| Antigravity | 현 상태 분석 및 상태 문서 동기화                       | AGENT_STATUS.md, PROGRESS_BIO_PLANNING.md                                                | Active      | 2026-06-24 | 클로드 중단 상태를 인지하여 상태 판 보완 및 진행 내역 연동 완료.                                                        |
 
 ## File Ownership
 
-| File/Folder | Owner Agent | Purpose | Status |
-|---|---|---|---|
-| SPEC_BIO_PLANNING_01_CANVAS_WIZARD.md | Claude | 연구 질문 캔버스 + 유형 마법사 명세 | Completed |
-| lifecycle.html | (해제됨) | FEAT-01/02 구현 완료, 검증 대기 | Free |
+| File/Folder                                | Owner Agent | Purpose                                                           | Status    |
+| ------------------------------------------ | ----------- | ----------------------------------------------------------------- | --------- |
+| SPEC_BIO_PLANNING_01_CANVAS_WIZARD.md      | Claude      | 연구 질문 캔버스 + 유형 마법사 명세                               | Completed |
+| SPEC_BIO_PLANNING_02_LITERATURE_BOARD.md   | Claude      | 문헌조사 보드 명세                                                | Completed |
+| SPEC_BIO_PLANNING_03_ALIGNMENT_ADVANCED.md | Claude      | 가설-목표-방법 정렬 검사기 고급 규칙 명세                         | Completed |
+| SPEC_BIO_PLANNING_04_IRB_HUB.md            | Claude      | IRB/규제 체크 허브 명세                                           | Completed |
+| SPEC_BIO_PLANNING_05_PROPOSAL_DRAFT.md     | Claude      | 연구계획서 초안 생성기 명세                                       | Completed |
+| SPEC_BIO_PLANNING_06_BUDGET_PANEL.md       | Claude      | 예산·인력·일정·리스크 패널 명세                                   | Completed |
+| lifecycle.html                             | (해제됨)    | FEAT-01~08 구현 완료. 다음은 VERIFY-07 검증 스크립트 완성 및 실행 | Free      |
 
 ## Task Queue
 
-| Task ID | Task Name | Assigned Agent | Status | Dependencies |
-|---|---|---|---|---|
-| SPEC-01 | 캔버스+마법사 명세 작성 | Claude | Completed | - |
-| FEAT-01 | 연구 질문 캔버스 구현 | Claude | Completed | SPEC-01 |
-| FEAT-02 | 연구 유형 분기형 마법사 구현 | Claude | Completed | FEAT-01 |
-| VERIFY-01 | 캔버스/마법사 UI 검증 | Antigravity | Ready | FEAT-01/02 |
+| Task ID   | Task Name                                     | Assigned Agent | Status      | Dependencies              |
+| --------- | --------------------------------------------- | -------------- | ----------- | ------------------------- |
+| SPEC-01   | 캔버스+마법사 명세 작성                       | Claude         | Completed   | -                         |
+| FEAT-01   | 연구 질문 캔버스 구현                         | Claude         | Completed   | SPEC-01                   |
+| FEAT-02   | 연구 유형 분기형 마법사 구현                  | Claude         | Completed   | FEAT-01                   |
+| FEAT-03   | 법령·매뉴얼 문서함(전체 문서 인앱 뷰어) 구현  | Claude         | Completed   | -                         |
+| FEAT-04   | SPEC 02 문헌조사 보드 구현                    | Claude         | Completed   | SPEC-02                   |
+| FEAT-05   | SPEC 03 정렬 검사기 고급 규칙(A-01~A-06) 구현 | Claude         | Completed   | SPEC-03, FEAT-04          |
+| FEAT-06   | SPEC 04 IRB/규제 체크 허브 구현               | Claude         | Completed   | SPEC-04                   |
+| FEAT-07   | SPEC 05 연구계획서 초안 생성기 구현           | Claude         | Completed   | SPEC-05, FEAT-04, FEAT-01 |
+| FEAT-08   | SPEC 06 예산·인력·일정·리스크 패널 구현       | Claude         | Completed   | SPEC-06                   |
+| VERIFY-01 | 캔버스/마법사 UI 검증                         | Claude         | Completed   | FEAT-01/02                |
+| VERIFY-02 | 문서함/PDF 뷰어 UI 검증                       | Claude         | Completed   | FEAT-03                   |
+| VERIFY-03 | 문헌조사 보드 UI 검증                         | Claude         | Completed   | FEAT-04                   |
+| VERIFY-04 | 정렬 검사기 고급 규칙 UI 검증                 | Claude         | Completed   | FEAT-05                   |
+| VERIFY-05 | IRB/규제 체크 허브 UI 검증                    | Claude         | Completed   | FEAT-06                   |
+| VERIFY-06 | 연구계획서 초안 생성기 UI 검증                | Claude         | Completed   | FEAT-07                   |
+| VERIFY-07 | 예산·인력·일정·리스크 패널 UI 검증            | Claude         | Interrupted | FEAT-08                   |
 
 ## Completed Work Log
 
-| Date/Time | Agent | Completed Work | Files Changed | Test Result |
-|---|---|---|---|---|
-| 2026-06-17 | Claude | SPEC 01 작성: 캔버스 12필드 스키마, 경고규칙 C-01~C-07/W-01~W-05, 컨셉노트 출력, 수용기준 AC-1~AC-7 | SPEC_BIO_PLANNING_01_CANVAS_WIZARD.md (신규), AGENT_STATUS.md | N/A(문서) |
-| 2026-06-17 | Claude | FEAT-01/02 구현: 캔버스 탭(12필드+localStorage 영속화), evaluateCanvas 경고 C-01~C-07, 6유형 마법사 패널+유형별 체크리스트, 컨셉노트 .txt/.md 생성·복사 | lifecycle.html | node --check 통과 + evaluateCanvas 단위검증(빈상태/양호/C-06/C-03) 통과. 브라우저 수동검증 미실시 |
+| Date/Time  | Agent  | Completed Work                                                                                                                                                                                                                                                                                                                                                                             | Files Changed                                                                                                                                                    | Test Result                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ---------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-17 | Claude | SPEC 01 작성: 캔버스 12필드 스키마, 경고규칙 C-01~C-07/W-01~W-05, 컨셉노트 출력, 수용기준 AC-1~AC-7                                                                                                                                                                                                                                                                                        | SPEC_BIO_PLANNING_01_CANVAS_WIZARD.md (신규), AGENT_STATUS.md                                                                                                    | N/A(문서)                                                                                                                                                                                                                                                                                                                                                                                                             |
+| 2026-06-17 | Claude | FEAT-01/02 구현: 캔버스 탭(12필드+localStorage 영속화), evaluateCanvas 경고 C-01~C-07, 6유형 마법사 패널+유형별 체크리스트, 컨셉노트 .txt/.md 생성·복사                                                                                                                                                                                                                                    | lifecycle.html                                                                                                                                                   | 재현 가능한 로직 검증은 `node reseach_planning_workflow/scripts/verify_lifecycle_canvas.js`로 대체됨. 브라우저 수동검증은 당시 미실시                                                                                                                                                                                                                                                                                 |
+| 2026-06-24 | Claude | FEAT-03 구현: `참고 자료 및 법령` 탭에 법령·매뉴얼 문서함(11종 카드 리스트) 추가, 인앱 PDF 뷰어 모달(`docViewerOverlay`, iframe) 추가. 문서함 카드 및 원문 검색 결과 양쪽에서 같은 모달로 문서 전체/특정 페이지를 열도록 연동. 기존 "새 탭에서 열기" 동작은 유지                                                                                                                           | lifecycle.html, PROGRESS_BIO_PLANNING.md                                                                                                                         | `LEGAL_DOCS` 11개 항목명 ↔ 실제 PDF 파일명/legal_index.json doc 필드 1:1 일치 확인. 로컬 서버(8765)에서 lifecycle.html/legal_index.json/PDF 경로 HTTP 200 확인. 브라우저 수동검증(모달 열림/페이지 이동/닫기)은 VERIFY-02로 대기                                                                                                                                                                                      |
+| 2026-06-24 | Codex  | VERIFY-01/02 확대 검증 및 문서 동기화: `file://` 브라우저에서 캔버스/유형 마법사/기존 탭 회귀 스모크 확인, 재현 가능한 CLI 검증 스크립트 추가, 문서함/PDF 뷰어 상호작용 일부 확인, 상태 문서 정리                                                                                                                                                                                          | README.md, AGENT_STATUS.md, PROGRESS_BIO_PLANNING.md, scripts/verify_lifecycle_canvas.js                                                                         | `node reseach_planning_workflow/scripts/verify_lifecycle_canvas.js` 통과. `file://` 기준 AC-1/2/3/4/5/6 확인(AC-4의 복사·다운로드는 인페이지 자동 검증, AC-5는 6유형 전수 확인), AC-7은 대시보드·용어사전·법령 문서함 스모크 확인. VERIFY-02는 문서함 카드 모달, 검색 결과 렌더 함수 기준 페이지 점프, ESC/오버레이 닫기, 포커스 복귀, 새 탭 링크 회귀 확인. fetch 기반 실제 검색과 전체 모바일/광범위 회귀는 pending |
+| 2026-06-24 | Claude | VERIFY-01/02 잔여 항목 완료: 로컬 서버(8765)를 띄운 채 Playwright(임시 설치, 프로젝트에 미포함)로 헤드리스 브라우저 자동화 검증 28건 수행                                                                                                                                                                                                                                                  | (코드 변경 없음, 검증만 수행)                                                                                                                                    | 28건 전부 PASS — fetch 기반 실검색("기술료" 30건), 문서함→모달→페이지 이동, 모달 닫기 3가지 경로(ESC/배경클릭/×), 새탭 링크 회귀 없음, 8개 글로벌 탭 전수 회귀(콘솔 에러 0건), 모바일 390px 8개 탭 전수 가로 overflow 0px. PDF 응답은 200+application/pdf로 네트워크 레벨 확인(헤드리스 Chromium은 Chrome PDF 플러그인이 없어 시각적 렌더 자동화는 불가 — 정식 브라우저 1회 육안 확인은 선택 권장)                    |
+| 2026-06-24 | Claude | FEAT-04(SPEC-02) 구현: `📑 문헌조사 보드` 신규 탭 — 5컬럼(표준지식/핵심근거/모순지점/미충족질문/기획함의) 카드 보드 + 경쟁연구·실패사례 분리 섹션 + 지식공백 요약 textarea. `rd_lit_board_state`로 localStorage 영속화                                                                                                                                                                     | lifecycle.html, SPEC_BIO_PLANNING_02_LITERATURE_BOARD.md (신규), scripts/verify_litboard_playwright.js (신규)                                                    | `node --check` 통과, 기존 `verify_lifecycle_canvas.js` 5건 회귀 없음. 신규 Playwright 스크립트로 AC-1~AC-6 21건 전부 PASS(카드 추가/삭제/새로고침 유지, 빈 제목 차단, 경쟁연구·실패사례 분리, 9개 탭 전수 회귀, 모바일 390px overflow 0px). 기존 문서함/검색 28건 재실행도 회귀 없음                                                                                                                                  |
+| 2026-06-24 | Claude | FEAT-05(SPEC-03, `/oh-my-claudecode:ralph` PRD 기반) 구현: `evaluateAdvancedAlignment(state, litBoardState)` — A-01(성공기준 단위 불일치)/A-02(유형 핵심키워드 불일치)/A-03(임상·비임상 리스크 미기입)/A-04(비임상 Go/No-Go 미기입)/A-05(1·2차 결과변수 중복)/A-06(문헌조사 보드 지식공백 미정리, 캔버스→문헌조사 보드 읽기 전용 연동). `renderCanvasWarnings()`가 기존 C-규칙과 합쳐 렌더 | lifecycle.html, SPEC_BIO_PLANNING_03_ALIGNMENT_ADVANCED.md (신규), scripts/verify_alignment_advanced.js (신규), scripts/verify_alignment_ui_playwright.js (신규) | `node --check` 통과, 기존 `verify_lifecycle_canvas.js` 5건 회귀 없음. 신규 VM 단위 테스트로 A-01~A-06 트리거/비트리거 전부 PASS. 신규 Playwright UI 검증 6건 PASS(A-03/A-04/A-06 배너 표시·소멸, 문헌조사 보드→캔버스 연동). 기존 문서함/검색 28건 + 문헌조사 보드 21건 재실행도 회귀 없음                                                                                                                            |
+| 2026-06-24 | Claude | FEAT-06(SPEC-04) 구현: `🧬 IRB/규제 체크 허브` 신규 탭 — Q1(사람 대상?)→Q2(직접 개입?)/Q3(동물 대상?) 이진 질문 흐름으로 4개 리프(humanIntervention/humanDataOnly/animal/none) 도달, 리프별 체크리스트+법령 근거 칩(기존 `showLawModal()` 재사용). `LAW_DATABASE`에 생명윤리법 제15·16조, 개인정보보호법 제15조, 동물보호법 제47조 추가                                                    | lifecycle.html, SPEC_BIO_PLANNING_04_IRB_HUB.md (신규), scripts/verify_irbhub_playwright.js (신규)                                                               | `node --check` 통과, 기존 `verify_lifecycle_canvas.js`(5건)/`verify_alignment_advanced.js`(6건) 회귀 없음. 신규 Playwright 검증 23건 전부 PASS(4개 리프 전수 도달, 법령 모달 연계, 체크리스트 새로고침 후 유지, 리셋 후 타 리프 체크 보존, 10개 탭 전수 회귀). 기존 문서함/검색 28건+문헌조사 보드 21건+정렬검사기 UI 6건 재실행도 회귀 없음(총 78건 PASS)                                                            |
+| 2026-06-24 | Claude | FEAT-07(SPEC-05) 구현: `📝 연구계획서 초안 생성기` 신규 탭 — 캔버스/문헌조사 보드를 읽기 전용으로 재사용해 7섹션(Specific Aims/목차/연구배경/연구방법/통계분석계획/연구일정/리스크) 초안 생성. 신규 입력은 연구기간/통계분석방법 2개뿐. 공용 `downloadTextFile()` 헬퍼를 신설해 기존 `downloadConceptNote`도 함께 리팩터                                                                   | lifecycle.html, SPEC_BIO_PLANNING_05_PROPOSAL_DRAFT.md (신규), scripts/verify_proposal_playwright.js (신규)                                                      | `node --check` 통과, 기존 `verify_lifecycle_canvas.js`(5건)/`verify_alignment_advanced.js`(6건) 회귀 없음. 신규 Playwright 검증 22건 전부 PASS(7섹션 생성, 미완성 배너, 문헌조사 보드 연계, 신규 입력 유지, 복사/다운로드, 11개 탭 전수 회귀). 기존 문서함/검색 28건+문헌조사 보드 21건+정렬검사기 UI 6건+IRB 허브 23건 재실행도 회귀 없음(총 100건 PASS)                                                             |
+| 2026-06-24 | Claude | FEAT-08(SPEC-06) 구현: `💰 예산·인력·일정·리스크` 신규 글로벌 탭 — 예산(비목별 합계 계산 및 배지 렌더), 참여인력(R&R), 마일스톤 일정, 리스크 레지스터 등록 및 관리 패널 구현. `rd_budget_panel_state`로 localStorage 영속화                                                                                                                                                                | lifecycle.html, SPEC_BIO_PLANNING_06_BUDGET_PANEL.md (신규)                                                                                                      | `node --check` 통과, `verify_lifecycle_canvas.js`/`verify_alignment_advanced.js` 등 기존 단위 테스트 전수 회귀 없음. (Playwright UI 자동 검증 스크립트는 토큰 제한으로 중단됨)                                                                                                                                                                                                                                        |
 
 ## Blockers / Decisions Needed
 
-| Item | Owner | Description | Needed From User |
-|---|---|---|---|
-| (없음) | - | D-1~D-4 모두 사용자 확정(2026-06-17). 구현 착수는 사용자 승인 대기 | 구현 시작 승인 |
+| Item   | Owner | Description                                                                                      | Needed From User |
+| ------ | ----- | ------------------------------------------------------------------------------------------------ | ---------------- |
+| (없음) | -     | VERIFY-01~06 모두 완료. 선택 사항: 정식 Chrome/Edge/Safari에서 PDF 뷰어 1회 육안 확인(차단 아님) | 없음             |
 
 ### 확정된 결정 (2026-06-17)
+
 - D-1: 마법사 배치 → 캔버스 내 통합(옵션 A)
 - D-2: 컨셉 노트 출력 → 인라인 textarea
 - D-3: 유형 범위 → 6개 전체(산업화 R&D 포함)
